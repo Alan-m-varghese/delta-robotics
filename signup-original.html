@@ -1,0 +1,204 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Sign Up - RoboEdu</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=Manrope:wght@700;800&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-tertiary-container": "#2b3234",
+                        "surface-container": "#edeeef",
+                        "on-secondary-container": "#656464",
+                        "on-primary-container": "#572000",
+                        "tertiary-fixed": "#dde4e6",
+                        "inverse-surface": "#2e3132",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary-fixed-dim": "#ffb693",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "inverse-primary": "#ffb693",
+                        "surface-dim": "#d9dadb",
+                        "outline": "#8e7164",
+                        "secondary-container": "#e5e2e1",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#586062",
+                        "surface-tint": "#a04100",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface-container-high": "#e7e8e9",
+                        "primary-fixed": "#ffdbcc",
+                        "background": "#f8f9fa",
+                        "primary-container": "#ff6b00",
+                        "tertiary-container": "#939a9c",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#41484a",
+                        "secondary": "#5f5e5e",
+                        "surface-variant": "#e1e3e4",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary-fixed": "#351000",
+                        "on-background": "#191c1d",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "tertiary-fixed-dim": "#c1c8ca",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "primary": "#a04100",
+                        "on-surface-variant": "#5a4136",
+                        "outline-variant": "#e2bfb0",
+                        "on-tertiary-fixed": "#161d1f",
+                        "on-surface": "#191c1d",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-low": "#f3f4f5",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "margin-desktop": "40px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "lg": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-xl": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", {"lineHeight": "28px", "fontWeight": "400"}],
+                        "headline-lg-mobile": ["28px", {"lineHeight": "36px", "fontWeight": "700"}],
+                        "body-md": ["16px", {"lineHeight": "24px", "fontWeight": "400"}],
+                        "label-md": ["14px", {"lineHeight": "20px", "fontWeight": "500"}],
+                        "headline-xl": ["48px", {"lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800"}],
+                        "headline-md": ["24px", {"lineHeight": "32px", "fontWeight": "700"}],
+                        "headline-lg": ["32px", {"lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700"}]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .input-field {
+            @apply w-full bg-surface-container-lowest border border-outline-variant rounded-DEFAULT px-md py-sm text-on-surface focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors;
+        }
+        .input-label {
+            @apply block font-label-md text-label-md text-on-surface-variant mb-xs;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased">
+<!-- TopAppBar -->
+<header class="bg-surface dark:bg-on-background w-full z-50 docked full-width top-0 border-b border-outline-variant dark:border-secondary flat no shadows">
+<div class="flex justify-between items-center px-margin-mobile md:px-margin-desktop py-base w-full max-w-7xl mx-auto">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-primary dark:text-primary-container" style="font-size: 32px;">robot_2</span>
+<span class="text-headline-md font-headline-md font-bold text-primary dark:text-primary-container">Delta Robotics</span>
+</div>
+<div class="flex items-center gap-md">
+<a class="font-label-md text-label-md text-secondary dark:text-secondary-fixed-dim hover:text-primary-container transition-colors" href="#">Sign In</a>
+<a class="font-label-md text-label-md bg-primary-container text-on-primary px-md py-base rounded-DEFAULT hover:opacity-90 transition-opacity" href="#">Join Now</a>
+</div>
+</div>
+</header>
+<!-- Main Content -->
+<main class="flex-grow flex items-center justify-center px-margin-mobile md:px-margin-desktop py-xl">
+<div class="w-full max-w-2xl bg-surface-container-lowest border border-surface-variant rounded-xl p-md md:p-lg shadow-[0px_4px_20px_rgba(0,0,0,0.05)] relative overflow-hidden">
+<!-- Decorative accent -->
+<div class="absolute top-0 left-0 w-full h-2 bg-primary-container"></div>
+<div class="text-center mb-lg">
+<h1 class="font-headline-lg-mobile md:font-headline-lg text-headline-lg-mobile md:text-headline-lg text-on-background mb-sm">Join the Next Generation of Engineers</h1>
+<p class="font-body-md text-body-md text-on-surface-variant">Create your Delta Robotics student account today.</p>
+</div>
+<form class="space-y-md">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div>
+<label class="input-label" for="firstName">First Name</label>
+<input class="input-field" id="firstName" name="firstName" placeholder="Ada" required="" type="text">
+</div>
+<div>
+<label class="input-label" for="lastName">Last Name</label>
+<input class="input-field" id="lastName" name="lastName" placeholder="Lovelace" required="" type="text">
+</div>
+</div>
+<div>
+<label class="input-label" for="email">Email Address</label>
+<input class="input-field" id="email" name="email" placeholder="ada@university.edu" required="" type="email">
+</div>
+<div>
+<label class="input-label" for="institution">Institutional / School Name</label>
+<input class="input-field" id="institution" name="institution" placeholder="Institute of Technology" required="" type="text">
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div>
+<label class="input-label" for="password">Password</label>
+<input class="input-field" id="password" name="password" placeholder="••••••••" required="" type="password">
+</div>
+<div>
+<label class="input-label" for="confirmPassword">Confirm Password</label>
+<input class="input-field" id="confirmPassword" name="confirmPassword" placeholder="••••••••" required="" type="password">
+</div>
+</div>
+<div class="space-y-sm pt-sm">
+<label class="flex items-start gap-sm cursor-pointer">
+<input class="mt-1 w-5 h-5 rounded border-outline-variant text-primary-container focus:ring-primary-container bg-surface-container-lowest" required="" type="checkbox">
+<span class="font-body-md text-body-md text-on-surface-variant">I agree to the <a class="text-primary hover:underline" href="#">Terms of Service</a> and Privacy Policy.</span>
+</label>
+<label class="flex items-start gap-sm cursor-pointer">
+<input class="mt-1 w-5 h-5 rounded border-outline-variant text-primary-container focus:ring-primary-container bg-surface-container-lowest" type="checkbox">
+<span class="font-body-md text-body-md text-on-surface-variant">Notify me of new workshops and robotics events.</span>
+</label>
+</div>
+<div class="pt-md flex flex-col gap-md">
+<button class="w-full bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md py-md rounded-lg transition-colors font-bold uppercase tracking-wider" type="submit">
+                        Create Account
+                    </button>
+<div class="text-center">
+<a class="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" href="#">
+                            Already have an account? <span class="font-bold text-primary-container">Log in</span>
+</a>
+</div>
+</div>
+</form>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container dark:bg-inverse-surface full-width bg-surface-container-low dark:bg-on-background flat no shadows">
+<div class="w-full py-lg px-margin-mobile md:px-margin-desktop flex flex-col md:flex-row justify-between items-center gap-md max-w-7xl mx-auto">
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined font-headline-md text-headline-md text-primary">robot_2</span>
+<span class="font-headline-md text-headline-md text-primary">Delta Robotics</span>
+</div>
+<p class="font-body-md text-body-md text-on-secondary-fixed-variant dark:text-secondary-fixed-dim">© 2024 Delta Robotics Platforms. All rights reserved.</p>
+<nav class="flex flex-wrap justify-center gap-md">
+<a class="font-body-md text-body-md text-on-secondary-fixed-variant dark:text-secondary-fixed-dim hover:underline hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-secondary-fixed-variant dark:text-secondary-fixed-dim hover:underline hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-secondary-fixed-variant dark:text-secondary-fixed-dim hover:underline hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Help Center</a>
+<a class="font-body-md text-body-md text-on-secondary-fixed-variant dark:text-secondary-fixed-dim hover:underline hover:text-primary opacity-80 hover:opacity-100 transition-opacity" href="#">Contact Support</a>
+</nav>
+</div>
+</footer>
+
+
+</body></html>

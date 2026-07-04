@@ -1,0 +1,270 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&amp;family=JetBrains+Mono:wght@500&amp;family=Manrope:wght@700;800&amp;display=swap" rel="stylesheet"><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script><script id="tailwind-config">try{
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "surface-dim": "#d9dadb",
+                        "surface": "#f8f9fa",
+                        "inverse-surface": "#2e3132",
+                        "primary-fixed": "#ffdbcc",
+                        "error-container": "#ffdad6",
+                        "surface-container-high": "#e7e8e9",
+                        "tertiary": "#586062",
+                        "secondary-fixed": "#e5e2e1",
+                        "inverse-primary": "#ffb693",
+                        "primary-container": "#ff6b00",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "on-error": "#ffffff",
+                        "tertiary-fixed": "#dde4e6",
+                        "outline-variant": "#e2bfb0",
+                        "secondary-container": "#e5e2e1",
+                        "primary": "#a04100",
+                        "on-surface-variant": "#5a4136",
+                        "on-secondary-container": "#656464",
+                        "on-primary-fixed": "#351000",
+                        "tertiary-fixed-dim": "#c1c8ca",
+                        "surface-container-lowest": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "background": "#f8f9fa",
+                        "on-tertiary-fixed-variant": "#41484a",
+                        "on-surface": "#191c1d",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-error-container": "#93000a",
+                        "surface-container": "#edeeef",
+                        "tertiary-container": "#939a9c",
+                        "primary-fixed-dim": "#ffb693",
+                        "surface-variant": "#e1e3e4",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "surface-container-low": "#f3f4f5",
+                        "secondary": "#5f5e5e",
+                        "on-primary": "#ffffff",
+                        "on-tertiary-fixed": "#161d1f",
+                        "outline": "#8e7164",
+                        "on-primary-container": "#572000",
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-background": "#191c1d",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-secondary": "#ffffff",
+                        "surface-tint": "#a04100",
+                        "on-tertiary-container": "#2b3234",
+                        "error": "#ba1a1a",
+                        "surface-container-highest": "#e1e3e4"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "base": "8px",
+                        "sm": "12px",
+                        "margin-mobile": "16px",
+                        "margin-desktop": "40px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "md": "24px",
+                        "xl": "80px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "headline-xl": ["Manrope"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "label-md": ["JetBrains Mono"],
+                        "body-lg": ["Inter"],
+                        "headline-lg": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "body-md": ["Inter"]
+                    },
+                    "fontSize": {
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }]
+                    }
+                }
+            }
+        }
+    }catch(_e){}</script><meta charset="utf-8"></head><body class="flex flex-col md:flex-row min-h-screen antialiased">
+<!-- TopNavBar (Mobile Only) -->
+<header class="md:hidden sticky top-0 z-50 w-full flex justify-between px-margin-mobile bg-surface dark:bg-inverse-surface border-b border-secondary-container dark:border-secondary h-16 items-center">
+<div class="font-headline-lg-mobile text-headline-lg-mobile font-bold text-primary-container dark:text-primary-fixed-dim">Delta Robotics</div>
+<div class="flex items-center gap-sm">
+<span class="material-symbols-outlined text-on-surface cursor-pointer">search</span>
+<img class="w-8 h-8 rounded-full object-cover" data-alt="A small circular user profile photo showing a young engineering student in a bright, modern lab environment. Clean lighting, high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuBylLapgmrt8GwkUdnWSHmwPzDaMX9WdTCmRf1Z1BwXHcjNv2Abcl10wqXBVNelU9ugSgow9OTT03RBGsHfTbe9nuC20lZXge29q8UR2VwARnwHy0aOmgwYqd0BUg0u82PJGQd1YeJeljoP0lGVe3aSgyUZMYtkiDXHQ_pMN-otwgffbxDzSt2iL1XpNP_G0QdjOu1yYWvcEo63taIZOs1cTLkM4bev8aYQ_HWnq05pgovFi7NUNnk2-g">
+</div>
+</header>
+<!-- SideNavBar (Desktop) -->
+<nav class="hidden md:flex flex-col h-screen w-64 fixed left-0 top-0 bg-surface-container dark:bg-surface-container-high py-md justify-between z-40 bg-surface-container-low dark:bg-surface-container">
+<div>
+<div class="px-md mb-lg">
+<div class="font-headline-md text-headline-md font-bold text-primary-container dark:text-primary-fixed-dim mb-2">Delta Robotics</div>
+<div class="font-label-md text-label-md text-secondary">Intro to ROS 2</div>
+<div class="font-label-md text-label-md text-on-surface-variant text-xs mt-1">Module 3: Motion Control</div>
+</div>
+<div class="px-sm flex flex-col gap-xs font-label-md text-label-md">
+<a class="bg-primary-container text-on-primary-container font-bold rounded-lg m-2 p-3 flex items-center gap-3" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">dashboard</span> Overview
+                </a>
+<a class="text-on-surface-variant dark:text-on-secondary-fixed-variant m-2 p-3 flex items-center gap-3 hover:bg-primary-fixed hover:text-on-primary-fixed-variant rounded-lg transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined">menu_book</span> Curriculum
+                </a>
+<a class="text-on-surface-variant dark:text-on-secondary-fixed-variant m-2 p-3 flex items-center gap-3 hover:bg-primary-fixed hover:text-on-primary-fixed-variant rounded-lg transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined">precision_manufacturing</span> Hardware Kit
+                </a>
+<a class="text-on-surface-variant dark:text-on-secondary-fixed-variant m-2 p-3 flex items-center gap-3 hover:bg-primary-fixed hover:text-on-primary-fixed-variant rounded-lg transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined">model_training</span> Simulations
+                </a>
+<a class="text-on-surface-variant dark:text-on-secondary-fixed-variant m-2 p-3 flex items-center gap-3 hover:bg-primary-fixed hover:text-on-primary-fixed-variant rounded-lg transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined">folder_open</span> Resources
+                </a>
+</div>
+</div>
+<div class="px-sm flex flex-col gap-xs font-label-md text-label-md">
+<button class="bg-primary-container text-on-primary font-bold rounded-lg m-2 p-3 mb-6 hover:bg-primary transition-colors">Join Live Lab</button>
+<a class="text-on-surface-variant dark:text-on-secondary-fixed-variant m-2 p-3 flex items-center gap-3 hover:bg-primary-fixed hover:text-on-primary-fixed-variant rounded-lg transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined">help</span> Help
+            </a>
+<a class="text-on-surface-variant dark:text-on-secondary-fixed-variant m-2 p-3 flex items-center gap-3 hover:bg-primary-fixed hover:text-on-primary-fixed-variant rounded-lg transition-transform duration-150 active:translate-x-1" href="#">
+<span class="material-symbols-outlined">settings</span> Settings
+            </a>
+</div>
+</nav>
+<!-- Main Content Canvas -->
+<main class="flex-1 md:ml-64 p-margin-mobile md:p-margin-desktop bg-background min-h-screen max-w-[1440px] mx-auto w-full">
+<!-- Header Section -->
+<div class="flex flex-col md:flex-row justify-between items-start md:items-end mb-lg gap-md">
+<div>
+<h1 class="font-headline-xl text-headline-xl md:text-headline-xl text-on-surface mb-2">Welcome back, Alex.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant">Your robotics learning journey is looking solid today.</p>
+</div>
+<div class="hidden md:flex items-center gap-md">
+<div class="relative">
+<span class="material-symbols-outlined text-secondary cursor-pointer hover:text-primary-container">notifications</span>
+<span class="absolute top-0 right-0 w-2 h-2 bg-primary-container rounded-full"></span>
+</div>
+<img class="w-10 h-10 rounded-full object-cover elevation-1" data-alt="A small circular user profile photo showing a young engineering student in a bright, modern lab environment. Clean lighting, high quality." src="https://lh3.googleusercontent.com/aida-public/AB6AXuB--e6dnBZNASTTRm6e2EaShxdV78ORhMx3REiS13VoKx7ymregT6J4hLZ6TV3zMgP7D3tcK2uiDlwNzSqDWSsmPif0vyJsNqHX-RokSvba5IlysPlJmtm-GGiNV4DWSoUAYnq_u9zRDp5_-ExlxeGVrGiFk8ctr6eBq6jWguwHJZ_gF4rrhpOP44CQhyp1f-Pbg4IZpz0gF-bQeT0DSalgOCxiY-J70kD2Ga_fHna74MiL3ybiYrQE1A">
+</div>
+</div>
+<!-- Bento Grid Layout -->
+<div class="grid grid-cols-1 md:grid-cols-12 gap-gutter mb-lg">
+<!-- Learning Stats (Span 8) -->
+<div class="md:col-span-8 elevation-1 rounded-xl p-md md:p-lg elevation-2 transition-all">
+<h2 class="font-headline-md text-headline-md text-on-surface mb-md">Learning Activity</h2>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-md">
+<div>
+<div class="font-label-md text-label-md text-secondary uppercase tracking-wider">Hours</div>
+<div class="font-headline-lg text-headline-lg text-primary-container mt-1">142</div>
+</div>
+<div>
+<div class="font-label-md text-label-md text-secondary uppercase tracking-wider">Projects</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mt-1">12</div>
+</div>
+<div>
+<div class="font-label-md text-label-md text-secondary uppercase tracking-wider">Certificates</div>
+<div class="font-headline-lg text-headline-lg text-on-surface mt-1">3</div>
+</div>
+<div>
+<div class="font-label-md text-label-md text-secondary uppercase tracking-wider">Streak</div>
+<div class="font-headline-lg text-headline-lg text-primary-container mt-1 flex items-baseline gap-1">5 <span class="material-symbols-outlined text-sm" style="font-variation-settings: 'FILL' 1;">local_fire_department</span></div>
+</div>
+</div>
+<div class="mt-lg w-full h-32 bg-surface-container rounded-lg relative overflow-hidden flex items-end px-4 gap-2">
+<!-- Fake chart -->
+<div class="w-full bg-primary-container rounded-t-sm h-1/4 opacity-40"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-2/4 opacity-60"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-1/3 opacity-40"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-3/4 opacity-80"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-full"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-2/3 opacity-60"></div>
+<div class="w-full bg-primary-container rounded-t-sm h-1/2 opacity-40"></div>
+</div>
+</div>
+<!-- Notifications (Span 4) -->
+<div class="md:col-span-4 elevation-1 rounded-xl p-md elevation-2 transition-all bg-surface-bright">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-headline-md text-headline-md text-on-surface">Upcoming</h2>
+<span class="material-symbols-outlined text-secondary">calendar_today</span>
+</div>
+<div class="flex flex-col gap-sm">
+<div class="p-sm bg-surface-container-low rounded-lg border-l-4 border-primary-container">
+<div class="font-label-md text-label-md text-primary-container mb-1">Today, 2:00 PM</div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Advanced Kinematics Lab</div>
+<div class="font-label-md text-label-md text-secondary mt-1">Live Session • Room 4B</div>
+</div>
+<div class="p-sm bg-surface-container-lowest rounded-lg border border-surface-variant">
+<div class="font-label-md text-label-md text-secondary mb-1">Tomorrow, 10:00 AM</div>
+<div class="font-body-md text-body-md font-semibold text-on-surface">Project Submission</div>
+<div class="font-label-md text-label-md text-secondary mt-1">Autonomous Navigation</div>
+</div>
+</div>
+</div>
+</div>
+<!-- My Courses -->
+<div class="mb-lg">
+<div class="flex justify-between items-center mb-md">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">My Courses</h2>
+<a class="font-label-md text-label-md text-primary-container hover:underline flex items-center gap-1" href="#">View All <span class="material-symbols-outlined text-sm">arrow_forward</span></a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Course Card 1 -->
+<div class="elevation-1 rounded-xl overflow-hidden elevation-2 transition-all flex flex-col">
+<div class="bg-cover bg-center w-full h-40" data-alt="A detailed view of a robotic arm assembly in a clean, brightly lit modern engineering lab. The aesthetic is professional, technical, and inspiring, emphasizing precision and education." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuDzNA9wx-SR0bqA0pNKUNtz6mvtOuUhSBOlwAMWlHe7cMTmkte5-Une9wUepzHp_rTWSIGkBc_w2vee1LvXasW3w2F-n_JxvDeXGI0okjNUHROCY7oaRfglA7QW1uZj8ZzMz_RBm4VEUAr5gD8BMYhmuT28xZBbiSDMTP8BG6Uw1Ez3BsJsfx6ZNIf9PF65Z5kPijKz0KfEeCuT8bq_ibmw5tzhVW9buYIZuV-YT8XNZ_AIIGlzwXte8g')"></div>
+<div class="p-md flex-1 flex flex-col">
+<div class="flex gap-2 mb-3">
+<span class="bg-primary-fixed px-2 py-1 rounded-sm font-label-md text-[10px] text-on-primary-fixed uppercase font-bold">In Progress</span>
+<span class="bg-surface-variant px-2 py-1 rounded-sm font-label-md text-[10px] text-on-surface-variant uppercase font-bold">Hardware</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Intro to ROS 2</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md flex-1 text-sm">Master the fundamentals of the Robot Operating System to build robust applications.</p>
+<div class="mt-auto">
+<div class="flex justify-between font-label-md text-label-md text-sm mb-1 text-on-surface-variant">
+<span class="">65% Complete</span>
+<span class="">Mod 3/5</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 65%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="elevation-1 rounded-xl overflow-hidden elevation-2 transition-all flex flex-col">
+<div class="bg-cover bg-center w-full h-40" data-alt="A computer screen displaying complex code and a 3D simulation of a mobile robot navigating a maze. The setting is a professional educational workspace with clean, light-mode lighting and a technical focus." style="background-image: url('https://lh3.googleusercontent.com/aida-public/AB6AXuCHUwCJgyFV3EO_osRDHCBtmDC31vl0d2nLbfqHzMZ4nPdGh-G0ACyhMQmSPjUu7jNC6au5yXnfLcISeSPNaXB9uWAwOYgMqi74-hOxUKrZVLhO0rUrSH5ZBPHyrqsHDe2wnxXOmLKpAA_3tZOUYk3Rk7ZNbvzi4ASOnoEiAaSaRkrP8V7D7vVKb1p8WcpHhjmywF3tuGeEfrYITdv__o_zvKxnAITSbkpD9kZMK71FT9ayv54esgUaWw')"></div>
+<div class="p-md flex-1 flex flex-col">
+<div class="flex gap-2 mb-3">
+<span class="bg-primary-fixed px-2 py-1 rounded-sm font-label-md text-[10px] text-on-primary-fixed uppercase font-bold">In Progress</span>
+<span class="bg-surface-variant px-2 py-1 rounded-sm font-label-md text-[10px] text-on-surface-variant uppercase font-bold">Software</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Computer Vision Basics</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md flex-1 text-sm">Implement object detection and spatial reasoning for autonomous platforms.</p>
+<div class="mt-auto">
+<div class="flex justify-between font-label-md text-label-md text-sm mb-1 text-on-surface-variant">
+<span class="">30% Complete</span>
+<span class="">Mod 1/4</span>
+</div>
+<div class="w-full h-2 bg-surface-container rounded-full overflow-hidden">
+<div class="bg-primary-container h-full rounded-full" style="width: 30%;"></div>
+</div>
+</div>
+</div>
+</div>
+<!-- Explore Card -->
+<div class="elevation-1 rounded-xl p-md flex flex-col justify-center items-center text-center border-dashed border-2 border-surface-variant bg-surface-container-lowest hover:bg-surface-container-low transition-colors cursor-pointer min-h-[300px]">
+<div class="w-16 h-16 rounded-full bg-primary-fixed flex items-center justify-center mb-4">
+<span class="material-symbols-outlined text-primary-container text-3xl">explore</span>
+</div>
+<h3 class="font-headline-md text-headline-md text-on-surface mb-2">Enroll in New Courses</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md text-sm max-w-[200px]">Expand your skills with advanced robotics and AI programs.</p>
+<button class="bg-primary-container text-on-primary font-bold rounded-lg px-6 py-2 hover:bg-primary transition-colors font-label-md">Browse Catalog</button>
+</div>
+</div>
+</div>
+</main>
+
+</body></html>

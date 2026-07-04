@@ -1,0 +1,211 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Delta Robotics - Login</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "inverse-on-surface": "#f0f1f2",
+                        "on-tertiary-container": "#2b3234",
+                        "surface-container": "#edeeef",
+                        "on-secondary-container": "#656464",
+                        "on-primary-container": "#572000",
+                        "tertiary-fixed": "#dde4e6",
+                        "inverse-surface": "#2e3132",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "primary-fixed-dim": "#ffb693",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "surface": "#f8f9fa",
+                        "inverse-primary": "#ffb693",
+                        "surface-dim": "#d9dadb",
+                        "outline": "#8e7164",
+                        "secondary-container": "#e5e2e1",
+                        "surface-container-lowest": "#ffffff",
+                        "tertiary": "#586062",
+                        "surface-tint": "#a04100",
+                        "on-primary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "on-secondary-fixed-variant": "#474646",
+                        "surface-container-high": "#e7e8e9",
+                        "primary-fixed": "#ffdbcc",
+                        "background": "#f8f9fa",
+                        "primary-container": "#ff6b00",
+                        "tertiary-container": "#939a9c",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "on-tertiary-fixed-variant": "#41484a",
+                        "secondary": "#5f5e5e",
+                        "surface-variant": "#e1e3e4",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-primary-fixed": "#351000",
+                        "on-background": "#191c1d",
+                        "on-primary-fixed-variant": "#7a3000",
+                        "tertiary-fixed-dim": "#c1c8ca",
+                        "on-tertiary": "#ffffff",
+                        "surface-bright": "#f8f9fa",
+                        "primary": "#a04100",
+                        "on-surface-variant": "#5a4136",
+                        "outline-variant": "#e2bfb0",
+                        "on-tertiary-fixed": "#161d1f",
+                        "on-surface": "#191c1d",
+                        "secondary-fixed": "#e5e2e1",
+                        "surface-container-low": "#f3f4f5",
+                        "error": "#ba1a1a"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "xl": "80px",
+                        "sm": "12px",
+                        "xs": "4px",
+                        "base": "8px",
+                        "margin-desktop": "40px",
+                        "md": "24px",
+                        "margin-mobile": "16px",
+                        "lg": "48px",
+                        "gutter": "24px"
+                    },
+                    "fontFamily": {
+                        "body-lg": ["Inter"],
+                        "headline-lg-mobile": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-xl": ["Manrope"],
+                        "headline-md": ["Manrope"],
+                        "headline-lg": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .role-card {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .role-card.active {
+            border-color: #ff6b00;
+            background-color: rgba(255, 107, 0, 0.05);
+        }
+        .role-card.active .material-symbols-outlined {
+            color: #ff6b00;
+        }
+        .role-card:not(.active):hover {
+            border-color: #e5e7eb;
+            background-color: #f8f9fa;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased">
+<!-- Suppressed TopAppBar and Footer as this is a transactional Login screen (per Semantic Shell Mandate) -->
+<header class="w-full py-base px-margin-mobile md:px-margin-desktop bg-surface border-b border-outline-variant flex justify-center items-center h-[72px]">
+<div class="font-headline-md text-headline-md font-bold text-primary">Delta Robotics</div>
+</header>
+<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop relative overflow-hidden">
+<!-- Background Graphic -->
+<div class="absolute inset-0 z-0 opacity-10 pointer-events-none flex items-center justify-center">
+<div class="w-[800px] h-[800px] rounded-full border-[40px] border-primary-container blur-3xl"></div>
+</div>
+<div class="bg-surface-container-lowest border border-surface-variant rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] w-full max-w-lg p-md md:p-lg z-10 relative">
+<div class="text-center mb-lg">
+<h1 class="font-headline-lg text-headline-lg-mobile md:text-headline-lg mb-xs">Welcome Back</h1>
+<p class="font-body-md text-body-md text-secondary">Sign in to continue your robotics journey.</p>
+</div>
+<form class="space-y-md" id="loginForm">
+<!-- Role Selection -->
+<div>
+<label class="block font-label-md text-label-md text-on-surface-variant mb-sm uppercase tracking-wide">Select Role</label>
+<div class="grid grid-cols-3 gap-sm">
+<div class="role-card active border border-outline-variant rounded-lg p-sm flex flex-col items-center justify-center text-center h-24" data-role="student" onclick="selectRole('student')">
+<span class="material-symbols-outlined text-3xl mb-xs transition-colors text-primary-container" style="font-variation-settings: 'FILL' 0;">school</span>
+<span class="font-label-md text-label-md text-on-background font-semibold">Student</span>
+</div>
+<div class="role-card border border-outline-variant rounded-lg p-sm flex flex-col items-center justify-center text-center h-24" data-role="intern" onclick="selectRole('intern')">
+<span class="material-symbols-outlined text-3xl mb-xs text-secondary transition-colors" style="font-variation-settings: 'FILL' 0;">engineering</span>
+<span class="font-label-md text-label-md text-on-background font-semibold">Intern</span>
+</div>
+<div class="role-card border border-outline-variant rounded-lg p-sm flex flex-col items-center justify-center text-center h-24" data-role="admin" onclick="selectRole('admin')">
+<span class="material-symbols-outlined text-3xl mb-xs text-secondary transition-colors" style="font-variation-settings: 'FILL' 0;">admin_panel_settings</span>
+<span class="font-label-md text-label-md text-on-background font-semibold">Admin</span>
+</div>
+</div>
+<input id="selectedRole" name="role" type="hidden" value="student">
+</div>
+<!-- Credentials -->
+<div class="space-y-sm">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs" for="email">Email Address</label>
+<input class="w-full bg-surface-container-lowest border border-surface-variant rounded-DEFAULT px-sm py-sm font-body-md text-body-md text-on-background focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors" id="email" placeholder="name@deltarobotics.edu" required="" type="email">
+</div>
+<div>
+<div class="flex justify-between items-center mb-xs">
+<label class="block font-label-md text-label-md text-on-surface" for="password">Password</label>
+<a class="font-label-md text-label-md text-primary-container hover:underline" href="#">Forgot Password?</a>
+</div>
+<input class="w-full bg-surface-container-lowest border border-surface-variant rounded-DEFAULT px-sm py-sm font-body-md text-body-md text-on-background focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors" id="password" placeholder="••••••••" required="" type="password">
+</div>
+</div>
+<!-- Actions -->
+<div class="pt-sm">
+<button class="w-full bg-primary-container text-on-primary font-headline-md text-headline-md font-bold uppercase rounded-lg py-sm hover:opacity-90 transition-opacity flex justify-center items-center gap-xs" type="submit">
+                        Login <span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 0;">arrow_forward</span>
+</button>
+</div>
+</form>
+<!-- Sign-up Link -->
+<div class="mt-lg text-center border-t border-surface-variant pt-md">
+<p class="font-body-md text-body-md text-secondary">
+                    New to Delta Robotics? <a class="text-primary-container font-semibold hover:underline" href="#">Sign up here</a>
+</p>
+</div>
+</div>
+</main>
+<footer class="w-full py-md px-margin-mobile md:px-margin-desktop bg-surface-container flex flex-col md:flex-row justify-between items-center gap-md text-center md:text-left h-[80px]">
+<div class="font-body-md text-body-md text-on-secondary-fixed-variant">© 2024 Delta Robotics Platforms. All rights reserved.</div>
+</footer>
+<script>
+        function selectRole(role) {
+            document.querySelectorAll('.role-card').forEach(card => {
+                card.classList.remove('active');
+                card.querySelector('.material-symbols-outlined').classList.remove('text-primary-container');
+                card.querySelector('.material-symbols-outlined').classList.add('text-secondary');
+            });
+            
+            const selected = document.querySelector(`.role-card[data-role="${role}"]`);
+            selected.classList.add('active');
+            selected.querySelector('.material-symbols-outlined').classList.add('text-primary-container');
+            selected.querySelector('.material-symbols-outlined').classList.remove('text-secondary');
+            
+            document.getElementById('selectedRole').value = role;
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            // Form submission logic would go here
+            console.log('Login attempt with role:', document.getElementById('selectedRole').value);
+        });
+    </script>
+
+
+</body></html>

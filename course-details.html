@@ -1,0 +1,683 @@
+<!DOCTYPE html><html lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>Autonomous Systems &amp; Edge Computing | RoboAcademy</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com" rel="preconnect">
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect">
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500&amp;family=Manrope:wght@400;700;800&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+          darkMode: "class",
+          theme: {
+            extend: {
+              "colors": {
+                      "background": "#f8f9fa",
+                      "inverse-on-surface": "#f0f1f2",
+                      "surface-container": "#edeeef",
+                      "error-container": "#ffdad6",
+                      "on-secondary": "#ffffff",
+                      "on-error": "#ffffff",
+                      "primary-fixed": "#ffdbcc",
+                      "on-primary-container": "#572000",
+                      "tertiary-fixed": "#dde4e6",
+                      "on-background": "#191c1d",
+                      "on-surface-variant": "#5a4136",
+                      "surface-container-lowest": "#ffffff",
+                      "on-error-container": "#93000a",
+                      "outline-variant": "#e2bfb0",
+                      "surface-dim": "#d9dadb",
+                      "on-tertiary": "#ffffff",
+                      "on-secondary-container": "#656464",
+                      "surface-tint": "#a04100",
+                      "primary": "#a04100",
+                      "on-primary-fixed": "#351000",
+                      "inverse-surface": "#2e3132",
+                      "surface": "#f8f9fa",
+                      "secondary-fixed-dim": "#c8c6c5",
+                      "on-tertiary-fixed-variant": "#41484a",
+                      "surface-bright": "#f8f9fa",
+                      "surface-container-low": "#f3f4f5",
+                      "on-secondary-fixed": "#1c1b1b",
+                      "primary-container": "#ff6b00",
+                      "on-tertiary-fixed": "#161d1f",
+                      "inverse-primary": "#ffb693",
+                      "secondary-container": "#e5e2e1",
+                      "tertiary-container": "#939a9c",
+                      "secondary": "#5f5e5e",
+                      "on-primary": "#ffffff",
+                      "tertiary": "#586062",
+                      "surface-container-high": "#e7e8e9",
+                      "on-tertiary-container": "#2b3234",
+                      "secondary-fixed": "#e5e2e1",
+                      "outline": "#8e7164",
+                      "tertiary-fixed-dim": "#c1c8ca",
+                      "error": "#ba1a1a",
+                      "primary-fixed-dim": "#ffb693",
+                      "surface-variant": "#e1e3e4",
+                      "surface-container-highest": "#e1e3e4",
+                      "on-surface": "#191c1d",
+                      "on-secondary-fixed-variant": "#474646",
+                      "on-primary-fixed-variant": "#7a3000"
+              },
+              "borderRadius": {
+                      "DEFAULT": "0.25rem",
+                      "lg": "0.5rem",
+                      "xl": "0.75rem",
+                      "full": "9999px"
+              },
+              "spacing": {
+                      "md": "24px",
+                      "gutter": "24px",
+                      "base": "8px",
+                      "xl": "80px",
+                      "xs": "4px",
+                      "lg": "48px",
+                      "margin-desktop": "40px",
+                      "margin-mobile": "16px",
+                      "sm": "12px"
+              },
+              "fontFamily": {
+                      "headline-lg": [
+                              "Manrope"
+                      ],
+                      "body-lg": [
+                              "Inter"
+                      ],
+                      "headline-md": [
+                              "Manrope"
+                      ],
+                      "label-md": [
+                              "JetBrains Mono"
+                      ],
+                      "headline-xl": [
+                              "Manrope"
+                      ],
+                      "body-md": [
+                              "Inter"
+                      ],
+                      "headline-lg-mobile": [
+                              "Manrope"
+                      ]
+              },
+              "fontSize": {
+                      "headline-lg": [
+                              "32px",
+                              {
+                                      "lineHeight": "40px",
+                                      "letterSpacing": "-0.01em",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "body-lg": [
+                              "18px",
+                              {
+                                      "lineHeight": "28px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-md": [
+                              "24px",
+                              {
+                                      "lineHeight": "32px",
+                                      "fontWeight": "700"
+                              }
+                      ],
+                      "label-md": [
+                              "14px",
+                              {
+                                      "lineHeight": "20px",
+                                      "fontWeight": "500"
+                              }
+                      ],
+                      "headline-xl": [
+                              "48px",
+                              {
+                                      "lineHeight": "56px",
+                                      "letterSpacing": "-0.02em",
+                                      "fontWeight": "800"
+                              }
+                      ],
+                      "body-md": [
+                              "16px",
+                              {
+                                      "lineHeight": "24px",
+                                      "fontWeight": "400"
+                              }
+                      ],
+                      "headline-lg-mobile": [
+                              "28px",
+                              {
+                                      "lineHeight": "36px",
+                                      "fontWeight": "700"
+                              }
+                      ]
+              }
+      },
+          },
+        }
+      </script>
+</head>
+<body class="bg-background text-on-background antialiased font-body-md">
+<!-- TopNavBar -->
+<nav class="bg-surface border-b border-secondary-container shadow-sm sticky top-0 z-50">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-lg">
+<a class="font-headline-md text-headline-md font-extrabold text-primary" href="/index.html">Delta Robotics</a>
+<div class="hidden md:flex gap-md items-center">
+<a class="text-secondary hover:text-primary transition-colors hover:bg-surface-container rounded-lg px-3 py-2" href="/index.html#about">About</a>
+<a class="text-primary border-b-2 border-primary font-bold pb-1 px-3 py-2 hover:bg-surface-container rounded-lg transition-all duration-200" href="/course-catalog.html">Courses</a>
+<a class="text-secondary hover:text-primary transition-colors hover:bg-surface-container rounded-lg px-3 py-2" href="/index.html#workshops">Workshops</a>
+<a class="text-secondary hover:text-primary transition-colors hover:bg-surface-container rounded-lg px-3 py-2" href="/index.html#gallery">Gallery</a>
+<a class="text-secondary hover:text-primary transition-colors hover:bg-surface-container rounded-lg px-3 py-2" href="/index.html#contact">Contact</a>
+</div>
+</div>
+<div class="hidden md:flex items-center gap-sm">
+<a href="/login.html" class="text-on-background font-label-md text-label-md px-4 py-2 hover:bg-surface-container rounded-lg transition-colors text-center">Login</a>
+<a href="/signup.html" class="bg-primary-container text-on-primary font-headline-md text-label-md font-bold px-6 py-2 rounded-lg hover:bg-primary transition-colors shadow-sm text-center">Enroll Now</a>
+</div>
+<button id="menu-toggle" class="md:hidden text-on-surface p-2 rounded-lg hover:bg-surface-container" aria-label="Open mobile menu">
+<span class="material-symbols-outlined block">menu</span>
+</button>
+</div>
+</nav>
+<main class="w-full">
+<!-- Hero Section -->
+<section class="w-full bg-inverse-surface text-inverse-on-surface relative overflow-hidden">
+<div class="absolute inset-0 z-0 opacity-40">
+<div id="course-hero-bg" class="bg-cover bg-center w-full h-full" style="background-image: url('assets/asset_7ac95e6349.png')"></div>
+</div>
+<div class="absolute inset-0 bg-gradient-to-r from-inverse-surface via-inverse-surface/90 to-transparent z-10"></div>
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl relative z-20">
+<div class="max-w-3xl">
+<div class="flex gap-2 mb-sm">
+<span id="course-level" class="bg-primary-container/20 text-primary-fixed-dim font-label-md text-label-md px-3 py-1 rounded-full border border-primary-container/30">Advanced Level</span>
+<span id="course-category" class="bg-surface-container/20 text-surface-variant font-label-md text-label-md px-3 py-1 rounded-full border border-surface-container/30">Robotics</span>
+</div>
+<h1 id="course-title" class="font-headline-xl text-headline-xl text-on-secondary mb-md">Autonomous Systems &amp; Edge Computing</h1>
+<p id="course-description" class="font-body-lg text-body-lg text-surface-variant mb-lg">Master the architecture of intelligent machines. Learn to design, deploy, and optimize autonomous algorithms running on edge hardware for real-time robotic operations.</p>
+<div class="flex flex-wrap gap-lg">
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary-fixed-dim">star</span>
+<span class="font-body-md text-body-md font-bold text-on-secondary"><span id="course-rating">4.9 (120 reviews)</span></span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-surface-variant">group</span>
+<span id="course-students" class="font-body-md text-body-md text-surface-variant">1,450+ Students</span>
+</div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-surface-variant">schedule</span>
+<span id="course-duration" class="font-body-md text-body-md text-surface-variant">12 Weeks (Self-paced)</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+<!-- Main Content Area -->
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-lg">
+<div class="grid grid-cols-1 lg:grid-cols-12 gap-xl relative">
+<!-- Left Column: Course Content -->
+<div class="lg:col-span-8 space-y-xl">
+<!-- Overview -->
+<section>
+<h2 class="font-headline-lg text-headline-lg mb-md text-on-background">Course Overview</h2>
+<p id="course-overview-1" class="font-body-lg text-body-lg text-secondary mb-md">
+                            This intensive program bridges the gap between high-level autonomous algorithms and low-level hardware execution. You will delve into the core principles of sensor fusion, computer vision, and machine learning models optimized for resource-constrained edge devices like NVIDIA Jetson and Raspberry Pi.
+                        </p>
+<p id="course-overview-2" class="font-body-lg text-body-lg text-secondary">
+                            By the end of this course, you will have built and deployed a fully functional autonomous navigation system capable of processing LIDAR and camera data in real-time, preparing you for roles in modern robotics, autonomous vehicles, and industrial automation.
+                        </p>
+</section>
+<!-- What You'll Learn -->
+<section class="bg-surface-container-lowest border border-secondary-container rounded-xl p-lg">
+<h3 class="font-headline-md text-headline-md mb-md text-on-background">What You Will Learn</h3>
+<div id="course-learn-list" class="grid grid-cols-1 md:grid-cols-2 gap-md">
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Architect and deploy robust sensor fusion pipelines for complex environments.</span>
+</div>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Optimize deep learning models (TensorRT, OpenVINO) for real-time edge inference.</span>
+</div>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Implement SLAM (Simultaneous Localization and Mapping) using 2D/3D LIDAR data.</span>
+</div>
+<div class="flex gap-3">
+<span class="material-symbols-outlined text-primary-container mt-1">check_circle</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Master ROS2 (Robot Operating System) node communication and lifecycle management.</span>
+</div>
+</div>
+</section>
+</div>
+<!-- Right Sidebar (Sticky Enrollment Card) -->
+<div class="lg:col-span-4 relative">
+<div class="sticky top-[100px] bg-surface-container-lowest border border-secondary-container rounded-xl shadow-[0_4px_20px_rgba(0,0,0,0.05)] p-lg flex flex-col gap-md">
+<div class="text-center mb-sm">
+<span id="course-price" class="font-headline-lg text-headline-lg font-bold text-on-background block mb-1">$1,299</span>
+<span class="font-body-md text-body-md text-secondary">One-time payment</span>
+</div>
+<a id="course-enroll-btn" href="/enrollment-payment.html" class="w-full bg-primary-container text-on-primary font-headline-md text-label-md font-bold py-4 rounded-lg hover:bg-primary transition-colors shadow-sm text-center block">
+                            Enroll Now
+                        </a>
+<p class="text-center font-label-md text-label-md text-secondary mb-md">30-day money-back guarantee</p>
+<hr class="border-secondary-container">
+<div>
+<h4 class="font-headline-md text-body-lg font-bold text-on-background mb-4">What's included</h4>
+<ul id="course-included-list" class="space-y-3">
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">workspace_premium</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Industry-recognized Certificate</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">all_inclusive</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Lifetime access to course materials</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">person_play</span>
+<span class="font-body-md text-body-md text-on-surface-variant">1-on-1 Mentorship (3 hours)</span>
+</li>
+<li class="flex items-center gap-3">
+<span class="material-symbols-outlined text-secondary">terminal</span>
+<span class="font-body-md text-body-md text-on-surface-variant">Cloud compute credits (AWS/GCP)</span>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+</div>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest border-t border-secondary-container w-full mt-xl">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-xl max-w-7xl mx-auto gap-md">
+<span class="font-headline-md text-headline-md font-bold text-on-surface">Delta Robotics</span>
+<span class="font-body-md text-body-md text-on-surface-variant">© 2024 Delta Robotics. Building the next generation of engineers.</span>
+<div class="flex gap-md flex-wrap justify-center">
+<a class="font-body-md text-body-md text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200" href="#">Privacy Policy</a>
+<a class="font-body-md text-body-md text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200" href="#">Terms of Service</a>
+<a class="font-body-md text-body-md text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200" href="#">Support</a>
+<a class="font-body-md text-body-md text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200" href="#">Sitemap</a>
+<a class="font-body-md text-body-md text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200" href="#">Affiliates</a>
+</div>
+</div>
+</div></div></footer>
+
+<!-- Mobile Drawer -->
+<div id="mobile-drawer" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+<div class="absolute right-0 top-0 h-full w-64 bg-surface dark:bg-inverse-surface p-6 shadow-xl flex flex-col gap-6 transform translate-x-full transition-transform duration-300">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-headline-sm font-bold text-primary dark:text-inverse-primary">Menu</span>
+<button id="menu-close" class="text-on-surface dark:text-surface-variant p-2 rounded-lg hover:bg-primary-container/10">
+<span class="material-symbols-outlined block">close</span>
+</button>
+</div>
+<nav class="flex flex-col gap-4 text-lg">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#about">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/course-catalog.html">Courses</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#workshops">Workshops</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#gallery">Gallery</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#contact">Contact</a>
+</nav>
+<div class="flex flex-col gap-2 mt-auto">
+<a href="/login.html" class="w-full bg-primary-container text-white py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-primary text-center block">
+      Login
+</a>
+<a href="/signup.html" class="w-full border border-primary-container text-primary-container dark:text-inverse-primary py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-primary-container/10 text-center block">
+      Sign Up
+</a>
+</div>
+</div>
+</div>
+
+<script>
+  // Elements
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuClose = document.getElementById('menu-close');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const mobileDrawerContent = mobileDrawer.querySelector('div');
+
+  // Mobile Menu Logic
+  function toggleMenu(show) {
+    if (show) {
+      mobileDrawer.classList.remove('opacity-0', 'pointer-events-none');
+      mobileDrawerContent.classList.remove('translate-x-full');
+    } else {
+      mobileDrawer.classList.add('opacity-0', 'pointer-events-none');
+      mobileDrawerContent.classList.add('translate-x-full');
+    }
+  }
+
+  if (menuToggle) menuToggle.addEventListener('click', () => toggleMenu(true));
+  if (menuClose) menuClose.addEventListener('click', () => toggleMenu(false));
+  if (mobileDrawer) {
+    mobileDrawer.addEventListener('click', (e) => {
+      if (e.target === mobileDrawer) toggleMenu(false);
+    });
+  }
+
+  // Course Database
+  const COURSES_DB = {
+    "autonomous-systems": {
+      title: "Autonomous Systems & Edge Computing",
+      price: "$1,299",
+      level: "Advanced Level",
+      category: "Robotics",
+      rating: "4.9 (120 reviews)",
+      students: "1,450+ Students",
+      duration: "12 Weeks (Self-paced)",
+      image: "assets/asset_7ac95e6349.png",
+      description: "Master the architecture of intelligent machines. Learn to design, deploy, and optimize autonomous algorithms running on edge hardware for real-time robotic operations.",
+      overview1: "This intensive program bridges the gap between high-level autonomous algorithms and low-level hardware execution. You will delve into the core principles of sensor fusion, computer vision, and machine learning models optimized for resource-constrained edge devices like NVIDIA Jetson and Raspberry Pi.",
+      overview2: "By the end of this course, you will have built and deployed a fully functional autonomous navigation system capable of processing LIDAR and camera data in real-time, preparing you for roles in modern robotics, autonomous vehicles, and industrial automation.",
+      learn: [
+        "Architect and deploy robust sensor fusion pipelines for complex environments.",
+        "Optimize deep learning models (TensorRT, OpenVINO) for real-time edge inference.",
+        "Implement SLAM (Simultaneous Localization and Mapping) using 2D/3D LIDAR data.",
+        "Master ROS2 (Robot Operating System) node communication and lifecycle management."
+      ],
+      included: [
+        "Industry-recognized Certificate",
+        "Lifetime access to course materials",
+        "1-on-1 Mentorship (3 hours)",
+        "Cloud compute credits (AWS/GCP)"
+      ]
+    },
+    "neural-networks": {
+      title: "Neural Networks & Deep Learning for Robotics",
+      price: "$950",
+      level: "Expert Level",
+      category: "AI & ML",
+      rating: "4.8 (95 reviews)",
+      students: "820+ Students",
+      duration: "8 Weeks (Self-paced)",
+      image: "assets/bg_a9b0f618bf.png",
+      description: "Unleash the power of deep neural networks in physical robots. Learn to train models for complex robot vision, manipulation, and decision making under uncertainty.",
+      overview1: "Unleash the power of deep neural networks in physical robots. Learn to train models for complex robot vision, manipulation, and decision making under uncertainty.",
+      overview2: "This course covers advanced convolutional networks, reinforcement learning for robotics, and implementing custom model architectures directly in real hardware setups.",
+      learn: [
+        "Train convolutional neural networks for real-time robot visual classification.",
+        "Implement deep reinforcement learning algorithms for locomotion and control.",
+        "Deploy trained models on edge TPUs and microcontrollers with tight latency constraints.",
+        "Master safety bounds in ML-based robotic controllers to avoid physical hardware collisions."
+      ],
+      included: [
+        "Industry-recognized Certificate",
+        "Access to GPU training cluster",
+        "Weekly live review sessions",
+        "Robot simulator subscription (1 year)"
+      ]
+    },
+    "embedded-iot": {
+      title: "Embedded Systems & IoT Networks",
+      price: "$800",
+      level: "Intermediate Level",
+      category: "IoT",
+      rating: "4.7 (110 reviews)",
+      students: "1,100+ Students",
+      duration: "10 Weeks (Self-paced)",
+      image: "assets/bg_a292f11599.png",
+      description: "Bridge physical devices with cloud networks. Learn custom PCB design, micro-controller programming in C/C++, and building low-power, high-reliability sensor nodes.",
+      overview1: "Bridge physical devices with cloud networks. Learn custom PCB design, micro-controller programming in C/C++, and building low-power, high-reliability sensor nodes.",
+      overview2: "We cover local wireless stacks, MQTT brokers, encryption standards, and structuring real-time operating systems (RTOS) to manage concurrent inputs.",
+      learn: [
+        "Design multi-layer PCBs using modern EDA tools like KiCAD.",
+        "Develop firmware using FreeRTOS for task scheduling and memory management.",
+        "Configure MQTT, HTTP/2, and secure web sockets for IoT fleet synchronization.",
+        "Implement low-power sleep modes and battery monitoring for remote installations."
+      ],
+      included: [
+        "Industry-recognized Certificate",
+        "Physical MCU hardware kit (shipped)",
+        "Access to Discord developer group",
+        "IoT cloud tier subscription"
+      ]
+    },
+    "industrial-automation": {
+      title: "Industrial Automation & SCADA Systems",
+      price: "$1,500",
+      level: "Expert Level",
+      category: "Robotics",
+      rating: "4.9 (84 reviews)",
+      students: "650+ Students",
+      duration: "14 Weeks (Self-paced)",
+      image: "assets/bg_c620b7f22a.png",
+      description: "Learn the engineering standards that drive modern factories. Master Programmable Logic Controllers (PLCs), Human-Machine Interfaces (HMIs), and SCADA platforms.",
+      overview1: "Learn the engineering standards that drive modern factories. Master Programmable Logic Controllers (PLCs), Human-Machine Interfaces (HMIs), and SCADA platforms.",
+      overview2: "Build industrial networks, troubleshoot field devices, and engineer safe, highly reliable automation systems matching global manufacturing requirements.",
+      learn: [
+        "Program PLCs using ladder logic, structured text, and function blocks.",
+        "Design HMI panels and connect SCADA systems to centralized databases.",
+        "Configure industrial Ethernet protocols (EtherNet/IP, Modbus TCP, PROFINET).",
+        "Implement fail-safe industrial emergency systems and safety relays."
+      ],
+      included: [
+        "Professional Certification",
+        "Access to PLC Simulator software",
+        "1-on-1 career coaching session",
+        "Job placement network access"
+      ]
+    },
+    "intro-to-ros": {
+      title: "Introduction to Robot Operating System (ROS)",
+      price: "$499",
+      level: "Beginner Level",
+      category: "Autonomous Systems",
+      rating: "4.6 (150 reviews)",
+      students: "2,100+ Students",
+      duration: "12 Weeks (Self-paced)",
+      image: "assets/asset_41da951b75.png",
+      description: "Get started with the world's most popular framework for robot software development. Build, debug, and connect complex ROS nodes for simulation.",
+      overview1: "Get started with the world's most popular framework for robot software development. Build, debug, and connect complex ROS nodes for simulation.",
+      overview2: "Using URDF models and Gazebo simulators, you will program a custom wheeled robot to navigate environments autonomously using standard packages.",
+      learn: [
+        "Understand ROS workspace structures, topics, services, and actions.",
+        "Implement publisher-subscriber models in Python and C++.",
+        "Configure URDF models and simulate movements in Gazebo.",
+        "Utilize ROS visualization tools (RViz) for debugging telemetry."
+      ],
+      included: [
+        "Introductory Certificate",
+        "Guided code-along exercises",
+        "Lifetime forum access",
+        "Pre-configured Linux virtual machine"
+      ]
+    },
+    "neural-network-foundations": {
+      title: "Neural Network Foundations for Vision",
+      price: "$799",
+      level: "Intermediate Level",
+      category: "AI & ML",
+      rating: "4.8 (88 reviews)",
+      students: "980+ Students",
+      duration: "16 Weeks (Self-paced)",
+      image: "assets/asset_bb5c665b72.png",
+      description: "A comprehensive guide to mathematical foundations of machine learning and computer vision. Build networks from scratch in Python.",
+      overview1: "A comprehensive guide to mathematical foundations of machine learning and computer vision. Build networks from scratch in Python.",
+      overview2: "Master feedforward networks, backpropagation math, gradient descent variants, and custom loss functions before transitioning to PyTorch frameworks.",
+      learn: [
+        "Implement forward and backward passes from scratch using NumPy.",
+        "Apply regularization techniques to combat model overfitting.",
+        "Build neural models for classification and semantic segmentation.",
+        "Transition custom designs to PyTorch for hardware-accelerated runs."
+      ],
+      included: [
+        "Foundational Certificate",
+        "Interactive Jupyter notebook files",
+        "Peer-review study groups",
+        "PyTorch cloud notebook credits"
+      ]
+    },
+    "embedded-systems": {
+      title: "Advanced Embedded Systems Engineering",
+      price: "$999",
+      level: "Advanced Level",
+      category: "IoT",
+      rating: "4.9 (76 reviews)",
+      students: "540+ Students",
+      duration: "20 Weeks (Self-paced)",
+      image: "assets/asset_c007acacb3.png",
+      description: "Design complex hardware interfaces from the ground up. Write bare-metal drivers, optimized RTOS setups, and manage system constraints.",
+      overview1: "Design complex hardware interfaces from the ground up. Write bare-metal drivers, optimized RTOS setups, and manage system constraints.",
+      overview2: "Learn debugging over JTAG, direct register manipulation, DMA transfers, and high-frequency communication busses (SPI, I2C, CAN).",
+      learn: [
+        "Write register-level peripheral drivers for ARM Cortex-M microcontrollers.",
+        "Implement DMA and interrupt handlers for zero-CPU latency interfaces.",
+        "Debug and trace live system code using logic analyzers and JTAG.",
+        "Optimize binary sizes and compiler flags for ultra-low memory footprints."
+      ],
+      included: [
+        "Advanced Certificate",
+        "ARM debugging probe (shipped)",
+        "Code audits by lead engineers",
+        "Hardware schematic templates"
+      ]
+    },
+    "advanced-kinematics": {
+      title: "Advanced Kinematics & Robot Dynamics",
+      price: "$649",
+      level: "Intermediate Level",
+      category: "Autonomous Systems",
+      rating: "4.7 (65 reviews)",
+      students: "420+ Students",
+      duration: "14 Weeks (Self-paced)",
+      image: "assets/asset_abf7688ee4.png",
+      description: "Understand the deep mathematics of robotic movement. Learn configuration spaces, rotation matrices, quaternions, and forward kinematics.",
+      overview1: "Understand the deep mathematics of robotic movement. Learn configuration spaces, rotation matrices, quaternions, and forward kinematics.",
+      overview2: "Solve inverse kinematics for multi-joint arms and plan smooth trajectories while considering dynamics, joint limits, and obstacle avoidance.",
+      learn: [
+        "Model rotation transformations using Quaternions and Homogeneous matrices.",
+        "Solve Inverse Kinematics analytically and numerically for robotic arms.",
+        "Calculate Denavit-Hartenberg (DH) parameters for custom manipulators.",
+        "Plan jerk-limited trajectories under maximum motor torque constraints."
+      ],
+      included: [
+        "Specialist Certificate",
+        "MATLAB/Python robotics toolbox exercises",
+        "Math support sessions",
+        "Manipulator simulation package"
+      ]
+    },
+    "computer-vision": {
+      title: "Computer Vision & Visual SLAM for Robotics",
+      price: "$899",
+      level: "Advanced Level",
+      category: "AI & ML",
+      rating: "4.8 (90 reviews)",
+      students: "780+ Students",
+      duration: "18 Weeks (Self-paced)",
+      image: "assets/asset_ebc3df4558.png",
+      description: "Enable robots to see and understand their surroundings. Cover camera calibration, feature extraction (SIFT/ORB), and optical flow.",
+      overview1: "Enable robots to see and understand their surroundings. Cover camera calibration, feature extraction (SIFT/ORB), and optical flow.",
+      overview2: "Implement visual odometry and graph-based visual SLAM algorithms to localize a robot using only a monocular or stereo camera.",
+      learn: [
+        "Calibrate monocular, stereo, and fish-eye camera systems.",
+        "Extract and match image feature points under changing light.",
+        "Compute camera pose tracking from epipolar geometry matrices.",
+        "Implement loop closure and pose-graph optimization packages."
+      ],
+      included: [
+        "Specialization Certificate",
+        "Slam dataset package (KITTI/TUM)",
+        "Review of project design code",
+        "1-on-1 feedback slots"
+      ]
+    },
+    "iot-fleet": {
+      title: "IoT Fleet Management & Cloud Orchestration",
+      price: "$399",
+      level: "Beginner Level",
+      category: "IoT",
+      rating: "4.5 (134 reviews)",
+      students: "1,550+ Students",
+      duration: "8 Weeks (Self-paced)",
+      image: "assets/asset_9e07e57649.png",
+      description: "Manage and update groups of connected robots securely. Study containerization with Docker and deployment using lightweight Kubernetes.",
+      overview1: "Manage and update groups of connected robots securely. Study containerization with Docker and deployment using lightweight Kubernetes.",
+      overview2: "Design secure OTA firmware update systems and monitor telemetry dashboards using open-source stacks like Prometheus and Grafana.",
+      learn: [
+        "Create Docker images optimized for embedded targets (ARM64).",
+        "Deploy and scale workloads using K3s (lightweight Kubernetes).",
+        "Build secure, cryptographic Over-The-Air (OTA) update systems.",
+        "Set up Grafana dashboards to monitor robot CPU, temperature, and battery."
+      ],
+      included: [
+        "Certificate of Completion",
+        "Pre-built Grafana templates",
+        "Lifetime access to lectures",
+        "Cloud sandbox instance (3 months)"
+      ]
+    }
+  };
+
+  // Dynamic Content Loading Logic
+  function loadCourseDetails() {
+    const params = new URLSearchParams(window.location.search);
+    const courseId = params.get('course') || 'autonomous-systems';
+    const course = COURSES_DB[courseId];
+
+    if (!course) return;
+
+    // Document Title
+    document.title = `${course.title} | RoboAcademy`;
+
+    // DOM Updates
+    if (document.getElementById('course-title')) document.getElementById('course-title').textContent = course.title;
+    if (document.getElementById('course-level')) document.getElementById('course-level').textContent = course.level;
+    if (document.getElementById('course-category')) document.getElementById('course-category').textContent = course.category;
+    if (document.getElementById('course-rating')) document.getElementById('course-rating').textContent = course.rating;
+    if (document.getElementById('course-students')) document.getElementById('course-students').textContent = course.students;
+    if (document.getElementById('course-duration')) document.getElementById('course-duration').textContent = course.duration;
+    if (document.getElementById('course-description')) document.getElementById('course-description').textContent = course.description;
+    if (document.getElementById('course-overview-1')) document.getElementById('course-overview-1').textContent = course.overview1;
+    if (document.getElementById('course-overview-2')) document.getElementById('course-overview-2').textContent = course.overview2;
+    if (document.getElementById('course-price')) document.getElementById('course-price').textContent = course.price;
+
+    // Set Hero Background Image
+    const heroBgEl = document.getElementById('course-hero-bg');
+    if (heroBgEl) {
+      heroBgEl.style.backgroundImage = `url('${course.image}')`;
+    }
+
+    // Set Enroll Button Link with course parameter
+    const enrollBtn = document.getElementById('course-enroll-btn');
+    if (enrollBtn) {
+      enrollBtn.href = `/enrollment-payment.html?course=${courseId}`;
+    }
+
+    // What You'll Learn List
+    const learnList = document.getElementById('course-learn-list');
+    if (learnList) {
+      learnList.innerHTML = course.learn.map(item => `
+        <div class="flex gap-3">
+          <span class="material-symbols-outlined text-primary-container mt-1">check_circle</span>
+          <span class="font-body-md text-body-md text-on-surface-variant">${item}</span>
+        </div>
+      `).join('');
+    }
+
+    // What's Included List
+    const includedList = document.getElementById('course-included-list');
+    if (includedList) {
+      const iconMap = [
+        "workspace_premium",
+        "all_inclusive",
+        "person_play",
+        "terminal"
+      ];
+      includedList.innerHTML = course.included.map((item, idx) => `
+        <li class="flex items-center gap-3">
+          <span class="material-symbols-outlined text-secondary">${iconMap[idx % iconMap.length]}</span>
+          <span class="font-body-md text-body-md text-on-surface-variant">${item}</span>
+        </li>
+      `).join('');
+    }
+  }
+
+  // Run on page load
+  window.addEventListener('DOMContentLoaded', loadCourseDetails);
+</script>
+</body></html>

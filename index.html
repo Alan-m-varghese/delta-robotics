@@ -1,0 +1,757 @@
+<!DOCTYPE html>
+
+<html lang="en" style=""><head><meta charset="utf-8"/><meta content="width=device-width, initial-scale=1.0" name="viewport"/><link href="https://fonts.googleapis.com" rel="preconnect"/><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=JetBrains+Mono:wght@400;500;700&amp;family=Manrope:wght@400;500;600;700;800&amp;display=swap" rel="stylesheet"/><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=block" rel="stylesheet"/><script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<style>
+@keyframes logo-float {
+  0%, 100% { transform: translateY(0) scale(1); }
+  50% { transform: translateY(-12px) scale(1.03); }
+}
+@keyframes float-up {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-20px); }
+}
+@keyframes float-down {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(20px); }
+}
+@keyframes drift {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  50% { transform: translate(15px, -10px) rotate(5deg); }
+}
+.animate-logo-float {
+  animation: logo-float 4s ease-in-out infinite;
+}
+.animate-float-up {
+  animation: float-up 6s ease-in-out infinite;
+}
+.animate-float-down {
+  animation: float-down 7s ease-in-out infinite;
+}
+.animate-drift {
+  animation: drift 8s ease-in-out infinite;
+}
+</style>
+<script id="tailwind-config">try{
+  tailwind.config = {
+    darkMode: "class",
+    theme: {
+      extend: {
+        "colors": {
+                "error": "#ba1a1a",
+                "background": "#f8f9fa",
+                "tertiary": "#586062",
+                "primary-container": "#ff6b00",
+                "primary": "#a04100",
+                "on-secondary-container": "#656464",
+                "error-container": "#ffdad6",
+                "on-primary": "#ffffff",
+                "on-background": "#191c1d",
+                "on-primary-fixed": "#351000",
+                "tertiary-fixed-dim": "#c1c8ca",
+                "inverse-primary": "#ffb693",
+                "on-error-container": "#93000a",
+                "primary-fixed-dim": "#ffb693",
+                "on-primary-container": "#572000",
+                "on-tertiary-container": "#2b3234",
+                "surface-container-highest": "#e1e3e4",
+                "secondary": "#5f5e5e",
+                "on-tertiary": "#ffffff",
+                "secondary-fixed": "#e5e2e1",
+                "secondary-container": "#e5e2e1",
+                "primary-fixed": "#ffdbcc",
+                "on-secondary": "#ffffff",
+                "outline": "#8e7164",
+                "on-tertiary-fixed": "#161d1f",
+                "tertiary-fixed": "#dde4e6",
+                "on-surface": "#191c1d",
+                "surface-variant": "#e1e3e4",
+                "on-secondary-fixed-variant": "#474646",
+                "surface-container-lowest": "#ffffff",
+                "surface-container-high": "#e7e8e9",
+                "surface-container": "#edeeef",
+                "on-tertiary-fixed-variant": "#41484a",
+                "surface": "#f8f9fa",
+                "on-error": "#ffffff",
+                "surface-bright": "#f8f9fa",
+                "surface-tint": "#a04100",
+                "surface-dim": "#d9dadb",
+                "secondary-fixed-dim": "#c8c6c5",
+                "on-secondary-fixed": "#1c1b1b",
+                "surface-container-low": "#f3f4f5",
+                "outline-variant": "#e2bfb0",
+                "on-surface-variant": "#5a4136",
+                "on-primary-fixed-variant": "#7a3000",
+                "inverse-on-surface": "#f0f1f2",
+                "tertiary-container": "#939a9c",
+                "inverse-surface": "#2e3132"
+        },
+        "borderRadius": {
+                "DEFAULT": "0.25rem",
+                "lg": "0.5rem",
+                "xl": "0.75rem",
+                "full": "9999px"
+        },
+        "spacing": {
+                "xs": "4px",
+                "xl": "80px",
+                "base": "8px",
+                "lg": "48px",
+                "gutter": "24px",
+                "sm": "12px",
+                "margin-mobile": "16px",
+                "md": "24px",
+                "margin-desktop": "40px"
+        },
+        "fontFamily": {
+                "label-md": [
+                        "JetBrains Mono"
+                ],
+                "headline-md": [
+                        "Manrope"
+                ],
+                "headline-lg-mobile": [
+                        "Manrope"
+                ],
+                "headline-lg": [
+                        "Manrope"
+                ],
+                "body-md": [
+                        "Inter"
+                ],
+                "body-lg": [
+                        "Inter"
+                ],
+                "headline-xl": [
+                        "Manrope"
+                ]
+        },
+        "fontSize": {
+                "label-md": [
+                        "14px",
+                        {
+                                "lineHeight": "20px",
+                                "fontWeight": "500"
+                        }
+                ],
+                "headline-md": [
+                        "24px",
+                        {
+                                "lineHeight": "32px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg-mobile": [
+                        "28px",
+                        {
+                                "lineHeight": "36px",
+                                "fontWeight": "700"
+                        }
+                ],
+                "headline-lg": [
+                        "32px",
+                        {
+                                "lineHeight": "40px",
+                                "letterSpacing": "-0.01em",
+                                "fontWeight": "700"
+                        }
+                ],
+                "body-md": [
+                        "16px",
+                        {
+                                "lineHeight": "24px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "body-lg": [
+                        "18px",
+                        {
+                                "lineHeight": "28px",
+                                "fontWeight": "400"
+                        }
+                ],
+                "headline-xl": [
+                        "48px",
+                        {
+                                "lineHeight": "56px",
+                                "letterSpacing": "-0.02em",
+                                "fontWeight": "800"
+                        }
+                ]
+        }
+},
+    },
+  }
+}catch(_e){}</script></head><body class="antialiased min-h-screen flex flex-col font-body-md text-body-md bg-background">
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/95 dark:bg-inverse-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop h-20">
+<!-- Brand Logo -->
+<a class="flex items-center gap-2 font-headline-md text-headline-md font-extrabold tracking-tight text-primary dark:text-inverse-primary" href="/index.html">
+<img alt="Delta Robotics Logo" class="h-8 w-8 object-contain" src="assets/img_1df8db57f3.png"/>
+<span class="">Delta Robotics</span>
+</a>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 font-label-md text-label-md" href="#about">About</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="/course-catalog.html">Courses</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="#workshops">Workshops</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="#gallery">Gallery</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="#contact">Contact</a>
+</nav>
+<!-- Trailing Action -->
+<div class="flex items-center gap-sm">
+<button id="theme-toggle" class="p-2 rounded-lg hover:bg-primary-container/10 dark:hover:bg-primary-container/20 transition-all duration-200 text-on-secondary-container dark:text-secondary-fixed-dim" aria-label="Toggle dark mode">
+<span id="theme-toggle-icon" class="material-symbols-outlined block">dark_mode</span>
+</button>
+<a href="/login.html" class="hidden md:block scale-95 active:scale-90 transition-transform duration-150 bg-primary-container text-white px-md py-sm rounded-lg font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-primary transition-colors text-center">
+                    Login
+                </a>
+<a href="/signup.html" class="hidden md:block scale-95 active:scale-90 transition-transform duration-150 border border-primary-container text-primary-container dark:text-inverse-primary px-md py-sm rounded-lg font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-primary-container/10 transition-colors text-center">
+                    Sign Up
+                </a>
+<button id="menu-toggle" class="md:hidden text-primary p-2 rounded-lg hover:bg-primary-container/10" aria-label="Open mobile menu">
+<span class="material-symbols-outlined block">menu</span>
+</button>
+</div>
+</div>
+</header>
+<main class="flex-grow pt-20">
+<!-- Hero Section -->
+<section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl md:py-[120px] grid md:grid-cols-2 gap-lg items-center relative">
+<div class="flex flex-col gap-md relative z-20">
+<div class="bg-surface-variant/50 w-fit px-2 py-1 rounded text-xs font-label-md font-bold text-on-surface-variant flex items-center gap-2 mb-2">
+<span class="w-2 h-2 bg-primary-container rounded-sm"></span>SYSTEM ONLINE: V4.0.2
+</div>
+<h1 class="font-headline-lg-mobile text-headline-lg-mobile md:font-headline-xl md:text-[56px] md:leading-[64px] text-on-surface">Building the <span class="text-primary-container font-extrabold">Next<br/>Generation</span> of Robotics<br/>Engineers.</h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant max-w-lg">
+                    Bridging the gap between theory and hardware. Master autonomous systems, neural computation, and industrial IoT through our elite certification programs.
+                </p>
+<div class="flex flex-wrap gap-sm pt-sm">
+<a href="/course-catalog.html" class="bg-primary-container text-white px-lg py-md rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-primary transition-all flex items-center justify-center gap-2">EXPLORE COURSES <span class="material-symbols-outlined text-[18px]">arrow_forward</span></a>
+<button class="border border-primary-container text-primary-container px-lg py-md rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-primary-container/10 transition-all flex items-center gap-2">JOIN WORKSHOP <span class="material-symbols-outlined text-[18px]">precision_manufacturing</span></button>
+</div>
+</div>
+<div class="relative w-full aspect-square md:aspect-square min-h-[500px] md:min-h-[650px] flex flex-col items-center justify-center overflow-visible z-10">
+<!-- Geometric Background Shapes -->
+<div class="absolute inset-0 w-full h-full pointer-events-none flex items-center justify-center z-0">
+<div class="absolute w-full h-full max-w-[500px] max-h-[500px] flex items-center justify-center relative">
+<!-- Triangle 1 (Solid) -->
+<div class="absolute w-[80%] h-[80%] animate-float-up">
+<svg class="w-full h-full text-surface-variant opacity-60 transform rotate-[15deg] -translate-y-4" preserveaspectratio="none" viewbox="0 0 100 100">
+<polygon fill="currentColor" points="50,0 0,100 100,100"></polygon>
+</svg>
+</div>
+<!-- Triangle 2 (Solid) -->
+<div class="absolute w-[70%] h-[70%] animate-float-down">
+<svg class="w-full h-full text-surface-dim opacity-70 transform -rotate-[10deg] translate-x-8 translate-y-8" preserveaspectratio="none" viewbox="0 0 100 100">
+<polygon fill="currentColor" points="50,0 0,100 100,100"></polygon>
+</svg>
+</div>
+<!-- Triangle 3 (Outline) -->
+<div class="absolute w-[90%] h-[90%] animate-drift">
+<svg class="w-full h-full text-outline opacity-40 transform rotate-[30deg] translate-y-4" preserveaspectratio="none" viewbox="0 0 100 100">
+<polygon fill="none" points="50,0 0,100 100,100" stroke="currentColor" stroke-width="1"></polygon>
+</svg>
+</div>
+<!-- Small floating triangle -->
+<div class="absolute top-[10%] left-[10%] w-10 h-10 animate-float-up" style="animation-delay: -2s;">
+<svg class="w-full h-full text-tertiary opacity-60" preserveaspectratio="none" viewbox="0 0 100 100">
+<polygon fill="currentColor" points="50,0 0,100 100,100"></polygon>
+</svg>
+</div>
+<!-- Corner Brackets -->
+<div class="absolute top-[20%] right-[15%] w-8 h-8 border-t-2 border-r-2 border-outline-variant opacity-70 animate-drift" style="animation-delay: -3s;"></div>
+<div class="absolute bottom-[20%] left-[15%] w-8 h-8 border-b-2 border-l-2 border-outline-variant opacity-70 animate-drift" style="animation-delay: -5s;"></div>
+<!-- Decorative Lines -->
+<div class="absolute top-[45%] left-0 w-16 h-[2px] bg-outline-variant opacity-60 animate-float-down" style="animation-delay: -1s;"></div>
+<div class="absolute bottom-[10%] right-[10%] w-20 h-[2px] bg-outline-variant opacity-60 animate-float-up" style="animation-delay: -4s;"></div>
+<!-- New Brand-Colored Small Triangle -->
+<div class="absolute top-[15%] right-[25%] w-6 h-6 animate-logo-float" style="animation-delay: -1.5s;">
+<svg class="w-full h-full text-primary-container opacity-80" viewbox="0 0 100 100">
+<polygon fill="currentColor" points="50,0 0,100 100,100"></polygon>
+</svg>
+</div>
+<!-- New Small Grey Dot -->
+<div class="absolute bottom-[30%] right-[20%] w-2 h-2 bg-outline-variant rounded-full opacity-60 animate-logo-float" style="animation-delay: -2.5s;"></div>
+<!-- New Brand-Colored Dot -->
+<div class="absolute top-[40%] left-[20%] w-3 h-3 bg-primary-container rounded-full opacity-70 animate-logo-float" style="animation-delay: -0.5s;"></div>
+<!-- New Thin Vertical Line -->
+<div class="absolute top-[60%] right-[15%] w-[1px] h-16 bg-outline-variant opacity-40 animate-logo-float" style="animation-delay: -3.5s;"></div>
+<!-- New Small Brand-Colored Square -->
+<div class="absolute bottom-[15%] left-[25%] w-4 h-4 border border-primary-container opacity-60 rotate-[45deg] animate-logo-float" style="animation-delay: -4.5s;"></div></div>
+</div>
+<!-- 2D Logo Container -->
+<div class="absolute inset-0 w-full h-full z-10 pointer-events-none flex items-center justify-center">
+<img alt="Delta Robotics Logo" class="w-64 h-64 md:w-80 md:h-80 object-contain animate-logo-float relative z-10" src="assets/img_74c7a10f2f.png"/>
+</div>
+</div>
+</section>
+<!-- About Section -->
+<section class="bg-surface-container-low py-xl" id="about">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop"><div class="grid grid-cols-1 md:grid-cols-2 gap-lg items-center">
+<div class="flex flex-col gap-md">
+<h2 class="font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg text-primary">About Delta Robotics</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+            We believe that the best way to learn is by doing. Our mission is to provide accessible, high-quality robotics education that inspires creativity and technical excellence. Through practical workshops and rigorous coursework, we prepare students for the challenges of tomorrow's technological landscape.
+        </p>
+</div>
+<div class="rounded-xl overflow-hidden shadow-sm">
+<img alt="Professional robotics workshop for students" class="w-full h-full object-cover" src="assets/img_90c43d6a15.png"/>
+</div>
+</div></div>
+</section>
+<!-- Courses Section -->
+<section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl" id="courses">
+<div class="flex flex-col gap-lg">
+<div class="flex justify-between items-end">
+<h2 class="font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg text-on-surface">Featured Courses</h2>
+<a class="hidden md:flex items-center gap-xs text-primary-container font-label-md text-label-md hover:text-primary transition-colors" href="/course-catalog.html">
+                        View all <span class="material-symbols-outlined text-[18px]">arrow_forward</span>
+</a>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter"><!-- Course Card 1 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+<a href="/course-details.html?course=autonomous-systems" class="h-48 bg-surface-container relative block">
+<div class="absolute top-0 right-0 w-8 h-8 bg-primary-container z-10" style="clip-path: polygon(100% 0, 0 0, 100% 100%);"></div>
+<div class="w-full h-full bg-cover bg-center" style='background-image: url("assets/bg_b52662a685.png");'></div>
+</a>
+<div class="p-md flex flex-col gap-sm flex-grow">
+<span class="text-primary-container font-label-md text-[10px] font-bold uppercase tracking-widest">HARDCORE</span>
+<a href="/course-details.html?course=autonomous-systems" class="hover:text-primary transition-colors">
+<h3 class="font-headline-sm text-headline-md font-bold text-on-surface">Autonomous Systems</h3>
+</a>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+            LiDAR integration, SLAM algorithms, and edge computing for mobile robotics.
+        </p>
+<div class="flex justify-between items-center mt-auto pt-sm">
+<span class="text-on-surface-variant text-xs font-label-md">12 Weeks</span>
+<span class="text-on-surface font-bold text-headline-sm">$1,299</span>
+</div>
+<button class="w-full bg-secondary text-white py-sm rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-on-surface transition-colors mt-sm">ENROLL NOW</button>
+</div>
+</div>
+<!-- Course Card 2 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+<a href="/course-details.html?course=neural-networks" class="h-48 bg-surface-container relative block">
+<div class="absolute top-0 right-0 w-8 h-8 bg-primary-container z-10" style="clip-path: polygon(100% 0, 0 0, 100% 100%);"></div>
+<div class="w-full h-full bg-cover bg-center" style='background-image: url("assets/bg_a9b0f618bf.png");'></div>
+</a>
+<div class="p-md flex flex-col gap-sm flex-grow">
+<span class="text-primary-container font-label-md text-[10px] font-bold uppercase tracking-widest">EXPERT</span>
+<a href="/course-details.html?course=neural-networks" class="hover:text-primary transition-colors">
+<h3 class="font-headline-sm text-headline-md font-bold text-on-surface">Neural Networks</h3>
+</a>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+            Deep learning for computer vision and reactive robot control architectures.
+        </p>
+<div class="flex justify-between items-center mt-auto pt-sm">
+<span class="text-on-surface-variant text-xs font-label-md">8 Weeks</span>
+<span class="text-on-surface font-bold text-headline-sm">$950</span>
+</div>
+<button class="w-full bg-secondary text-white py-sm rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-on-surface transition-colors mt-sm">ENROLL NOW</button>
+</div>
+</div>
+<!-- Course Card 3 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+<a href="/course-details.html?course=embedded-iot" class="h-48 bg-surface-container relative block">
+<div class="absolute top-0 right-0 w-8 h-8 bg-primary-container z-10" style="clip-path: polygon(100% 0, 0 0, 100% 100%);"></div>
+<div class="w-full h-full bg-cover bg-center" style='background-image: url("assets/bg_a292f11599.png");'></div>
+</a>
+<div class="p-md flex flex-col gap-sm flex-grow">
+<span class="text-primary-container font-label-md text-[10px] font-bold uppercase tracking-widest">INTERMEDIATE</span>
+<a href="/course-details.html?course=embedded-iot" class="hover:text-primary transition-colors">
+<h3 class="font-headline-sm text-headline-md font-bold text-on-surface">Embedded IoT</h3>
+</a>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+            Custom PCB design, MQTT protocols, and low-latency sensor networks.
+        </p>
+<div class="flex justify-between items-center mt-auto pt-sm">
+<span class="text-on-surface-variant text-xs font-label-md">10 Weeks</span>
+<span class="text-on-surface font-bold text-headline-sm">$800</span>
+</div>
+<button class="w-full bg-secondary text-white py-sm rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-on-surface transition-colors mt-sm">ENROLL NOW</button>
+</div>
+</div>
+<!-- Course Card 4 -->
+<div class="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+<a href="/course-details.html?course=industrial-automation" class="h-48 bg-surface-container relative block">
+<div class="absolute top-0 right-0 w-8 h-8 bg-primary-container z-10" style="clip-path: polygon(100% 0, 0 0, 100% 100%);"></div>
+<div class="w-full h-full bg-cover bg-center" style='background-image: url("assets/bg_c620b7f22a.png");'></div>
+</a>
+<div class="p-md flex flex-col gap-sm flex-grow">
+<span class="text-primary-container font-label-md text-[10px] font-bold uppercase tracking-widest">INDUSTRY</span>
+<a href="/course-details.html?course=industrial-automation" class="hover:text-primary transition-colors">
+<h3 class="font-headline-sm text-headline-md font-bold text-on-surface">Industrial Automation</h3>
+</a>
+<p class="font-body-md text-body-md text-on-surface-variant flex-grow">
+            PLC programming, SCADA integration, and factory floor orchestration.
+        </p>
+<div class="flex justify-between items-center mt-auto pt-sm">
+<span class="text-on-surface-variant text-xs font-label-md">14 Weeks</span>
+<span class="text-on-surface font-bold text-headline-sm">$1,500</span>
+</div>
+<button class="w-full bg-secondary text-white py-sm rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-on-surface transition-colors mt-sm">ENROLL NOW</button>
+</div>
+</div></div>
+</div>
+</section>
+<!-- Workshops Section -->
+<section class="bg-surface-container-low border-y border-outline-variant py-xl" id="workshops">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop grid md:grid-cols-2 gap-lg items-center">
+<div class="order-2 md:order-1 relative h-64 md:h-full min-h-[300px] rounded-xl overflow-hidden border border-outline-variant">
+<div class="w-full h-full bg-cover bg-center absolute inset-0" data-alt="A group of diverse students collaborating enthusiastically around a complex robot prototype in a bright, modern workshop space. Tools and blueprints visible on the table. High contrast, clean lighting." style='background-image: url("assets/bg_c620b7f22a.png");'></div>
+</div>
+<div class="order-1 md:order-2 flex flex-col gap-md">
+<span class="text-primary-container font-label-md text-label-md font-bold tracking-widest uppercase">Hands-On Learning</span>
+<h2 class="font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg text-on-surface">Weekend Bootcamps &amp; Build Sessions</h2>
+<p class="font-body-lg text-body-lg text-on-surface-variant">
+                        Take theory into reality. Our intensive weekend workshops provide guided, hands-on experience building functional robots from scratch. Work with industry-standard tools and collaborate with peers under the guidance of expert instructors.
+                    </p>
+<ul class="flex flex-col gap-sm mt-sm">
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span class="">All materials and tools provided</span>
+</li>
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span class="">Small group sizes for personalized attention</span>
+</li>
+<li class="flex items-center gap-sm text-on-surface">
+<span class="material-symbols-outlined text-primary-container">check_circle</span>
+<span class="">Take home your completed project</span>
+</li>
+</ul>
+<div class="mt-md">
+<button class="bg-secondary text-white px-lg py-md rounded-lg font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-on-surface transition-colors">
+                            Explore Schedule
+                        </button>
+</div>
+</div>
+</div>
+</section>
+<!-- Gallery Section -->
+<section class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl flex flex-col gap-lg" id="gallery">
+<div class="text-center">
+<h2 class="font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg text-on-surface">Student Gallery</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-sm max-w-2xl mx-auto">A glimpse into the innovation happening in our labs.</p>
+</div>
+<div class="grid grid-cols-2 md:grid-cols-4 gap-sm md:gap-md">
+<div class="col-span-2 row-span-2 rounded-xl overflow-hidden border border-outline-variant h-64 md:h-auto">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" data-alt="A highly detailed close-up of a student's hands carefully soldering components on a custom printed circuit board. Bright, professional lighting, clean white desk surface, showcasing precision and technical skill." src="assets/img_754a9bce26.png"/>
+</div>
+<div class="rounded-xl overflow-hidden border border-outline-variant h-32 md:h-48">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" data-alt="A sleek, autonomous drone prototype hovering in a bright testing arena. Clean white background with orange safety netting, modern technical aesthetic." src="assets/img_dd9d066a57.png"/>
+</div>
+<div class="rounded-xl overflow-hidden border border-outline-variant h-32 md:h-48">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" data-alt="Two students reviewing CAD models on a large monitor, pointing at a mechanical joint design. Modern lab setting, high-key lighting." src="assets/img_1fd9f47ecd.png"/>
+</div>
+<div class="rounded-xl overflow-hidden border border-outline-variant h-32 md:h-48">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" data-alt="A robotic rover navigating a simulated rocky terrain inside a clean, brightly lit testing facility. Orange accents on the rover, professional environment." src="assets/img_5d24930ce7.png"/>
+</div>
+<div class="rounded-xl overflow-hidden border border-outline-variant h-32 md:h-48">
+<img class="w-full h-full object-cover hover:scale-105 transition-transform duration-500" data-alt="A wide shot of a robotics competition arena, students watching intensely as their creations navigate a maze. Bright, energetic atmosphere, clean modern hall." src="assets/img_2e8ecbcf3c.png"/>
+</div>
+</div>
+</section>
+<!-- Contact Section -->
+<section class="bg-surface-container-low border-t border-outline-variant py-xl" id="contact">
+<div class="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop grid md:grid-cols-2 gap-xl">
+<div class="flex flex-col gap-md">
+<h2 class="font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg text-on-surface">Get in Touch</h2>
+<p class="font-body-md text-body-md text-on-surface-variant">Have questions about our programs or want to partner with us? Send us a message.</p>
+<div class="flex flex-col gap-sm mt-md">
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">mail</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">hello@deltarobotics.edu</span>
+</div>
+<div class="flex items-center gap-md">
+<div class="w-10 h-10 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container">
+<span class="material-symbols-outlined">location_on</span>
+</div>
+<span class="font-body-md text-body-md text-on-surface">Innovation District, Tech City</span>
+</div>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-lg rounded-xl border border-outline-variant shadow-sm">
+<form class="flex flex-col gap-md">
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs">Name</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md" placeholder="Your name" type="text"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs">Email</label>
+<input class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md" placeholder="you@example.com" type="email"/>
+</div>
+<div>
+<label class="block font-label-md text-label-md text-on-surface mb-xs">Message</label>
+<textarea class="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md resize-none" placeholder="How can we help?" rows="4"></textarea>
+</div>
+<button class="bg-primary-container text-white px-lg py-md rounded-lg font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-primary transition-colors mt-sm" type="button">
+                            Send Message
+                        </button>
+</form>
+</div>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="w-full bg-surface-container-low dark:bg-inverse-surface border-t border-outline-variant dark:border-outline flat no shadows">
+<div class="grid grid-cols-1 md:grid-cols-4 gap-gutter max-w-7xl mx-auto px-margin-desktop py-xl">
+<div class="col-span-1 md:col-span-2 flex flex-col gap-sm">
+<span class="font-headline-md text-headline-md font-bold text-primary dark:text-inverse-primary mb-4 block">Delta Robotics</span>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant max-w-sm">
+                    Pioneering the next generation of engineers through hands-on robotics education.
+                </p>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant mt-auto pt-md opacity-80 hover:opacity-100 transition-opacity">
+                    © 2024 Delta Robotics. Pioneering the next generation of engineers through hands-on robotics education.
+                </p>
+</div>
+<div class="flex flex-col gap-sm">
+<h4 class="font-headline-sm text-headline-sm text-primary dark:text-inverse-primary mb-2">Navigation</h4>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:translate-x-1 duration-200 block w-fit" href="#about">About</a>
+<a class="font-label-md text-label-md text-on-surface-variant dark:text-surface-variant hover:text-primary dark:hover:text-primary-fixed transition-colors hover:translate-x-1 duration-200 block w-fit" href="#courses">Courses</a>
+</div></div></footer>
+
+<!-- Mobile Drawer -->
+<div id="mobile-drawer" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+<div class="absolute right-0 top-0 h-full w-64 bg-surface dark:bg-inverse-surface p-6 shadow-xl flex flex-col gap-6 transform translate-x-full transition-transform duration-300">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-headline-sm font-bold text-primary dark:text-inverse-primary">Menu</span>
+<button id="menu-close" class="text-on-surface dark:text-surface-variant p-2 rounded-lg hover:bg-primary-container/10">
+<span class="material-symbols-outlined block">close</span>
+</button>
+</div>
+<nav class="flex flex-col gap-4 text-lg">
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#about">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/course-catalog.html">Courses</a>
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#workshops">Workshops</a>
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#gallery">Gallery</a>
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#contact">Contact</a>
+</nav>
+<div class="flex flex-col gap-2 mt-auto">
+<a href="/login.html" class="w-full bg-primary-container text-white py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-primary text-center block">
+      Login
+</a>
+<a href="/signup.html" class="w-full border border-primary-container text-primary-container dark:text-inverse-primary py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-primary-container/10 text-center block">
+      Sign Up
+</a>
+</div>
+</div>
+</div>
+
+<!-- Toast Message -->
+<div id="toast" class="fixed bottom-8 right-8 z-50 transform translate-y-12 opacity-0 pointer-events-none transition-all duration-300 bg-inverse-surface dark:bg-surface text-surface dark:text-on-surface px-6 py-4 rounded-xl shadow-lg border border-outline-variant flex items-center gap-3">
+<span class="material-symbols-outlined text-primary-container">info</span>
+<span id="toast-text" class="font-bold text-sm">Notification message</span>
+</div>
+
+<!-- Modal -->
+<div id="modal" class="fixed inset-0 z-50 bg-black/60 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300 flex items-center justify-center p-4">
+<div class="bg-surface dark:bg-inverse-surface p-8 rounded-2xl border border-outline-variant w-full max-w-md shadow-2xl transform scale-95 transition-all duration-300">
+<h3 id="modal-title" class="font-headline-md text-headline-md text-on-surface dark:text-white mb-4">Modal Title</h3>
+<p id="modal-desc" class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant mb-6">Modal description goes here.</p>
+<div class="flex justify-end gap-md">
+<button id="modal-close" class="border border-outline-variant text-on-surface dark:text-white hover:bg-surface-variant/10 px-4 py-2 rounded-lg font-bold">CLOSE</button>
+<button id="modal-action" class="bg-primary-container text-white hover:bg-primary px-4 py-2 rounded-lg font-bold">CONFIRM</button>
+</div>
+</div>
+</div>
+
+<script>
+  // Elements
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeToggleIcon = document.getElementById('theme-toggle-icon');
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuClose = document.getElementById('menu-close');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const mobileDrawerContent = mobileDrawer.querySelector('div');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+  
+  const toast = document.getElementById('toast');
+  const toastText = document.getElementById('toast-text');
+  
+  const modal = document.getElementById('modal');
+  const modalContent = modal.querySelector('div');
+  const modalTitle = document.getElementById('modal-title');
+  const modalDesc = document.getElementById('modal-desc');
+  const modalClose = document.getElementById('modal-close');
+  const modalAction = document.getElementById('modal-action');
+
+  // Theme Logic
+  function setTheme(isDark) {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      themeToggleIcon.textContent = 'light_mode';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      themeToggleIcon.textContent = 'dark_mode';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // Init Theme
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  setTheme(savedTheme === 'dark');
+
+  themeToggle.addEventListener('click', () => {
+    const isDark = document.documentElement.classList.contains('dark');
+    setTheme(!isDark);
+  });
+
+  // Mobile Menu Logic
+  function toggleMenu(show) {
+    if (show) {
+      mobileDrawer.classList.remove('opacity-0', 'pointer-events-none');
+      mobileDrawerContent.classList.remove('translate-x-full');
+    } else {
+      mobileDrawer.classList.add('opacity-0', 'pointer-events-none');
+      mobileDrawerContent.classList.add('translate-x-full');
+    }
+  }
+
+  menuToggle.addEventListener('click', () => toggleMenu(true));
+  menuClose.addEventListener('click', () => toggleMenu(false));
+  mobileDrawer.addEventListener('click', (e) => {
+    if (e.target === mobileDrawer) toggleMenu(false);
+  });
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+  });
+
+  // Toast Helper
+  function showToast(message) {
+    toastText.textContent = message;
+    toast.classList.remove('translate-y-12', 'opacity-0', 'pointer-events-none');
+    setTimeout(() => {
+      toast.classList.add('translate-y-12', 'opacity-0', 'pointer-events-none');
+    }, 3000);
+  }
+
+  // Modal Helper
+  function showModal(title, desc, actionText = 'CONFIRM', onAction = null) {
+    modalTitle.textContent = title;
+    modalDesc.textContent = desc;
+    modalAction.textContent = actionText;
+    
+    if (onAction) {
+      modalAction.classList.remove('hidden');
+      const newAction = modalAction.cloneNode(true);
+      modalAction.parentNode.replaceChild(newAction, modalAction);
+      newAction.addEventListener('click', () => {
+        onAction();
+        hideModal();
+      });
+    } else {
+      modalAction.classList.add('hidden');
+    }
+    
+    modal.classList.remove('opacity-0', 'pointer-events-none');
+    modalContent.classList.remove('scale-95');
+  }
+
+  function hideModal() {
+    modal.classList.add('opacity-0', 'pointer-events-none');
+    modalContent.classList.add('scale-95');
+  }
+
+  modalClose.addEventListener('click', hideModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) hideModal();
+  });
+
+  // Contact Form Submission
+  const form = document.querySelector('form');
+  const formSubmitBtn = form.querySelector('button');
+  formSubmitBtn.addEventListener('click', (e) => {
+    e.preventDefault();
+    const nameInput = form.querySelector('input[placeholder="Your name"]').value.trim();
+    const emailInput = form.querySelector('input[placeholder="you@example.com"]').value.trim();
+    const msgInput = form.querySelector('textarea').value.trim();
+
+    if (!nameInput || !emailInput || !msgInput) {
+      showToast('⚠️ Please fill out all contact form fields.');
+      return;
+    }
+
+    showToast('🚀 Message sent! We will get back to you soon.');
+    form.reset();
+  });
+
+  // Course Enrollment & Bootcamp Join Button actions
+  document.querySelectorAll('button').forEach(btn => {
+    const text = btn.textContent.trim().toUpperCase();
+    if (text === 'ENROLL NOW') {
+      const card = btn.closest('.bg-surface-container-lowest');
+      const title = card.querySelector('h3').textContent;
+      const price = card.querySelector('span.text-headline-sm').textContent;
+      btn.addEventListener('click', () => {
+        showModal(
+          `Enroll in ${title}`,
+          `You are registering for our ${title} certification program. Total tuition is ${price}. Would you like to confirm registration?`,
+          'CONFIRM ENROLLMENT',
+          () => {
+            showToast(`🎉 Enrolled successfully in ${title}! Welcome aboard.`);
+          }
+        );
+      });
+    } else if (text === 'JOIN WORKSHOP' || text === 'EXPLORE SCHEDULE') {
+      btn.addEventListener('click', () => {
+        showModal(
+          'Join Weekend Bootcamp',
+          'Learn from expert mentors in our state-of-the-art labs. Weekend build sessions run Saturday & Sunday 9am - 5pm. Confirm to receive schedule details.',
+          'GET SCHEDULE',
+          () => {
+            showToast('📩 Schedule details sent to your registered email.');
+          }
+        );
+      });
+    } else if (text === 'LOGIN') {
+      btn.addEventListener('click', () => {
+        showModal(
+          'Student Dashboard Access',
+          'Login to access course materials, submit project assignments, and check your grading results.',
+          'ACCESS DASHBOARD',
+          () => {
+            showToast('🔐 Redirecting to Student Dashboard...');
+          }
+        );
+      });
+    } else if (text === 'EXPLORE COURSES') {
+      btn.addEventListener('click', () => {
+        const coursesElem = document.getElementById('courses');
+        if (coursesElem) {
+          const headerOffset = 80;
+          const elementPosition = coursesElem.getBoundingClientRect().top;
+          const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+          window.scrollTo({
+            top: offsetPosition,
+            behavior: 'smooth'
+          });
+        }
+      });
+    }
+  });
+
+  // Smooth Scroll offset for sticky nav links
+  document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+    anchor.addEventListener('click', function (e) {
+      e.preventDefault();
+      const targetId = this.getAttribute('href');
+      if (targetId === '#') return;
+      const targetElement = document.querySelector(targetId);
+      if (targetElement) {
+        const headerOffset = 80;
+        const elementPosition = targetElement.getBoundingClientRect().top;
+        const offsetPosition = elementPosition + window.pageYOffset - headerOffset;
+        window.scrollTo({
+          top: offsetPosition,
+          behavior: 'smooth'
+        });
+      }
+    });
+  });
+</script>
+</body></html>

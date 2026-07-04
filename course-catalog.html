@@ -1,0 +1,482 @@
+<!DOCTYPE html><html class="light" lang="en"><head>
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1.0" name="viewport">
+<title>RoboAcademy - Course Catalog</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;700;800&amp;family=Inter:wght@400;500;600&amp;family=JetBrains+Mono:wght@400;500&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    "colors": {
+                        "background": "#f8f9fa",
+                        "inverse-on-surface": "#f0f1f2",
+                        "surface-container": "#edeeef",
+                        "error-container": "#ffdad6",
+                        "on-secondary": "#ffffff",
+                        "on-error": "#ffffff",
+                        "primary-fixed": "#ffdbcc",
+                        "on-primary-container": "#572000",
+                        "tertiary-fixed": "#dde4e6",
+                        "on-background": "#191c1d",
+                        "on-surface-variant": "#5a4136",
+                        "surface-container-lowest": "#ffffff",
+                        "on-error-container": "#93000a",
+                        "outline-variant": "#e2bfb0",
+                        "surface-dim": "#d9dadb",
+                        "on-tertiary": "#ffffff",
+                        "on-secondary-container": "#656464",
+                        "surface-tint": "#a04100",
+                        "primary": "#a04100",
+                        "on-primary-fixed": "#351000",
+                        "inverse-surface": "#2e3132",
+                        "surface": "#f8f9fa",
+                        "secondary-fixed-dim": "#c8c6c5",
+                        "on-tertiary-fixed-variant": "#41484a",
+                        "surface-bright": "#f8f9fa",
+                        "surface-container-low": "#f3f4f5",
+                        "on-secondary-fixed": "#1c1b1b",
+                        "primary-container": "#ff6b00",
+                        "on-tertiary-fixed": "#161d1f",
+                        "inverse-primary": "#ffb693",
+                        "secondary-container": "#e5e2e1",
+                        "tertiary-container": "#939a9c",
+                        "secondary": "#5f5e5e",
+                        "on-primary": "#ffffff",
+                        "tertiary": "#586062",
+                        "surface-container-high": "#e7e8e9",
+                        "on-tertiary-container": "#2b3234",
+                        "secondary-fixed": "#e5e2e1",
+                        "outline": "#8e7164",
+                        "tertiary-fixed-dim": "#c1c8ca",
+                        "error": "#ba1a1a",
+                        "primary-fixed-dim": "#ffb693",
+                        "surface-variant": "#e1e3e4",
+                        "surface-container-highest": "#e1e3e4",
+                        "on-surface": "#191c1d",
+                        "on-secondary-fixed-variant": "#474646",
+                        "on-primary-fixed-variant": "#7a3000"
+                    },
+                    "borderRadius": {
+                        "DEFAULT": "0.25rem",
+                        "lg": "0.5rem",
+                        "xl": "0.75rem",
+                        "full": "9999px"
+                    },
+                    "spacing": {
+                        "md": "24px",
+                        "gutter": "24px",
+                        "base": "8px",
+                        "xl": "80px",
+                        "xs": "4px",
+                        "lg": "48px",
+                        "margin-desktop": "40px",
+                        "margin-mobile": "16px",
+                        "sm": "12px"
+                    },
+                    "fontFamily": {
+                        "headline-lg": ["Manrope"],
+                        "body-lg": ["Inter"],
+                        "headline-md": ["Manrope"],
+                        "label-md": ["JetBrains Mono"],
+                        "headline-xl": ["Manrope"],
+                        "body-md": ["Inter"],
+                        "headline-lg-mobile": ["Manrope"]
+                    },
+                    "fontSize": {
+                        "headline-lg": ["32px", { "lineHeight": "40px", "letterSpacing": "-0.01em", "fontWeight": "700" }],
+                        "body-lg": ["18px", { "lineHeight": "28px", "fontWeight": "400" }],
+                        "headline-md": ["24px", { "lineHeight": "32px", "fontWeight": "700" }],
+                        "label-md": ["14px", { "lineHeight": "20px", "fontWeight": "500" }],
+                        "headline-xl": ["48px", { "lineHeight": "56px", "letterSpacing": "-0.02em", "fontWeight": "800" }],
+                        "body-md": ["16px", { "lineHeight": "24px", "fontWeight": "400" }],
+                        "headline-lg-mobile": ["28px", { "lineHeight": "36px", "fontWeight": "700" }]
+                    }
+                }
+            }
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .material-symbols-outlined[data-weight="fill"] {
+            font-variation-settings: 'FILL' 1;
+        }
+        .card-hover:hover {
+            box-shadow: 0px 4px 20px rgba(0, 0, 0, 0.05);
+            border-color: #ff6b00;
+        }
+        .input-focus:focus-within {
+            border-color: #ff6b00;
+            border-width: 2px;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body-md text-body-md antialiased min-h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav aria-label="Top navigation" class="bg-surface dark:bg-inverse-surface border-b border-secondary-container dark:border-secondary shadow-sm dark:shadow-none sticky top-0 z-50 w-full">
+<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-7xl mx-auto">
+<div class="flex items-center gap-lg">
+<a class="font-headline-md text-headline-md font-extrabold text-primary dark:text-primary-container" href="/index.html">Delta Robotics</a>
+<div class="hidden md:flex items-center gap-md">
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 rounded-lg duration-200 px-3 py-2" href="/index.html#about">About</a>
+<a class="text-primary dark:text-primary-container border-b-2 border-primary font-bold pb-1 hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 rounded-t-lg transition-all duration-200 px-3 pt-2" href="/course-catalog.html">Courses</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 rounded-lg duration-200 px-3 py-2" href="/index.html#workshops">Workshops</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 rounded-lg duration-200 px-3 py-2" href="/index.html#gallery">Gallery</a>
+<a class="text-secondary dark:text-secondary-fixed-dim hover:text-primary transition-colors hover:bg-surface-container dark:hover:bg-secondary-fixed-dim/10 rounded-lg duration-200 px-3 py-2" href="/index.html#contact">Contact</a>
+</div>
+</div>
+<div class="flex items-center gap-sm">
+<div class="hidden md:flex items-center input-focus bg-surface-container-lowest border border-secondary-container rounded-lg px-3 py-2">
+<span class="material-symbols-outlined text-secondary mr-2" data-icon="search">search</span>
+<input class="bg-transparent border-none outline-none focus:ring-0 p-0 text-body-md font-body-md text-on-surface w-48 placeholder:text-secondary" placeholder="Search courses..." type="text">
+</div>
+<button id="theme-toggle" class="p-2 rounded-lg hover:bg-primary-container/10 dark:hover:bg-primary-container/20 transition-all duration-200 text-on-secondary-container dark:text-secondary-fixed-dim" aria-label="Toggle dark mode">
+<span id="theme-toggle-icon" class="material-symbols-outlined block">dark_mode</span>
+</button>
+<a href="/login.html" class="hidden md:block font-label-md text-label-md font-semibold text-[#0F0F0F] dark:text-inverse-primary hover:text-primary transition-colors px-4 py-2 text-center">Login</a>
+<a href="/signup.html" class="bg-primary-container text-on-secondary font-headline-md text-[16px] leading-[24px] font-bold px-6 py-2 rounded-lg hover:bg-[#e66000] transition-colors uppercase tracking-wider text-center">Enroll Now</a>
+<button id="menu-toggle" class="md:hidden text-secondary p-2 hover:bg-primary-container/10 rounded-lg" aria-label="Open mobile menu">
+<span class="material-symbols-outlined block" data-icon="menu">menu</span>
+</button>
+</div>
+</div>
+</nav>
+<!-- Main Content -->
+<main class="flex-grow w-full max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-lg">
+<!-- Hero Section -->
+<section class="mb-xl text-center md:text-left grid grid-cols-1 md:grid-cols-2 gap-lg items-center">
+<div class="order-2 md:order-1">
+<h1 class="font-headline-lg-mobile md:font-headline-xl text-headline-lg-mobile md:text-headline-xl text-on-surface mb-md">Master the Future of <span class="text-primary-container">Robotics</span></h1>
+<p class="font-body-lg text-body-lg text-on-surface-variant mb-lg max-w-2xl">Elevate your engineering skills with industry-leading courses in Autonomous Systems, AI, and Embedded Technologies. Start your journey today.</p>
+<!-- Search & Filter -->
+<div class="bg-surface-container-lowest p-sm md:p-md rounded-xl border border-secondary-container shadow-sm flex flex-col md:flex-row gap-sm items-center">
+<div class="flex-grow w-full input-focus flex items-center border border-secondary-container rounded-lg px-3 py-2 bg-background">
+<span class="material-symbols-outlined text-secondary mr-2" data-icon="search">search</span>
+<input class="w-full bg-transparent border-none outline-none focus:ring-0 p-0 text-body-md font-body-md text-on-surface" placeholder="Find your next course..." type="text">
+</div>
+<div class="w-full md:w-auto flex gap-sm overflow-x-auto pb-2 md:pb-0 scrollbar-hide">
+<button class="whitespace-nowrap px-4 py-2 bg-primary/10 text-primary font-label-md text-label-md rounded-full border border-primary/20 hover:bg-primary/20 transition-colors">All Courses</button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface text-secondary font-label-md text-label-md rounded-full border border-secondary-container hover:bg-surface-container transition-colors">Autonomous Systems</button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface text-secondary font-label-md text-label-md rounded-full border border-secondary-container hover:bg-surface-container transition-colors">AI &amp; ML</button>
+<button class="whitespace-nowrap px-4 py-2 bg-surface text-secondary font-label-md text-label-md rounded-full border border-secondary-container hover:bg-surface-container transition-colors">IoT</button>
+</div>
+</div>
+</div>
+<div class="order-1 md:order-2 h-64 md:h-[400px] w-full rounded-xl overflow-hidden relative border border-secondary-container">
+<div class="bg-cover bg-center w-full h-full" data-alt="A professional, well-lit photo of a modern robotics lab. In the foreground, a sleek, articulated robotic arm is assembling a complex circuit board. The lighting is high-key and bright, typical of a modern corporate educational environment, with a predominantly white and light gray palette accented by the brand's vibrant orange. The mood is focused, technological, and authoritative." style="background-image: url('assets/asset_bf7bb71443.png')"></div>
+</div>
+</section>
+<!-- Course Grid -->
+<section>
+<div class="flex justify-between items-end mb-lg">
+<h2 class="font-headline-lg text-headline-lg text-on-surface">Available Courses</h2>
+<button class="text-primary font-label-md text-label-md flex items-center gap-xs hover:underline">
+                    View All <span class="material-symbols-outlined text-[18px]" data-icon="arrow_forward">arrow_forward</span>
+</button>
+</div>
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-gutter">
+<!-- Course Card 1 -->
+<article class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col h-full">
+<a href="/course-details.html?course=intro-to-ros" class="h-48 relative block">
+<img class="w-full h-full object-cover" data-alt="A close-up shot of a computer monitor displaying complex ROS (Robot Operating System) code in a dark theme, juxtaposed against a brightly lit, sterile white lab environment. A small, wheeled autonomous robot rests on the desk beside the monitor. The image maintains a clean, modern educational aesthetic with subtle orange highlights." src="assets/asset_41da951b75.png">
+<div class="absolute top-sm right-sm bg-primary/10 text-primary font-label-md text-label-md px-3 py-1 rounded-full border border-primary/20 backdrop-blur-sm bg-white/90">Beginner</a>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<div class="flex items-center gap-sm mb-sm text-secondary font-label-md text-label-md">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 12 Weeks</span>
+<span class="">•</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="school">school</span> Autonomous Sys</span>
+</div>
+<a href="/course-details.html?course=intro-to-ros" class="hover:text-primary transition-colors"><h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Intro to ROS</h3></a>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">Master the foundational concepts of the Robot Operating System (ROS). Build, simulate, and deploy simple nodes for mobile robots.</p>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-secondary-container">
+<span class="font-headline-md text-[20px] leading-[28px] font-bold text-on-surface">$499</span>
+<a href="/course-details.html?course=intro-to-ros" class="bg-primary-container text-on-secondary font-label-md text-label-md font-bold px-4 py-2 rounded-lg hover:bg-[#e66000] transition-colors uppercase text-center block">View Details</a>
+</div>
+</div>
+</article>
+<!-- Course Card 2 -->
+<article class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col h-full">
+<a href="/course-details.html?course=neural-network-foundations" class="h-48 relative block">
+<img class="w-full h-full object-cover" data-alt="An abstract but realistic depiction of neural networks represented as glowing orange nodes and connections overlaid on a clean, white robotic head model. The setting is a minimalist studio with soft, diffused white lighting, emphasizing the intersection of artificial intelligence and physical hardware. The mood is advanced and academic." src="assets/asset_bb5c665b72.png">
+<div class="absolute top-sm right-sm bg-tertiary-container/30 text-on-tertiary-container font-label-md text-label-md px-3 py-1 rounded-full border border-tertiary-container/50 backdrop-blur-sm bg-white/90">Intermediate</a>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<div class="flex items-center gap-sm mb-sm text-secondary font-label-md text-label-md">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 16 Weeks</span>
+<span class="">•</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="school">school</span> AI &amp; ML</span>
+</div>
+<a href="/course-details.html?course=neural-network-foundations" class="hover:text-primary transition-colors"><h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Neural Network Foundations</h3></a>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">Dive deep into machine learning architectures specifically tailored for robotic perception and decision-making systems.</p>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-secondary-container">
+<span class="font-headline-md text-[20px] leading-[28px] font-bold text-on-surface">$799</span>
+<a href="/course-details.html?course=neural-network-foundations" class="bg-primary-container text-on-secondary font-label-md text-label-md font-bold px-4 py-2 rounded-lg hover:bg-[#e66000] transition-colors uppercase text-center block">View Details</a>
+</div>
+</div>
+</article>
+<!-- Course Card 3 -->
+<article class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col h-full">
+<a href="/course-details.html?course=embedded-systems" class="h-48 relative block">
+<img class="w-full h-full object-cover" data-alt="A highly detailed, macro photograph of a custom printed circuit board (PCB) with various microcontrollers and embedded sensors. The board is resting on an anti-static mat in a pristine, bright engineering workspace. The focus is sharp on the central processing unit, conveying precision and complexity within a professional educational context." src="assets/asset_c007acacb3.png">
+<div class="absolute top-sm right-sm bg-[#0F0F0F] text-white font-label-md text-label-md px-3 py-1 rounded-full border border-gray-700 backdrop-blur-sm bg-black/80">Advanced</a>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<div class="flex items-center gap-sm mb-sm text-secondary font-label-md text-label-md">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 20 Weeks</span>
+<span class="">•</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="school">school</span> IoT</span>
+</div>
+<a href="/course-details.html?course=embedded-systems" class="hover:text-primary transition-colors"><h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Embedded Systems</h3></a>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">Design and program custom hardware interfaces. Learn C/C++ optimization for real-time operating systems in constrained environments.</p>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-secondary-container">
+<span class="font-headline-md text-[20px] leading-[28px] font-bold text-on-surface">$999</span>
+<a href="/course-details.html?course=embedded-systems" class="bg-primary-container text-on-secondary font-label-md text-label-md font-bold px-4 py-2 rounded-lg hover:bg-[#e66000] transition-colors uppercase text-center block">View Details</a>
+</div>
+</div>
+</article>
+<!-- Course Card 4 -->
+<article class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col h-full">
+<a href="/course-details.html?course=advanced-kinematics" class="h-48 relative block">
+<img class="w-full h-full object-cover" data-alt="A professional photo of a modern hexapod robot walking across a test terrain in a brightly lit laboratory setting. The background features blurred, clean white whiteboards with complex mathematical equations. The image uses a light mode aesthetic with the brand's energetic orange subtly present in the robot's casing." src="assets/asset_abf7688ee4.png">
+<div class="absolute top-sm right-sm bg-tertiary-container/30 text-on-tertiary-container font-label-md text-label-md px-3 py-1 rounded-full border border-tertiary-container/50 backdrop-blur-sm bg-white/90">Intermediate</a>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<div class="flex items-center gap-sm mb-sm text-secondary font-label-md text-label-md">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 14 Weeks</span>
+<span class="">•</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="school">school</span> Autonomous Sys</span>
+</div>
+<a href="/course-details.html?course=advanced-kinematics" class="hover:text-primary transition-colors"><h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Advanced Kinematics</h3></a>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">Understand the mathematics behind robotic movement. Cover forward and inverse kinematics, trajectory planning, and dynamics.</p>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-secondary-container">
+<span class="font-headline-md text-[20px] leading-[28px] font-bold text-on-surface">$649</span>
+<a href="/course-details.html?course=advanced-kinematics" class="bg-primary-container text-on-secondary font-label-md text-label-md font-bold px-4 py-2 rounded-lg hover:bg-[#e66000] transition-colors uppercase text-center block">View Details</a>
+</div>
+</div>
+</article>
+<!-- Course Card 5 -->
+<article class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col h-full">
+<a href="/course-details.html?course=computer-vision" class="h-48 relative block">
+<img class="w-full h-full object-cover" data-alt="A clean, minimalist composition showing a depth-sensing camera module mounted on a tripod, aimed at a test subject in a bright, white studio. The image highlights the lens and sensors, symbolizing computer vision. The lighting is soft and shadowless, reflecting a high-end corporate education style." src="assets/asset_ebc3df4558.png">
+<div class="absolute top-sm right-sm bg-[#0F0F0F] text-white font-label-md text-label-md px-3 py-1 rounded-full border border-gray-700 backdrop-blur-sm bg-black/80">Advanced</a>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<div class="flex items-center gap-sm mb-sm text-secondary font-label-md text-label-md">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 18 Weeks</span>
+<span class="">•</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="school">school</span> AI &amp; ML</span>
+</div>
+<a href="/course-details.html?course=computer-vision" class="hover:text-primary transition-colors"><h3 class="font-headline-md text-headline-md text-on-surface mb-sm">Computer Vision for Robotics</h3></a>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">Implement object detection, segmentation, and tracking algorithms using OpenCV and modern deep learning frameworks.</p>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-secondary-container">
+<span class="font-headline-md text-[20px] leading-[28px] font-bold text-on-surface">$899</span>
+<a href="/course-details.html?course=computer-vision" class="bg-primary-container text-on-secondary font-label-md text-label-md font-bold px-4 py-2 rounded-lg hover:bg-[#e66000] transition-colors uppercase text-center block">View Details</a>
+</div>
+</div>
+</article>
+<!-- Course Card 6 -->
+<article class="bg-surface-container-lowest border border-[#E5E7EB] rounded-xl overflow-hidden card-hover transition-all duration-300 flex flex-col h-full">
+<a href="/course-details.html?course=iot-fleet" class="h-48 relative block">
+<img class="w-full h-full object-cover" data-alt="A top-down view of a modern workstation featuring a laptop displaying a fleet management dashboard with several drones. Beside the laptop is a partially assembled drone. The scene is brightly lit with natural light, emphasizing a clean, organized, and professional learning environment typical of a top-tier tech academy." src="assets/asset_9e07e57649.png">
+<div class="absolute top-sm right-sm bg-primary/10 text-primary font-label-md text-label-md px-3 py-1 rounded-full border border-primary/20 backdrop-blur-sm bg-white/90">Beginner</a>
+</div>
+<div class="p-md flex flex-col flex-grow">
+<div class="flex items-center gap-sm mb-sm text-secondary font-label-md text-label-md">
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="schedule">schedule</span> 8 Weeks</span>
+<span class="">•</span>
+<span class="flex items-center gap-xs"><span class="material-symbols-outlined text-[16px]" data-icon="school">school</span> IoT</span>
+</div>
+<a href="/course-details.html?course=iot-fleet" class="hover:text-primary transition-colors"><h3 class="font-headline-md text-headline-md text-on-surface mb-sm">IoT Fleet Management</h3></a>
+<p class="font-body-md text-body-md text-on-surface-variant mb-md flex-grow">Learn how to connect, monitor, and manage swarms of robots using cloud infrastructure and secure IoT protocols.</p>
+<div class="flex items-center justify-between mt-auto pt-md border-t border-secondary-container">
+<span class="font-headline-md text-[20px] leading-[28px] font-bold text-on-surface">$399</span>
+<a href="/course-details.html?course=iot-fleet" class="bg-primary-container text-on-secondary font-label-md text-label-md font-bold px-4 py-2 rounded-lg hover:bg-[#e66000] transition-colors uppercase text-center block">View Details</a>
+</div>
+</div>
+</article>
+</div>
+</section>
+</main>
+<!-- Footer -->
+<footer class="bg-surface-container-highest dark:bg-inverse-surface border-t border-secondary-container dark:border-secondary mt-auto w-full">
+<div class="flex flex-col md:flex-row justify-between items-center w-full px-margin-desktop py-xl max-w-7xl mx-auto">
+<div class="mb-lg md:mb-0 text-center md:text-left">
+<p class="font-headline-md text-headline-md font-bold text-on-surface dark:text-inverse-on-surface mb-2">Delta Robotics</p>
+<p class="font-body-md text-body-md text-on-surface-variant dark:text-surface-variant">© 2024 RoboAcademy. Building the next generation of engineers.</p>
+</div>
+<nav class="flex flex-wrap justify-center gap-md">
+<a class="text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Privacy Policy</a>
+<a class="text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Terms of Service</a>
+<a class="text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Support</a>
+<a class="text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Sitemap</a>
+<a class="text-on-secondary-fixed-variant hover:text-primary transition-colors duration-200 font-body-md text-body-md focus:outline-none focus:ring-2 focus:ring-primary rounded" href="#">Affiliates</a>
+</nav>
+</div>
+</div></div></footer>
+
+<!-- Mobile Drawer -->
+<div id="mobile-drawer" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+<div class="absolute right-0 top-0 h-full w-64 bg-surface dark:bg-inverse-surface p-6 shadow-xl flex flex-col gap-6 transform translate-x-full transition-transform duration-300">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-headline-sm font-bold text-primary dark:text-inverse-primary">Menu</span>
+<button id="menu-close" class="text-on-surface dark:text-surface-variant p-2 rounded-lg hover:bg-primary-container/10">
+<span class="material-symbols-outlined block">close</span>
+</button>
+</div>
+<nav class="flex flex-col gap-4 text-lg">
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#about">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/course-catalog.html">Courses</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#workshops">Workshops</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#gallery">Gallery</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="/index.html#contact">Contact</a>
+</nav>
+<div class="flex flex-col gap-2 mt-auto">
+<a href="/login.html" class="w-full bg-primary-container text-white py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-primary text-center block">
+      Login
+</a>
+<a href="/signup.html" class="w-full border border-primary-container text-primary-container dark:text-inverse-primary py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-primary-container/10 text-center block">
+      Sign Up
+</a>
+</div>
+</div>
+</div>
+
+<script>
+  // Elements
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeToggleIcon = document.getElementById('theme-toggle-icon');
+  const menuToggle = document.getElementById('menu-toggle');
+  const menuClose = document.getElementById('menu-close');
+  const mobileDrawer = document.getElementById('mobile-drawer');
+  const mobileDrawerContent = mobileDrawer.querySelector('div');
+
+  // Theme Logic
+  function setTheme(isDark) {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      themeToggleIcon.textContent = 'light_mode';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      themeToggleIcon.textContent = 'dark_mode';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // Init Theme
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  setTheme(savedTheme === 'dark');
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(!isDark);
+    });
+  }
+
+  // Mobile Menu Logic
+  function toggleMenu(show) {
+    if (show) {
+      mobileDrawer.classList.remove('opacity-0', 'pointer-events-none');
+      mobileDrawerContent.classList.remove('translate-x-full');
+    } else {
+      mobileDrawer.classList.add('opacity-0', 'pointer-events-none');
+      mobileDrawerContent.classList.add('translate-x-full');
+    }
+  }
+
+  if (menuToggle) menuToggle.addEventListener('click', () => toggleMenu(true));
+  if (menuClose) menuClose.addEventListener('click', () => toggleMenu(false));
+  if (mobileDrawer) {
+    mobileDrawer.addEventListener('click', (e) => {
+      if (e.target === mobileDrawer) toggleMenu(false);
+    });
+  }
+
+  // Search & Filter Logic
+  const headerSearchInput = document.querySelector('input[placeholder="Search courses..."]');
+  const heroSearchInput = document.querySelector('input[placeholder="Find your next course..."]');
+  const categoryTags = document.querySelectorAll('.scrollbar-hide button');
+  const courseCards = document.querySelectorAll('article');
+
+  let activeCategory = 'All Courses';
+  let searchQuery = '';
+
+  function filterCourses() {
+    const query = searchQuery.toLowerCase().trim();
+    
+    courseCards.forEach(card => {
+      const title = card.querySelector('h3').textContent.toLowerCase();
+      const description = card.querySelector('p').textContent.toLowerCase();
+      const categoryEl = Array.from(card.querySelectorAll('span')).find(el => {
+        const txt = el.textContent.trim();
+        return txt.includes('Autonomous Sys') || txt.includes('AI & ML') || txt.includes('IoT');
+      });
+      const category = categoryEl ? categoryEl.textContent.trim().toLowerCase() : '';
+
+      // Matches Category Filter
+      let categoryMatch = false;
+      if (activeCategory === 'All Courses') {
+        categoryMatch = true;
+      } else if (activeCategory === 'Autonomous Systems') {
+        categoryMatch = category.includes('autonomous');
+      } else if (activeCategory === 'AI & ML') {
+        categoryMatch = category.includes('ai') || category.includes('ml');
+      } else if (activeCategory === 'IoT') {
+        categoryMatch = category.includes('iot');
+      }
+
+      // Matches Search Query
+      const searchMatch = title.includes(query) || description.includes(query);
+
+      // Show/Hide
+      if (categoryMatch && searchMatch) {
+        card.style.display = '';
+      } else {
+        card.style.display = 'none';
+      }
+    });
+  }
+
+  // Bind Search Inputs
+  [headerSearchInput, heroSearchInput].forEach(input => {
+    if (input) {
+      input.addEventListener('input', (e) => {
+        searchQuery = e.target.value;
+        // Sync search input values
+        if (input === headerSearchInput && heroSearchInput) {
+          heroSearchInput.value = searchQuery;
+        } else if (input === heroSearchInput && headerSearchInput) {
+          headerSearchInput.value = searchQuery;
+        }
+        filterCourses();
+      });
+    }
+  });
+
+  // Bind Category Tags
+  categoryTags.forEach(tag => {
+    tag.addEventListener('click', () => {
+      const text = tag.textContent.trim();
+      activeCategory = text;
+
+      // Update Tag styling
+      categoryTags.forEach(t => {
+        t.classList.remove('bg-primary/10', 'text-primary', 'border-primary/20');
+        t.classList.add('bg-surface', 'text-secondary', 'border-secondary-container');
+      });
+
+      tag.classList.remove('bg-surface', 'text-secondary', 'border-secondary-container');
+      tag.classList.add('bg-primary/10', 'text-primary', 'border-primary/20');
+
+      filterCourses();
+    });
+  });
+</script>
+</body></html>
