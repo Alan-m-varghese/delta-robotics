@@ -162,28 +162,39 @@
 </head>
 <body class="bg-background text-on-background antialiased font-body-md">
 <!-- TopNavBar -->
-<nav class="bg-surface border-b border-secondary-container shadow-sm sticky top-0 z-50">
-<div class="flex justify-between items-center w-full px-margin-mobile md:px-margin-desktop py-4 max-w-7xl mx-auto">
-<div class="flex items-center gap-lg">
-<a class="font-headline-md text-headline-md font-extrabold text-primary" href="./index.html">Delta Robotics</a>
-<div class="hidden md:flex gap-md items-center">
-<a class="text-secondary hover:text-primary transition-colors hover:bg-surface-container rounded-lg px-3 py-2" href="./index.html#about">About</a>
-<a class="text-primary border-b-2 border-primary font-bold pb-1 px-3 py-2 hover:bg-surface-container rounded-lg transition-all duration-200" href="./course-catalog.html">Courses</a>
-<a class="text-secondary hover:text-primary transition-colors hover:bg-surface-container rounded-lg px-3 py-2" href="./index.html#workshops">Workshops</a>
-<a class="text-secondary hover:text-primary transition-colors hover:bg-surface-container rounded-lg px-3 py-2" href="./index.html#gallery">Gallery</a>
-<a class="text-secondary hover:text-primary transition-colors hover:bg-surface-container rounded-lg px-3 py-2" href="./index.html#contact">Contact</a>
-</div>
-</div>
-<div class="hidden md:flex items-center gap-sm">
-<a href="./login.html" class="text-on-background font-label-md text-label-md px-4 py-2 hover:bg-surface-container rounded-lg transition-colors text-center">Login</a>
-<a href="./signup.html" class="bg-primary-container text-on-primary font-headline-md text-label-md font-bold px-6 py-2 rounded-lg hover:bg-primary transition-colors shadow-sm text-center">Enroll Now</a>
-</div>
-<button id="menu-toggle" class="md:hidden text-on-surface p-2 rounded-lg hover:bg-surface-container" aria-label="Open mobile menu">
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/95 dark:bg-inverse-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop h-20">
+<!-- Brand Logo -->
+<a class="flex items-center gap-2 font-headline-md text-headline-md font-extrabold tracking-tight text-primary dark:text-inverse-primary" href="./index.html">
+<img alt="Delta Robotics Logo" class="h-8 w-8 object-contain" src="assets/img_74c7a10f2f.png"/>
+<span class="">Delta Robotics</span>
+</a>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="./index.html#about">About</a>
+<a class="text-primary dark:text-inverse-primary font-bold border-b-2 border-primary dark:border-inverse-primary pb-1 font-label-md text-label-md" href="./course-catalog.html">Courses</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="./index.html#workshops">Workshops</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="./index.html#gallery">Gallery</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="./index.html#contact">Contact</a>
+</nav>
+<!-- Trailing Action -->
+<div class="flex items-center gap-sm">
+<button id="theme-toggle" class="p-2 rounded-lg hover:bg-primary-container/10 dark:hover:bg-primary-container/20 transition-all duration-200 text-on-secondary-container dark:text-secondary-fixed-dim" aria-label="Toggle dark mode">
+<span id="theme-toggle-icon" class="material-symbols-outlined block">dark_mode</span>
+</button>
+<a href="./login.html" class="hidden md:block scale-95 active:scale-90 transition-transform duration-150 bg-primary-container text-white px-md py-sm rounded-lg font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-primary transition-colors text-center">
+                    Login
+                </a>
+<a href="./signup.html" class="hidden md:block scale-95 active:scale-90 transition-transform duration-150 border border-primary-container text-primary-container dark:text-inverse-primary px-md py-sm rounded-lg font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-primary-container/10 transition-colors text-center">
+                    Sign Up
+                </a>
+<button id="menu-toggle" class="md:hidden text-primary p-2 rounded-lg hover:bg-primary-container/10" aria-label="Open mobile menu">
 <span class="material-symbols-outlined block">menu</span>
 </button>
 </div>
-</nav>
-<main class="w-full">
+</div>
+</header>
+<main class="w-full pt-20">
 <!-- Hero Section -->
 <section class="w-full bg-inverse-surface text-inverse-on-surface relative overflow-hidden">
 <div class="absolute inset-0 z-0 opacity-40">
@@ -316,11 +327,11 @@
 </button>
 </div>
 <nav class="flex flex-col gap-4 text-lg">
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#about">About</a>
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#about">About</a>
 <a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./course-catalog.html">Courses</a>
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#workshops">Workshops</a>
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#gallery">Gallery</a>
-<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#contact">Contact</a>
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#workshops">Workshops</a>
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#gallery">Gallery</a>
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#contact">Contact</a>
 </nav>
 <div class="flex flex-col gap-2 mt-auto">
 <a href="./login.html" class="w-full bg-primary-container text-white py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-primary text-center block">
@@ -335,10 +346,37 @@
 
 <script>
   // Elements
+  const themeToggle = document.getElementById('theme-toggle');
+  const themeToggleIcon = document.getElementById('theme-toggle-icon');
   const menuToggle = document.getElementById('menu-toggle');
   const menuClose = document.getElementById('menu-close');
   const mobileDrawer = document.getElementById('mobile-drawer');
   const mobileDrawerContent = mobileDrawer.querySelector('div');
+  const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+  // Theme Logic
+  function setTheme(isDark) {
+    if (isDark) {
+      document.documentElement.classList.add('dark');
+      themeToggleIcon.textContent = 'light_mode';
+      localStorage.setItem('theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      themeToggleIcon.textContent = 'dark_mode';
+      localStorage.setItem('theme', 'light');
+    }
+  }
+
+  // Init Theme
+  const savedTheme = localStorage.getItem('theme') || 'light';
+  setTheme(savedTheme === 'dark');
+
+  if (themeToggle) {
+    themeToggle.addEventListener('click', () => {
+      const isDark = document.documentElement.classList.contains('dark');
+      setTheme(!isDark);
+    });
+  }
 
   // Mobile Menu Logic
   function toggleMenu(show) {
@@ -358,6 +396,9 @@
       if (e.target === mobileDrawer) toggleMenu(false);
     });
   }
+  mobileNavLinks.forEach(link => {
+    link.addEventListener('click', () => toggleMenu(false));
+  });
 
   // Course Database
   const COURSES_DB = {

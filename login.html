@@ -118,11 +118,40 @@
     </style>
 </head>
 <body class="bg-background text-on-background min-h-screen flex flex-col font-body-md antialiased">
-<!-- Suppressed TopAppBar and Footer as this is a transactional Login screen (per Semantic Shell Mandate) -->
-<header class="w-full py-base px-margin-mobile md:px-margin-desktop bg-surface border-b border-outline-variant flex justify-center items-center h-[72px]">
-<a href="./index.html" class="font-headline-md text-headline-md font-bold text-primary">Delta Robotics</a>
+<!-- TopNavBar -->
+<header class="fixed top-0 left-0 w-full z-50 bg-surface/95 dark:bg-inverse-surface/95 backdrop-blur-sm border-b border-outline-variant dark:border-outline">
+<div class="flex justify-between items-center max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop h-20">
+<!-- Brand Logo -->
+<a class="flex items-center gap-2 font-headline-md text-headline-md font-extrabold tracking-tight text-primary dark:text-inverse-primary" href="./index.html">
+<img alt="Delta Robotics Logo" class="h-8 w-8 object-contain" src="assets/img_74c7a10f2f.png"/>
+<span class="">Delta Robotics</span>
+</a>
+<!-- Desktop Navigation -->
+<nav class="hidden md:flex gap-gutter items-center">
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="./index.html#about">About</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="./course-catalog.html">Courses</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="./index.html#workshops">Workshops</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="./index.html#gallery">Gallery</a>
+<a class="text-on-secondary-container dark:text-secondary-fixed-dim hover:text-primary dark:hover:text-primary-fixed-dim transition-colors font-label-md text-label-md hover:bg-primary-container/10 dark:hover:bg-primary-container/20 rounded-lg px-2 py-1 transition-all duration-200" href="./index.html#contact">Contact</a>
+</nav>
+<!-- Trailing Action -->
+<div class="flex items-center gap-sm">
+<button id="theme-toggle" class="p-2 rounded-lg hover:bg-primary-container/10 dark:hover:bg-primary-container/20 transition-all duration-200 text-on-secondary-container dark:text-secondary-fixed-dim" aria-label="Toggle dark mode">
+<span id="theme-toggle-icon" class="material-symbols-outlined block">dark_mode</span>
+</button>
+<a href="./login.html" class="hidden md:block scale-95 active:scale-90 transition-transform duration-150 bg-primary-container text-white px-md py-sm rounded-lg font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-primary transition-colors text-center">
+                    Login
+                </a>
+<a href="./signup.html" class="hidden md:block scale-95 active:scale-90 transition-transform duration-150 border border-primary-container text-primary-container dark:text-inverse-primary px-md py-sm rounded-lg font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-primary-container/10 transition-colors text-center">
+                    Sign Up
+                </a>
+<button id="menu-toggle" class="md:hidden text-primary p-2 rounded-lg hover:bg-primary-container/10" aria-label="Open mobile menu">
+<span class="material-symbols-outlined block">menu</span>
+</button>
+</div>
+</div>
 </header>
-<main class="flex-grow flex items-center justify-center p-margin-mobile md:p-margin-desktop relative overflow-hidden">
+<main class="flex-grow flex items-center justify-center pt-24 pb-12 px-margin-mobile md:px-margin-desktop relative overflow-hidden">
 <!-- Background Graphic -->
 <div class="absolute inset-0 z-0 opacity-10 pointer-events-none flex items-center justify-center">
 <div class="w-[800px] h-[800px] rounded-full border-[40px] border-primary-container blur-3xl"></div>
@@ -184,6 +213,33 @@
 <footer class="w-full py-md px-margin-mobile md:px-margin-desktop bg-surface-container flex flex-col md:flex-row justify-between items-center gap-md text-center md:text-left h-[80px]">
 <div class="font-body-md text-body-md text-on-secondary-fixed-variant">© 2024 Delta Robotics Platforms. All rights reserved.</div>
 </footer>
+<!-- Mobile Drawer -->
+<div id="mobile-drawer" class="fixed inset-0 z-50 bg-black/50 backdrop-blur-sm opacity-0 pointer-events-none transition-all duration-300">
+<div class="absolute right-0 top-0 h-full w-64 bg-surface dark:bg-inverse-surface p-6 shadow-xl flex flex-col gap-6 transform translate-x-full transition-transform duration-300">
+<div class="flex justify-between items-center">
+<span class="font-headline-md text-headline-sm font-bold text-primary dark:text-inverse-primary">Menu</span>
+<button id="menu-close" class="text-on-surface dark:text-surface-variant p-2 rounded-lg hover:bg-primary-container/10">
+<span class="material-symbols-outlined block">close</span>
+</button>
+</div>
+<nav class="flex flex-col gap-4 text-lg">
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#about">About</a>
+<a class="text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./course-catalog.html">Courses</a>
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#workshops">Workshops</a>
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#gallery">Gallery</a>
+<a class="mobile-nav-link text-on-surface-variant dark:text-surface-variant hover:text-primary py-2 border-b border-outline-variant/35" href="./index.html#contact">Contact</a>
+</nav>
+<div class="flex flex-col gap-2 mt-auto">
+<a href="./login.html" class="w-full bg-primary-container text-white py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-primary text-center block">
+      Login
+</a>
+<a href="./signup.html" class="w-full border border-primary-container text-primary-container dark:text-inverse-primary py-3 rounded-lg font-bold uppercase tracking-wider hover:bg-primary-container/10 text-center block">
+      Sign Up
+</a>
+</div>
+</div>
+</div>
+
 <script>
         function selectRole(role) {
             document.querySelectorAll('.role-card').forEach(card => {
@@ -204,7 +260,60 @@
             e.preventDefault();
             window.location.href = './dashboard.html';
         });
+
+        // Theme and Menu Elements
+        const themeToggle = document.getElementById('theme-toggle');
+        const themeToggleIcon = document.getElementById('theme-toggle-icon');
+        const menuToggle = document.getElementById('menu-toggle');
+        const menuClose = document.getElementById('menu-close');
+        const mobileDrawer = document.getElementById('mobile-drawer');
+        const mobileDrawerContent = mobileDrawer.querySelector('div');
+        const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+        // Theme Logic
+        function setTheme(isDark) {
+          if (isDark) {
+            document.documentElement.classList.add('dark');
+            themeToggleIcon.textContent = 'light_mode';
+            localStorage.setItem('theme', 'dark');
+          } else {
+            document.documentElement.classList.remove('dark');
+            themeToggleIcon.textContent = 'dark_mode';
+            localStorage.setItem('theme', 'light');
+          }
+        }
+
+        // Init Theme
+        const savedTheme = localStorage.getItem('theme') || 'light';
+        setTheme(savedTheme === 'dark');
+
+        if (themeToggle) {
+          themeToggle.addEventListener('click', () => {
+            const isDark = document.documentElement.classList.contains('dark');
+            setTheme(!isDark);
+          });
+        }
+
+        // Mobile Menu Logic
+        function toggleMenu(show) {
+          if (show) {
+            mobileDrawer.classList.remove('opacity-0', 'pointer-events-none');
+            mobileDrawerContent.classList.remove('translate-x-full');
+          } else {
+            mobileDrawer.classList.add('opacity-0', 'pointer-events-none');
+            mobileDrawerContent.classList.add('translate-x-full');
+          }
+        }
+
+        if (menuToggle) menuToggle.addEventListener('click', () => toggleMenu(true));
+        if (menuClose) menuClose.addEventListener('click', () => toggleMenu(false));
+        if (mobileDrawer) {
+          mobileDrawer.addEventListener('click', (e) => {
+            if (e.target === mobileDrawer) toggleMenu(false);
+          });
+        }
+        mobileNavLinks.forEach(link => {
+          link.addEventListener('click', () => toggleMenu(false));
+        });
     </script>
-
-
 </body></html>
