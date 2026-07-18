@@ -3,9 +3,7 @@ import { COURSES_DB } from '../data/courses';
 
 export const AuthContext = createContext();
 
-export const API_BASE = window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1'
-  ? '/api'
-  : 'https://delta-backend-ohze.onrender.com/api';
+export const API_BASE = '/api';
 
 // Helper function to map backend course records to frontend structures
 export const mapBackendCourse = (backendCourse) => {
