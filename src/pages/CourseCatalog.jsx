@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import { Link, useLocation } from 'react-router-dom';
+import { AuthContext } from '../context/AuthContext';
 import { COURSES_DB } from '../data/courses';
 
 export default function CourseCatalog() {
+  const { courses } = useContext(AuthContext);
   const location = useLocation();
   const [activeCategory, setActiveCategory] = useState('All Courses');
   const [searchQuery, setSearchQuery] = useState('');
@@ -18,8 +20,11 @@ export default function CourseCatalog() {
     }
   }, [location]);
 
+  // Fallback if courses are loading or empty
+  const courseList = courses || [];
+
   // Handle dynamic list filtering
-  const filteredCourses = Object.values(COURSES_DB).filter(course => {
+  const filteredCourses = courseList.filter(course => {
     let categoryMatch = false;
     if (activeCategory === 'All Courses') {
       categoryMatch = true;

@@ -1,25 +1,113 @@
-import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { AuthContext } from '../context/AuthContext';
+import React, { useState, useContext, useEffect } from 'react';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
+import { AuthContext, API_BASE } from '../context/AuthContext';
 import { UIContext } from '../context/UIContext';
 
 export default function LearningPortal() {
-  const { user, courseProgress, logout } = useContext(AuthContext);
+  const { user, courseProgress, logout, courses, loading, enrollmentStatuses } = useContext(AuthContext);
   const { showToast } = useContext(UIContext);
   const navigate = useNavigate();
+  const location = useLocation();
 
   const [activeTab, setActiveTab] = useState('Overview');
   const [isVideoPlaying, setIsVideoPlaying] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [activeCourse, setActiveCourse] = useState(null);
+  const [materials, setMaterials] = useState([]);
+  const [materialsLoading, setMaterialsLoading] = useState(false);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <span className="material-symbols-outlined text-4xl animate-spin text-primary">sync</span>
+      </div>
+    );
+  }
+
+  useEffect(() => {
+    const params = new URLSearchParams(location.search);
+    const courseId = params.get('course');
+    if (courseId && courses && courses.length > 0) {
+      const match = courses.find(c => c.id === courseId || c.localSlug === courseId);
+      if (match) {
+        setActiveCourse(match);
+      }
+    }
+  }, [location, courses]);
+
+  const displayCourse = activeCourse || (courses && courses.length > 0 ? courses[0] : null);
+
+  useEffect(() => {
+    const fetchMaterials = async () => {
+      if (!displayCourse) return;
+      setMaterialsLoading(true);
+      try {
+        const token = localStorage.getItem('dr_access_token');
+        const response = await fetch(`${API_BASE}/courses/${displayCourse.id}/materials/`, {
+          headers: {
+            'Authorization': `Bearer ${token}`
+          }
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setMaterials(data);
+        }
+      } catch (err) {
+        console.error('Error fetching materials:', err);
+      } finally {
+        setMaterialsLoading(false);
+      }
+    };
+    fetchMaterials();
+  }, [displayCourse]);
+
+  useEffect(() => {
+    if (!loading && !user) {
+      showToast('🔒 Please log in to access the classroom.');
+      navigate('/login?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+      return;
+    }
+
+    if (!loading && user && displayCourse) {
+      const userRole = user.role ? user.role.toLowerCase() : 'student';
+      if (userRole !== 'admin' && userRole !== 'intern') {
+        const status = enrollmentStatuses[displayCourse.id];
+        if (status !== 'active') {
+          showToast('🔒 Classroom locked: Payment verification pending.');
+          navigate('/dashboard');
+        }
+      }
+    }
+  }, [user, loading, navigate, displayCourse, enrollmentStatuses]);
 
   const userName = user ? user.name : 'Alex';
-  const progressVal = courseProgress['intro-to-ros'] !== undefined ? courseProgress['intro-to-ros'] : 45;
+  const progressVal = displayCourse && courseProgress[displayCourse.id] !== undefined 
+    ? courseProgress[displayCourse.id] 
+    : 45;
 
   const handleLogout = () => {
     logout();
     showToast('🔐 Logged out successfully.');
     navigate('/');
   };
+
+  if (!displayCourse) {
+    return (
+      <div className="pt-32 bg-background min-h-screen text-center text-on-surface-variant flex flex-col items-center justify-center p-md">
+        <span className="material-symbols-outlined text-6xl text-primary mb-md">school</span>
+        <h2 className="font-headline-lg text-headline-lg mb-sm text-on-surface">No Classroom Access</h2>
+        <p className="font-body-lg text-body-lg max-w-md mb-lg">
+          You are not enrolled in any active courses yet. Browse our course catalog to find a program and enroll today.
+        </p>
+        <Link 
+          to="/courses" 
+          className="bg-primary-container text-on-primary font-bold px-lg py-md rounded-lg hover:bg-primary transition-all font-label-md uppercase tracking-wide"
+        >
+          Explore Catalog
+        </Link>
+      </div>
+    );
+  }
 
   return (
     <div className="bg-background text-on-background font-body-md antialiased flex flex-col md:flex-row min-h-screen transition-colors duration-200">
@@ -53,11 +141,15 @@ export default function LearningPortal() {
             <img 
               alt="Robotics Course Logo" 
               className="w-12 h-12 rounded-lg object-cover bg-white p-1 border border-secondary-container" 
-              src="/assets/asset_0ba516959f.png" 
+              src={displayCourse?.image ? `/${displayCourse.image}` : "/assets/asset_0ba516959f.png"} 
             />
             <div>
-              <h2 className="font-headline-md text-headline-md text-primary truncate w-40" title="Intro to ROS 2">Intro to ROS 2</h2>
-              <p className="font-label-md text-label-md text-on-surface-variant truncate w-40 text-xs" title="Module 3: Motion Control">Module 3: Motion Control</p>
+              <h2 className="font-headline-md text-headline-md text-primary truncate w-40" title={displayCourse?.title || "Intro to ROS 2"}>
+                {displayCourse?.title || "Intro to ROS 2"}
+              </h2>
+              <p className="font-label-md text-label-md text-on-surface-variant truncate w-40 text-xs" title={displayCourse?.category || "Software"}>
+                {displayCourse?.category || "Software"}
+              </p>
             </div>
           </div>
           <button 
@@ -234,7 +326,7 @@ export default function LearningPortal() {
               {/* Tabs Section */}
               <div className="bg-white rounded-xl border border-secondary-container p-0 overflow-hidden">
                 <div className="flex border-b border-secondary-container px-md bg-surface-bright">
-                  {['Overview', 'Transcript', 'Discussion (24)'].map((tab) => (
+                  {['Overview', 'Materials', 'Transcript', 'Discussion (24)'].map((tab) => (
                     <button
                       key={tab}
                       onClick={() => setActiveTab(tab.startsWith('Discussion') ? 'Discussion' : tab)}
@@ -280,6 +372,45 @@ class MotionPlanner(Node):
         # Initialization logic...`}</code></pre>
                       </div>
                     </>
+                  )}
+
+                  {activeTab === 'Materials' && (
+                    <div className="flex flex-col gap-sm">
+                      <h3 className="font-headline-md text-headline-md text-on-surface mb-2">Course Materials</h3>
+                      <p className="text-xs text-on-surface-variant font-body-md mb-md">Download supplementary textbooks, lab guides, and slides.</p>
+                      
+                      {materialsLoading ? (
+                        <p className="text-secondary font-body-md text-sm">Loading materials...</p>
+                      ) : materials.length > 0 ? (
+                        <div className="grid grid-cols-1 gap-sm">
+                          {materials.map((mat) => (
+                            <a 
+                              key={mat.id}
+                              href={mat.file}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="p-sm bg-surface-container-low rounded-lg border border-outline-variant hover:bg-surface-container-high transition-colors flex items-center justify-between"
+                            >
+                              <div className="flex items-center gap-sm">
+                                <span className="material-symbols-outlined text-primary text-[24px]">
+                                  {mat.material_type === 'pdf' ? 'description' : 'movie'}
+                                </span>
+                                <div>
+                                  <div className="font-body-md text-sm font-semibold text-on-surface">{mat.title}</div>
+                                  <div className="text-[10px] text-on-surface-variant uppercase tracking-wider">{mat.material_type} Document</div>
+                                </div>
+                              </div>
+                              <span className="material-symbols-outlined text-secondary">download</span>
+                            </a>
+                          ))}
+                        </div>
+                      ) : (
+                        <div className="py-8 text-center text-on-surface-variant font-body-md text-sm bg-surface-container-low rounded-lg border border-outline-variant p-4">
+                          <span className="material-symbols-outlined text-3xl mb-xs text-secondary">drafts</span>
+                          <p>No materials uploaded for this course yet.</p>
+                        </div>
+                      )}
+                    </div>
                   )}
 
                   {activeTab === 'Transcript' && (
@@ -350,97 +481,42 @@ class MotionPlanner(Node):
                 </div>
                 
                 <div className="overflow-y-auto flex-1">
-                  
-                  {/* Module 1 */}
-                  <div className="border-b border-secondary-container">
-                    <div className="w-full p-4 flex justify-between items-center bg-surface text-left">
-                      <div>
-                        <h4 className="font-headline-md text-sm text-on-surface font-bold opacity-80">Module 1: ROS 2 Fundamentals</h4>
-                        <p className="font-label-md text-xs text-on-surface-variant mt-1">4/4 Lessons • 1h 20m</p>
+                  {displayCourse?.backend_raw?.materials && displayCourse.backend_raw.materials.length > 0 ? (
+                    <div className="border-b border-secondary-container">
+                      <div className="w-full p-4 flex justify-between items-center bg-primary-fixed/20 text-left border-l-4 border-primary-container">
+                        <div>
+                          <h4 className="font-headline-md text-sm text-on-surface font-bold">Course Lessons</h4>
+                          <p className="font-label-md text-xs text-primary mt-1">{displayCourse.backend_raw.materials.length} Lessons</p>
+                        </div>
                       </div>
-                      <span className="material-symbols-outlined text-secondary">check_circle</span>
-                    </div>
-                  </div>
-
-                  {/* Module 2 */}
-                  <div className="border-b border-secondary-container">
-                    <div className="w-full p-4 flex justify-between items-center bg-surface text-left">
-                      <div>
-                        <h4 className="font-headline-md text-sm text-on-surface font-bold opacity-80">Module 2: Nodes &amp; Topics</h4>
-                        <p className="font-label-md text-xs text-on-surface-variant mt-1">5/5 Lessons • 2h 10m</p>
+                      <div className="bg-white">
+                        {displayCourse.backend_raw.materials.map((m, idx) => (
+                          <a 
+                            key={m.id}
+                            href="#video"
+                            onClick={(e) => { 
+                              e.preventDefault(); 
+                              showToast(`📺 Loading lesson: ${m.title}`);
+                            }}
+                            className="flex items-center gap-3 p-3 pl-6 hover:bg-surface-container-low transition-colors border-b border-surface-variant group relative"
+                          >
+                            <span className="material-symbols-outlined text-primary-container text-[20px]">play_circle</span>
+                            <div className="flex-1">
+                              <p className="font-body-md text-sm text-on-surface font-semibold group-hover:text-primary-container transition-colors">
+                                {idx + 1}. {m.title}
+                              </p>
+                              <p className="font-label-md text-[10px] text-primary-container mt-0.5">{m.type.toUpperCase()}</p>
+                            </div>
+                          </a>
+                        ))}
                       </div>
-                      <span className="material-symbols-outlined text-secondary">check_circle</span>
                     </div>
-                  </div>
-
-                  {/* Module 3 (Active) */}
-                  <div className="border-b border-secondary-container">
-                    <div className="w-full p-4 flex justify-between items-center bg-primary-fixed/20 text-left border-l-4 border-primary-container">
-                      <div>
-                        <h4 className="font-headline-md text-sm text-on-surface font-bold">Module 3: Motion Control</h4>
-                        <p className="font-label-md text-xs text-primary mt-1">3/6 Lessons • 3h 45m</p>
-                      </div>
-                      <span className="material-symbols-outlined text-primary-container">expand_less</span>
+                  ) : (
+                    <div className="p-lg text-center text-on-surface-variant font-body-md text-body-md">
+                      <span className="material-symbols-outlined text-3xl mb-sm block text-secondary">import_contacts</span>
+                      No curriculum lessons uploaded for this course yet.
                     </div>
-                    
-                    <div className="bg-white">
-                      
-                      <a 
-                        href="#lesson1" 
-                        onClick={(e) => { e.preventDefault(); showToast('✓ Already completed.'); }}
-                        className="flex items-center gap-3 p-3 pl-6 hover:bg-surface-container-low transition-colors border-b border-surface-variant group"
-                      >
-                        <span className="material-symbols-outlined text-primary-container text-[20px]" style={{ fontVariationSettings: "'FILL' 1" }}>
-                          check_circle
-                        </span>
-                        <div className="flex-1">
-                          <p className="font-body-md text-sm text-secondary line-through">3.1 Intro to Kinematics</p>
-                          <p className="font-label-md text-[10px] text-tertiary">15:00</p>
-                        </div>
-                      </a>
-
-                      <a 
-                        href="#lesson2" 
-                        onClick={(e) => { e.preventDefault(); }}
-                        className="flex items-center gap-3 p-3 pl-6 bg-primary-fixed/10 hover:bg-primary-fixed/20 transition-colors border-b border-surface-variant group relative"
-                      >
-                        <div className="absolute left-0 top-0 h-full w-1 bg-primary-container"></div>
-                        <span className="material-symbols-outlined text-primary-container text-[20px]">radio_button_unchecked</span>
-                        <div className="flex-1">
-                          <p className="font-body-md text-sm text-on-surface font-semibold group-hover:text-primary-container transition-colors">
-                            3.2 Kinematics and Motion Planning
-                          </p>
-                          <p className="font-label-md text-[10px] text-primary-container mt-0.5">45:00 • Active</p>
-                        </div>
-                      </a>
-
-                      <a 
-                        href="#lesson3" 
-                        onClick={(e) => { e.preventDefault(); showToast('🔒 Please complete current lecture.'); }}
-                        className="flex items-center gap-3 p-3 pl-6 hover:bg-surface-container-low transition-colors border-b border-surface-variant group"
-                      >
-                        <span className="material-symbols-outlined text-tertiary-fixed-dim text-[20px]">radio_button_unchecked</span>
-                        <div className="flex-1">
-                          <p className="font-body-md text-sm text-on-surface-variant">3.3 Trajectory Generation</p>
-                          <p className="font-label-md text-[10px] text-tertiary">30:00</p>
-                        </div>
-                      </a>
-
-                      <a 
-                        href="#lesson4" 
-                        onClick={(e) => { e.preventDefault(); showToast('🔒 Lesson locked.'); }}
-                        className="flex items-center gap-3 p-3 pl-6 hover:bg-surface-container-low transition-colors group"
-                      >
-                        <span className="material-symbols-outlined text-tertiary-fixed-dim text-[20px]">lock</span>
-                        <div className="flex-1">
-                          <p className="font-body-md text-sm text-tertiary">3.4 Lab: Simulating a UR5 Arm</p>
-                          <p className="font-label-md text-[10px] text-tertiary">1h 00m</p>
-                        </div>
-                      </a>
-
-                    </div>
-                  </div>
-
+                  )}
                 </div>
               </div>
 

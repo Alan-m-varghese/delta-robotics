@@ -1,12 +1,40 @@
 import React, { useContext, useState, useEffect } from 'react';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useNavigate } from 'react-router-dom';
 import { UIContext } from '../context/UIContext';
-import { AuthContext } from '../context/AuthContext';
+import { AuthContext, API_BASE } from '../context/AuthContext';
 
 export default function Home() {
   const { showModal, showToast } = useContext(UIContext);
-  const { enrollInCourse } = useContext(AuthContext);
+  const { enrollInCourse, user, courses, coursesLoading } = useContext(AuthContext);
   const location = useLocation();
+  const navigate = useNavigate();
+
+  const [galleryImages, setGalleryImages] = useState(() => {
+    const cached = localStorage.getItem('dr_cached_gallery');
+    return cached ? JSON.parse(cached) : [];
+  });
+  const [galleryLoading, setGalleryLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchGalleryImages = async () => {
+      setGalleryLoading(true);
+      try {
+        const response = await fetch(`${API_BASE}/gallery/`);
+        if (response.ok) {
+          const data = await response.json();
+          if (data && data.length > 0) {
+            setGalleryImages(data);
+            localStorage.setItem('dr_cached_gallery', JSON.stringify(data));
+          }
+        }
+      } catch (err) {
+        console.error('Error fetching gallery:', err);
+      } finally {
+        setGalleryLoading(false);
+      }
+    };
+    fetchGalleryImages();
+  }, []);
 
   // Contact Form State
   const [contactForm, setContactForm] = useState({
@@ -45,27 +73,87 @@ export default function Home() {
     setContactForm({ name: '', email: '', message: '' });
   };
 
-  const triggerEnrollModal = (courseTitle, price, courseId) => {
+  const triggerEnrollModal = (courseTitle, coursePrice, courseId) => {
+    if (!user) {
+      showToast('🔒 Please log in to enroll in courses.');
+      navigate(`/login?redirect=${encodeURIComponent(`/enrollment-payment?course=${courseId}`)}`);
+      return;
+    }
     showModal(
-      `Enroll in ${courseTitle}`,
-      `You are registering for our ${courseTitle} certification program. Total tuition is ${price}. Would you like to confirm registration?`,
-      'CONFIRM ENROLLMENT',
+      `Request Enrollment Approval`,
+      `Would you like to register for "${courseTitle}"? Once submitted, our staff will review your request.`,
+      'PROCEED TO PAYMENT',
       () => {
-        enrollInCourse(courseId);
-        showToast(`🎉 Enrolled successfully in ${courseTitle}! Welcome aboard.`);
+        navigate(`/enrollment-payment?course=${courseId}`);
       }
     );
   };
 
-  const triggerBootcampModal = () => {
-    showModal(
-      'Join Weekend Bootcamp',
-      'Learn from expert mentors in our state-of-the-art labs. Weekend build sessions run Saturday & Sunday 9am - 5pm. Confirm to receive schedule details.',
-      'GET SCHEDULE',
-      () => {
-        showToast('📩 Schedule details sent to your registered email.');
+  const triggerBootcampModal = async () => {
+    if (!user) {
+      showToast('🔒 Please log in to view and register for workshops.');
+      navigate('/login?redirect=/');
+      return;
+    }
+
+    showToast('📅 Fetching workshop schedules...');
+    try {
+      const token = localStorage.getItem('dr_access_token');
+      const response = await fetch(`${API_BASE}/workshops/`, {
+        headers: {
+          'Authorization': `Bearer ${token}`
+        }
+      });
+      if (response.ok) {
+        const workshopsList = await response.json();
+        const published = workshopsList.filter(w => w.is_published);
+        if (published.length > 0) {
+          const nextWorkshop = published[0];
+          showModal(
+            `Register for ${nextWorkshop.title}`,
+            `Would you like to register for "${nextWorkshop.title}" scheduled on ${new Date(nextWorkshop.event_date).toLocaleDateString()} at ${nextWorkshop.location || 'Delta Labs'}?`,
+            'REGISTER NOW',
+            async () => {
+              try {
+                const regResponse = await fetch(`${API_BASE}/workshop-registrations/`, {
+                  method: 'POST',
+                  headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${token}`
+                  },
+                  body: JSON.stringify({ workshop: nextWorkshop.id })
+                });
+                const regData = await regResponse.json();
+                if (regResponse.ok || regResponse.status === 201) {
+                  showToast(`🎉 Registered successfully for ${nextWorkshop.title}!`);
+                } else {
+                  showToast(`⚠️ Registration failed: ${regData.error || 'Already registered.'}`);
+                }
+              } catch (err) {
+                showToast('❌ Error submitting workshop registration.');
+              }
+            }
+          );
+        } else {
+          showModal(
+            'Join Weekend Bootcamp',
+            'No live scheduled workshops found in database. Sign up to our newsletter to get notified of new dates.',
+            'OK'
+          );
+        }
+      } else {
+        throw new Error('Failed to fetch workshops.');
       }
-    );
+    } catch (err) {
+      showModal(
+        'Join Weekend Bootcamp',
+        'Learn from expert mentors in our state-of-the-art labs. Weekend build sessions run Saturday & Sunday 9am - 5pm. Confirm to receive schedule details.',
+        'GET SCHEDULE',
+        () => {
+          showToast('📩 Schedule details sent to your registered email.');
+        }
+      );
+    }
   };
 
   const scrollToCourses = () => {
@@ -195,115 +283,56 @@ export default function Home() {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-gutter">
-            
-            {/* Course Card 1 */}
-            <div className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
-              <Link to="/course-details?course=autonomous-systems" className="h-48 bg-surface-container relative block">
-                <div className="absolute top-0 right-0 w-8 h-8 bg-primary-container z-10" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
-                <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: 'url("/assets/bg_b52662a685.png")' }}></div>
-              </Link>
-              <div className="p-md flex flex-col gap-sm flex-grow">
-                <span className="text-primary-container font-label-md text-[10px] font-bold uppercase tracking-widest">HARDCORE</span>
-                <Link to="/course-details?course=autonomous-systems" className="hover:text-primary transition-colors">
-                  <h3 className="font-headline-sm text-headline-md font-bold text-on-surface">Autonomous Systems</h3>
-                </Link>
-                <p className="font-body-md text-body-md text-on-surface-variant flex-grow">
-                  LiDAR integration, SLAM algorithms, and edge computing for mobile robotics.
-                </p>
-                <div className="flex justify-between items-center mt-auto pt-sm">
-                  <span className="text-on-surface-variant text-xs font-label-md">12 Weeks</span>
-                  <span className="text-on-surface font-bold text-headline-sm">$1,299</span>
+            {coursesLoading && courses.length === 0 ? (
+              Array(4).fill(0).map((_, idx) => (
+                <div key={idx} className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden animate-pulse flex flex-col h-[400px]">
+                  <div className="h-48 bg-surface-container-low w-full"></div>
+                  <div className="p-md flex flex-col gap-sm flex-grow">
+                    <div className="h-4 bg-surface-container-low rounded w-1/3 mt-2"></div>
+                    <div className="h-6 bg-surface-container-low rounded w-3/4"></div>
+                    <div className="h-4 bg-surface-container-low rounded w-full"></div>
+                    <div className="h-4 bg-surface-container-low rounded w-5/6"></div>
+                    <div className="flex justify-between items-center mt-auto pt-sm">
+                      <div className="h-4 bg-surface-container-low rounded w-1/4"></div>
+                      <div className="h-6 bg-surface-container-low rounded w-1/5"></div>
+                    </div>
+                    <div className="h-10 bg-surface-container-low rounded w-full mt-sm"></div>
+                  </div>
                 </div>
-                <button 
-                  onClick={() => triggerEnrollModal("Autonomous Systems", "$1,299", "autonomous-systems")}
-                  className="w-full bg-secondary text-white py-sm rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-on-surface transition-colors mt-sm"
-                >
-                  ENROLL NOW
-                </button>
-              </div>
-            </div>
-
-            {/* Course Card 2 */}
-            <div className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
-              <Link to="/course-details?course=neural-networks" className="h-48 bg-surface-container relative block">
-                <div className="absolute top-0 right-0 w-8 h-8 bg-primary-container z-10" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
-                <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: 'url("/assets/bg_a9b0f618bf.png")' }}></div>
-              </Link>
-              <div className="p-md flex flex-col gap-sm flex-grow">
-                <span className="text-primary-container font-label-md text-[10px] font-bold uppercase tracking-widest">EXPERT</span>
-                <Link to="/course-details?course=neural-networks" className="hover:text-primary transition-colors">
-                  <h3 className="font-headline-sm text-headline-md font-bold text-on-surface">Neural Networks</h3>
-                </Link>
-                <p className="font-body-md text-body-md text-on-surface-variant flex-grow">
-                  Deep learning for computer vision and reactive robot control architectures.
-                </p>
-                <div className="flex justify-between items-center mt-auto pt-sm">
-                  <span className="text-on-surface-variant text-xs font-label-md">8 Weeks</span>
-                  <span className="text-on-surface font-bold text-headline-sm">$950</span>
+              ))
+            ) : courses.length > 0 ? (
+              courses.slice(0, 4).map((course) => (
+                <div key={course.id} className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
+                  <Link to={`/course-details?course=${course.id}`} className="h-48 bg-surface-container relative block">
+                    <div className="absolute top-0 right-0 w-8 h-8 bg-primary-container z-10" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
+                    <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: `url("/${course.image}")` }}></div>
+                  </Link>
+                  <div className="p-md flex flex-col gap-sm flex-grow">
+                    <span className="text-primary-container font-label-md text-[10px] font-bold uppercase tracking-widest">{course.badge}</span>
+                    <Link to={`/course-details?course=${course.id}`} className="hover:text-primary transition-colors">
+                      <h3 className="font-headline-sm text-headline-md font-bold text-on-surface">{course.title}</h3>
+                    </Link>
+                    <p className="font-body-md text-body-md text-on-surface-variant flex-grow mt-xs line-clamp-3">
+                      {course.description}
+                    </p>
+                    <div className="flex justify-between items-center mt-auto pt-sm">
+                      <span className="text-on-surface-variant text-xs font-label-md">{course.duration}</span>
+                      <span className="text-on-surface font-bold text-headline-sm">{course.price}</span>
+                    </div>
+                    <button 
+                      onClick={() => triggerEnrollModal(course.title, course.price, course.id)}
+                      className="w-full bg-secondary text-white py-sm rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-on-surface transition-colors mt-sm"
+                    >
+                      ENROLL NOW
+                    </button>
+                  </div>
                 </div>
-                <button 
-                  onClick={() => triggerEnrollModal("Neural Networks", "$950", "neural-networks")}
-                  className="w-full bg-secondary text-white py-sm rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-on-surface transition-colors mt-sm"
-                >
-                  ENROLL NOW
-                </button>
+              ))
+            ) : (
+              <div className="col-span-full text-center py-8 text-secondary font-body-md text-body-md bg-surface-container-lowest rounded-xl border border-outline-variant p-md">
+                No featured courses available at the moment.
               </div>
-            </div>
-
-            {/* Course Card 3 */}
-            <div className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
-              <Link to="/course-details?course=embedded-iot" className="h-48 bg-surface-container relative block">
-                <div className="absolute top-0 right-0 w-8 h-8 bg-primary-container z-10" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
-                <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: 'url("/assets/bg_a292f11599.png")' }}></div>
-              </Link>
-              <div className="p-md flex flex-col gap-sm flex-grow">
-                <span className="text-primary-container font-label-md text-[10px] font-bold uppercase tracking-widest">INTERMEDIATE</span>
-                <Link to="/course-details?course=embedded-iot" className="hover:text-primary transition-colors">
-                  <h3 className="font-headline-sm text-headline-md font-bold text-on-surface">Embedded IoT</h3>
-                </Link>
-                <p className="font-body-md text-body-md text-on-surface-variant flex-grow">
-                  Custom PCB design, MQTT protocols, and low-latency sensor networks.
-                </p>
-                <div className="flex justify-between items-center mt-auto pt-sm">
-                  <span className="text-on-surface-variant text-xs font-label-md">10 Weeks</span>
-                  <span className="text-on-surface font-bold text-headline-sm">$800</span>
-                </div>
-                <button 
-                  onClick={() => triggerEnrollModal("Embedded IoT", "$800", "embedded-iot")}
-                  className="w-full bg-secondary text-white py-sm rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-on-surface transition-colors mt-sm"
-                >
-                  ENROLL NOW
-                </button>
-              </div>
-            </div>
-
-            {/* Course Card 4 */}
-            <div className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
-              <Link to="/course-details?course=industrial-automation" className="h-48 bg-surface-container relative block">
-                <div className="absolute top-0 right-0 w-8 h-8 bg-primary-container z-10" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
-                <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: 'url("/assets/bg_c620b7f22a.png")' }}></div>
-              </Link>
-              <div className="p-md flex flex-col gap-sm flex-grow">
-                <span className="text-primary-container font-label-md text-[10px] font-bold uppercase tracking-widest">INDUSTRY</span>
-                <Link to="/course-details?course=industrial-automation" className="hover:text-primary transition-colors">
-                  <h3 className="font-headline-sm text-headline-md font-bold text-on-surface">Industrial Automation</h3>
-                </Link>
-                <p className="font-body-md text-body-md text-on-surface-variant flex-grow">
-                  PLC programming, SCADA integration, and factory floor orchestration.
-                </p>
-                <div className="flex justify-between items-center mt-auto pt-sm">
-                  <span className="text-on-surface-variant text-xs font-label-md">14 Weeks</span>
-                  <span className="text-on-surface font-bold text-headline-sm">$1,500</span>
-                </div>
-                <button 
-                  onClick={() => triggerEnrollModal("Industrial Automation", "$1,500", "industrial-automation")}
-                  className="w-full bg-secondary text-white py-sm rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-on-surface transition-colors mt-sm"
-                >
-                  ENROLL NOW
-                </button>
-              </div>
-            </div>
-
+            )}
           </div>
         </div>
       </section>
@@ -352,22 +381,40 @@ export default function Home() {
           <h2 className="font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg text-on-surface">Student Gallery</h2>
           <p className="font-body-md text-body-md text-on-surface-variant mt-sm max-w-2xl mx-auto">A glimpse into the innovation happening in our labs.</p>
         </div>
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-sm md:gap-md">
-          <div className="col-span-2 row-span-2 rounded-xl overflow-hidden border border-outline-variant h-64 md:h-auto">
-            <img className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" src="/assets/img_754a9bce26.png" alt="Soldering printed circuit board" />
-          </div>
-          <div className="rounded-xl overflow-hidden border border-outline-variant h-32 md:h-48">
-            <img className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" src="/assets/img_dd9d066a57.png" alt="Autonomous drone prototype" />
-          </div>
-          <div className="rounded-xl overflow-hidden border border-outline-variant h-32 md:h-48">
-            <img className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" src="/assets/img_1fd9f47ecd.png" alt="Students reviewing CAD models" />
-          </div>
-          <div className="rounded-xl overflow-hidden border border-outline-variant h-32 md:h-48">
-            <img className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" src="/assets/img_5d24930ce7.png" alt="Robotic rover navigate simulation terrain" />
-          </div>
-          <div className="rounded-xl overflow-hidden border border-outline-variant h-32 md:h-48">
-            <img className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" src="/assets/img_2e8ecbcf3c.png" alt="Robotics competition arena" />
-          </div>
+        <div className="w-full">
+          {galleryLoading && galleryImages.length === 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-sm md:gap-md">
+              <div className="col-span-2 row-span-2 h-64 md:h-96 bg-surface-container-low rounded-xl animate-pulse"></div>
+              <div className="h-32 md:h-48 bg-surface-container-low rounded-xl animate-pulse"></div>
+              <div className="h-32 md:h-48 bg-surface-container-low rounded-xl animate-pulse"></div>
+              <div className="h-32 md:h-48 bg-surface-container-low rounded-xl animate-pulse"></div>
+              <div className="h-32 md:h-48 bg-surface-container-low rounded-xl animate-pulse"></div>
+            </div>
+          ) : galleryImages.length > 0 ? (
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-sm md:gap-md">
+              {galleryImages.slice(0, 5).map((img, idx) => {
+                const isLarge = idx === 0;
+                return (
+                  <div 
+                    key={img.id}
+                    className={`rounded-xl overflow-hidden border border-outline-variant ${
+                      isLarge ? 'col-span-2 row-span-2 h-64 md:h-auto' : 'h-32 md:h-48'
+                    }`}
+                  >
+                    <img 
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" 
+                      src={img.image_url} 
+                      alt={img.title || "Gallery Image"} 
+                    />
+                  </div>
+                );
+              })}
+            </div>
+          ) : (
+            <div className="text-center py-8 text-secondary font-body-md text-body-md bg-surface-container-lowest rounded-xl border border-outline-variant p-md">
+              No photos in the gallery yet.
+            </div>
+          )}
         </div>
       </section>
 

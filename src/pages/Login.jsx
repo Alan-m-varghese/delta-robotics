@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { UIContext } from '../context/UIContext';
 
@@ -7,22 +7,33 @@ export default function Login() {
   const { login } = useContext(AuthContext);
   const { showToast } = useContext(UIContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const params = new URLSearchParams(location.search);
+  const redirect = params.get('redirect');
 
   const [role, setRole] = useState('student');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const handleSubmit = (e) => {
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!email || !password) {
       showToast('⚠️ Please enter both email and password.');
       return;
     }
     
-    // Perform simulated login
-    login(email, role);
-    showToast('🔐 Login successful. Welcome back!');
-    navigate('/dashboard');
+    setIsSubmitting(true);
+    const result = await login(email, password);
+    setIsSubmitting(false);
+    if (result.success) {
+      showToast('🔐 Login successful. Welcome back!');
+      navigate(redirect || '/dashboard');
+    } else {
+      showToast(`❌ Login failed: ${result.error}`);
+    }
   };
 
   return (
@@ -112,10 +123,19 @@ export default function Login() {
             {/* Actions */}
             <div className="pt-sm">
               <button 
-                className="w-full bg-primary-container text-on-primary font-headline-md text-headline-md font-bold uppercase rounded-lg py-3 hover:opacity-90 transition-all flex justify-center items-center gap-xs cursor-pointer" 
+                className="w-full bg-primary-container text-on-primary font-headline-md text-headline-md font-bold uppercase rounded-lg py-3 hover:opacity-90 transition-all flex justify-center items-center gap-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" 
                 type="submit"
+                disabled={isSubmitting}
               >
-                Login <span className="material-symbols-outlined text-xl">arrow_forward</span>
+                {isSubmitting ? (
+                  <>
+                    Processing... <span className="material-symbols-outlined text-xl animate-spin">autorenew</span>
+                  </>
+                ) : (
+                  <>
+                    Login <span className="material-symbols-outlined text-xl">arrow_forward</span>
+                  </>
+                )}
               </button>
             </div>
           </form>
@@ -123,7 +143,7 @@ export default function Login() {
           {/* Sign-up Link */}
           <div className="mt-lg text-center border-t border-surface-variant pt-md">
             <p className="font-body-md text-body-md text-secondary">
-              New to Delta Robotics? <Link className="text-primary-container font-semibold hover:underline" to="/signup">Sign up here</Link>
+              New to Delta Robotics? <Link className="text-primary-container font-semibold hover:underline" to={redirect ? `/signup?redirect=${encodeURIComponent(redirect)}` : "/signup"}>Sign up here</Link>
             </p>
           </div>
         </div>

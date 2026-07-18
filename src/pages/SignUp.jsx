@@ -1,5 +1,5 @@
 import React, { useState, useContext } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link, useNavigate, useLocation } from 'react-router-dom';
 import { AuthContext } from '../context/AuthContext';
 import { UIContext } from '../context/UIContext';
 
@@ -7,6 +7,10 @@ export default function SignUp() {
   const { signup } = useContext(AuthContext);
   const { showToast } = useContext(UIContext);
   const navigate = useNavigate();
+  const location = useLocation();
+
+  const params = new URLSearchParams(location.search);
+  const redirect = params.get('redirect');
 
   const [formData, setFormData] = useState({
     firstName: '',
@@ -18,6 +22,7 @@ export default function SignUp() {
   });
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [notifyEvents, setNotifyEvents] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const handleChange = (e) => {
     setFormData({
@@ -26,7 +31,7 @@ export default function SignUp() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     const { firstName, lastName, email, institution, password, confirmPassword } = formData;
 
@@ -45,10 +50,26 @@ export default function SignUp() {
       return;
     }
 
-    // Call simulated registration
-    signup(firstName, lastName, email, institution);
-    showToast('🎉 Account created successfully! Welcome to Delta Robotics.');
-    navigate('/dashboard');
+    // Generate a unique username from email prefix
+    const username = email.split('@')[0] + Math.floor(100 + Math.random() * 900);
+
+    setIsSubmitting(true);
+    const result = await signup({
+      username,
+      email,
+      password,
+      first_name: firstName,
+      last_name: lastName,
+      role: 'student'
+    });
+    setIsSubmitting(false);
+
+    if (result.success) {
+      showToast('🎉 Account created successfully! Welcome to Delta Robotics.');
+      navigate(redirect || '/dashboard');
+    } else {
+      showToast(`❌ Registration failed: ${result.error}`);
+    }
   };
 
   return (
@@ -180,12 +201,19 @@ export default function SignUp() {
             <div className="pt-md flex flex-col gap-md">
               <button 
                 type="submit"
-                className="w-full bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md py-md rounded-lg transition-colors font-bold uppercase tracking-wider h-12 cursor-pointer"
+                className="w-full bg-primary-container hover:bg-primary text-on-primary font-label-md text-label-md py-md rounded-lg transition-colors font-bold uppercase tracking-wider h-12 cursor-pointer flex justify-center items-center gap-xs disabled:opacity-50 disabled:cursor-not-allowed"
+                disabled={isSubmitting}
               >
-                Create Account
+                {isSubmitting ? (
+                  <>
+                    Processing... <span className="material-symbols-outlined text-xl animate-spin">autorenew</span>
+                  </>
+                ) : (
+                  "Create Account"
+                )}
               </button>
               <div className="text-center">
-                <Link className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" to="/login">
+                <Link className="font-body-md text-body-md text-on-surface-variant hover:text-primary transition-colors" to={redirect ? `/login?redirect=${encodeURIComponent(redirect)}` : "/login"}>
                   Already have an account? <span className="font-bold text-primary-container">Log in</span>
                 </Link>
               </div>

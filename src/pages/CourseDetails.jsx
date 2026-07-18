@@ -2,17 +2,28 @@ import React, { useEffect, useState, useContext } from 'react';
 import { useLocation, Link, useNavigate } from 'react-router-dom';
 import { COURSES_DB } from '../data/courses';
 import { AuthContext } from '../context/AuthContext';
+import { UIContext } from '../context/UIContext';
 
 export default function CourseDetails() {
-  const { user } = useContext(AuthContext);
+  const { user, courses } = useContext(AuthContext);
+  const { showToast } = useContext(UIContext);
   const location = useLocation();
   const navigate = useNavigate();
   const [course, setCourse] = useState(null);
 
   useEffect(() => {
+    if (!user) {
+      showToast('🔒 Please log in or sign up to view course details.');
+      navigate(`/login?redirect=${encodeURIComponent(location.pathname + location.search)}`);
+      return;
+    }
+
     const params = new URLSearchParams(location.search);
     const courseId = params.get('course') || 'autonomous-systems';
-    const data = COURSES_DB[courseId];
+    
+    // Try to find course in dynamic list (by backend UUID or local slug)
+    const data = courses.find(c => c.id === courseId || c.localSlug === courseId);
+    
     if (data) {
       setCourse(data);
       document.title = `${data.title} | Delta Robotics Academy`;
@@ -20,9 +31,9 @@ export default function CourseDetails() {
       // Fallback if course not found
       navigate('/courses');
     }
-  }, [location, navigate]);
+  }, [location, navigate, user, showToast, courses]);
 
-  if (!course) {
+  if (!user || !course) {
     return (
       <div className="pt-32 text-center text-on-surface-variant">
         <p>Loading course details...</p>
@@ -96,7 +107,7 @@ export default function CourseDetails() {
           
           {/* Left Column: Course Content */}
           <div className="lg:col-span-8 space-y-xl relative">
-            <div className={!user ? 'filter blur-[4px] select-none pointer-events-none' : 'space-y-xl'}>
+            <div className="space-y-xl">
               {/* Overview */}
               <section>
                 <h2 className="font-headline-lg text-headline-lg mb-md text-on-background">Course Overview</h2>
@@ -121,36 +132,6 @@ export default function CourseDetails() {
                 </div>
               </section>
             </div>
-
-            {!user && (
-              <div className="absolute inset-0 flex flex-col items-center justify-center p-md text-center z-20">
-                <div className="bg-surface dark:bg-inverse-surface border border-outline-variant p-lg rounded-2xl max-w-md shadow-2xl flex flex-col items-center gap-md">
-                  <div className="w-16 h-16 rounded-full bg-primary-container/10 flex items-center justify-center text-primary-container animate-pulse">
-                    <span className="material-symbols-outlined text-4xl" style={{ fontVariationSettings: "'FILL' 1" }}>lock</span>
-                  </div>
-                  <div>
-                    <h4 className="font-headline-md text-on-surface dark:text-white font-bold mb-2">Curriculum Details Locked</h4>
-                    <p className="font-body-md text-sm text-on-surface-variant dark:text-surface-variant leading-relaxed">
-                      Please log in or register for a Delta Robotics Academy account to view the full curriculum overview, syllabus breakdown, and certification requirements.
-                    </p>
-                  </div>
-                  <div className="flex gap-sm w-full pt-2">
-                    <Link 
-                      to="/login" 
-                      className="flex-grow bg-primary-container text-white py-3 rounded-lg font-label-md text-sm font-bold uppercase tracking-wider hover:bg-primary transition-colors text-center shadow-sm"
-                    >
-                      Log In
-                    </Link>
-                    <Link 
-                      to="/signup" 
-                      className="flex-grow border border-primary-container text-primary-container dark:text-inverse-primary py-3 rounded-lg font-label-md text-sm font-bold uppercase tracking-wider hover:bg-primary-container/10 transition-colors text-center"
-                    >
-                      Sign Up
-                    </Link>
-                  </div>
-                </div>
-              </div>
-            )}
           </div>
 
           {/* Right Sidebar: Sticky Enrollment Card */}
@@ -162,21 +143,12 @@ export default function CourseDetails() {
                 </span>
                 <span className="font-body-md text-body-md text-secondary">One-time payment</span>
               </div>
-              {user ? (
-                <Link 
-                  to={`/enrollment-payment?course=${course.id}`} 
-                  className="w-full bg-primary-container text-on-primary font-headline-md text-label-md font-bold py-4 rounded-lg hover:bg-primary transition-colors shadow-sm text-center block"
-                >
-                  Enroll Now
-                </Link>
-              ) : (
-                <Link 
-                  to="/login" 
-                  className="w-full bg-secondary text-white font-headline-md text-label-md font-bold py-4 rounded-lg hover:bg-on-surface transition-colors shadow-sm text-center block"
-                >
-                  Sign In to Enroll
-                </Link>
-              )}
+              <Link 
+                to={`/enrollment-payment?course=${course.id}`} 
+                className="w-full bg-primary-container text-on-primary font-headline-md text-label-md font-bold py-4 rounded-lg hover:bg-primary transition-colors shadow-sm text-center block"
+              >
+                Enroll Now
+              </Link>
               <p className="text-center font-label-md text-label-md text-secondary mb-md">30-day money-back guarantee</p>
               <hr className="border-secondary-container" />
               <div>

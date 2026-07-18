@@ -5,10 +5,25 @@ import { UIContext } from '../context/UIContext';
 import { COURSES_DB } from '../data/courses';
 
 export default function EnrollmentPayment() {
-  const { enrollInCourse } = useContext(AuthContext);
+  const { enrollInCourse, courses, user, loading } = useContext(AuthContext);
   const { showToast, showModal } = useContext(UIContext);
   const navigate = useNavigate();
   const location = useLocation();
+
+  useEffect(() => {
+    if (!loading && !user) {
+      showToast('🔒 Please log in to enroll and submit payment details.');
+      navigate('/login?redirect=' + encodeURIComponent(window.location.pathname + window.location.search));
+    }
+  }, [user, loading, navigate]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center bg-background">
+        <span className="material-symbols-outlined text-4xl animate-spin text-primary">sync</span>
+      </div>
+    );
+  }
 
   // Selected course details
   const [selectedCourseId, setSelectedCourseId] = useState('autonomous-systems');
@@ -20,17 +35,36 @@ export default function EnrollmentPayment() {
   });
   const [uploadedFile, setUploadedFile] = useState(null);
   const [isDragOver, setIsDragOver] = useState(false);
+  const [isEnrolling, setIsEnrolling] = useState(false);
 
   // Sync course selection with URL query param on mount
   useEffect(() => {
     const params = new URLSearchParams(location.search);
     const courseId = params.get('course');
-    if (courseId && COURSES_DB[courseId]) {
+    if (courseId) {
       setSelectedCourseId(courseId);
     }
   }, [location]);
 
-  const activeCourse = COURSES_DB[selectedCourseId] || COURSES_DB['autonomous-systems'];
+  const activeCourse = courses.find(c => c.id === selectedCourseId || c.localSlug === selectedCourseId);
+
+  if (!activeCourse) {
+    return (
+      <div className="pt-32 text-center text-on-surface-variant bg-background min-h-screen flex flex-col items-center justify-center p-md">
+        <span className="material-symbols-outlined text-6xl text-primary mb-md">warning</span>
+        <h2 className="font-headline-lg text-headline-lg mb-sm text-on-surface">Invalid Course</h2>
+        <p className="font-body-lg text-body-lg max-w-md mb-lg">
+          The selected course could not be found or is not yet available in the database.
+        </p>
+        <Link 
+          to="/courses" 
+          className="bg-primary-container text-on-primary font-bold px-lg py-md rounded-lg hover:bg-primary transition-all font-label-md uppercase tracking-wide"
+        >
+          View Course Catalog
+        </Link>
+      </div>
+    );
+  }
 
   const handleInputChange = (e) => {
     setStudentInfo({
@@ -79,10 +113,16 @@ export default function EnrollmentPayment() {
       'Confirm Payment Submission',
       `You are submitting transaction proof for "${activeCourse.title}". Registration will be activated once our payment node verifies the receipt.`,
       'SUBMIT PROOF',
-      () => {
-        enrollInCourse(activeCourse.id);
-        showToast(`🎉 Registration receipt uploaded! "${activeCourse.title}" is now active on your dashboard.`);
-        navigate('/dashboard');
+      async () => {
+        setIsEnrolling(true);
+        const result = await enrollInCourse(activeCourse.id);
+        setIsEnrolling(false);
+        if (result.success) {
+          showToast(`🎉 Registration receipt uploaded! "${activeCourse.title}" is now active on your dashboard.`);
+          navigate('/dashboard');
+        } else {
+          showToast(`❌ Enrollment failed: ${result.error}`);
+        }
       }
     );
   };
@@ -176,7 +216,7 @@ export default function EnrollmentPayment() {
                     value={selectedCourseId}
                     onChange={handleDropdownChange}
                   >
-                    {Object.values(COURSES_DB).map(course => (
+                    {courses.map(course => (
                       <option key={course.id} value={course.id}>
                         {course.title} ({course.price})
                       </option>
@@ -253,15 +293,21 @@ export default function EnrollmentPayment() {
               </div>
 
               <button 
-                className={`w-full py-3 rounded-lg font-headline-md text-[18px] font-bold transition-all uppercase ${
-                  uploadedFile 
+                className={`w-full py-3 rounded-lg font-headline-md text-[18px] font-bold transition-all uppercase flex justify-center items-center gap-xs ${
+                  uploadedFile && !isEnrolling
                     ? 'bg-primary-container text-on-primary hover:bg-primary shadow-md active:scale-95 cursor-pointer'
                     : 'bg-primary-container text-on-primary opacity-50 cursor-not-allowed'
                 }`}
-                disabled={!uploadedFile}
+                disabled={!uploadedFile || isEnrolling}
                 onClick={handleCompleteEnrollment}
               >
-                Complete Enrollment
+                {isEnrolling ? (
+                  <>
+                    Processing... <span className="material-symbols-outlined text-xl animate-spin">autorenew</span>
+                  </>
+                ) : (
+                  "Complete Enrollment"
+                )}
               </button>
             </div>
           </div>
