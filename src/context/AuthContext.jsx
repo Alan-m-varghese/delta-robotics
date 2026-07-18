@@ -231,8 +231,16 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify({ email, password }),
       });
-      const data = await response.json();
-      if (!data.success) {
+      
+      const responseText = await response.text();
+      let data = {};
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch (e) {
+        throw new Error(`Server returned invalid response: ${responseText.substring(0, 100)}`);
+      }
+
+      if (!response.ok || !data.success) {
         throw new Error(data.message || 'Invalid credentials');
       }
 
@@ -266,8 +274,16 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify(userData),
       });
-      const data = await response.json();
-      if (!data.success) {
+
+      const responseText = await response.text();
+      let data = {};
+      try {
+        data = responseText ? JSON.parse(responseText) : {};
+      } catch (e) {
+        throw new Error(`Server returned invalid response: ${responseText.substring(0, 100)}`);
+      }
+
+      if (!response.ok || !data.success) {
         throw new Error(data.message || 'Registration failed');
       }
 
