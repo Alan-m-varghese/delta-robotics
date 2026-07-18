@@ -12,28 +12,18 @@ export default function SignUp() {
   const params = new URLSearchParams(location.search);
   const redirect = params.get('redirect');
 
-  const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
-    email: '',
-    institution: '',
-    password: '',
-    confirmPassword: ''
-  });
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [institution, setInstitution] = useState('');
+  const [password, setPassword] = useState('');
+  const [confirmPassword, setConfirmPassword] = useState('');
   const [agreeTerms, setAgreeTerms] = useState(false);
   const [notifyEvents, setNotifyEvents] = useState(false);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
-  const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
-    });
-  };
-
   const handleSubmit = async (e) => {
     e.preventDefault();
-    const { firstName, lastName, email, institution, password, confirmPassword } = formData;
 
     if (!firstName || !lastName || !email || !institution || !password || !confirmPassword) {
       showToast('⚠️ Please fill in all fields.');
@@ -98,8 +88,8 @@ export default function SignUp() {
                   placeholder="Ada" 
                   required 
                   type="text"
-                  value={formData.firstName}
-                  onChange={handleChange}
+                  value={firstName}
+                  onChange={(e) => setFirstName(e.target.value)}
                 />
               </div>
               <div>
@@ -111,8 +101,8 @@ export default function SignUp() {
                   placeholder="Lovelace" 
                   required 
                   type="text"
-                  value={formData.lastName}
-                  onChange={handleChange}
+                  value={lastName}
+                  onChange={(e) => setLastName(e.target.value)}
                 />
               </div>
             </div>
@@ -126,8 +116,8 @@ export default function SignUp() {
                 placeholder="ada@university.edu" 
                 required 
                 type="email"
-                value={formData.email}
-                onChange={handleChange}
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
             </div>
             
@@ -140,8 +130,8 @@ export default function SignUp() {
                 placeholder="Institute of Technology" 
                 required 
                 type="text"
-                value={formData.institution}
-                onChange={handleChange}
+                value={institution}
+                onChange={(e) => setInstitution(e.target.value)}
               />
             </div>
 
@@ -155,8 +145,8 @@ export default function SignUp() {
                   placeholder="••••••••" 
                   required 
                   type="password"
-                  value={formData.password}
-                  onChange={handleChange}
+                  value={password}
+                  onChange={(e) => setPassword(e.target.value)}
                 />
               </div>
               <div>
@@ -168,8 +158,8 @@ export default function SignUp() {
                   placeholder="••••••••" 
                   required 
                   type="password"
-                  value={formData.confirmPassword}
-                  onChange={handleChange}
+                  value={confirmPassword}
+                  onChange={(e) => setConfirmPassword(e.target.value)}
                 />
               </div>
             </div>
