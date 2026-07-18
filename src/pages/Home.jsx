@@ -171,7 +171,7 @@ export default function Home() {
 
   return (
     <div className="pt-20">
-      
+
       {/* Hero Section */}
       <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl md:py-[120px] grid md:grid-cols-2 gap-lg items-center relative overflow-visible">
         <div className="flex flex-col gap-md relative z-20">
@@ -185,13 +185,13 @@ export default function Home() {
             Bridging the gap between theory and hardware. Master autonomous systems, neural computation, and industrial IoT through our elite certification programs.
           </p>
           <div className="flex flex-wrap gap-sm pt-sm">
-            <button 
+            <button
               onClick={scrollToCourses}
               className="bg-primary-container text-white px-lg py-md rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-primary transition-all flex items-center justify-center gap-2"
             >
               EXPLORE COURSES <span className="material-symbols-outlined text-[18px]">arrow_forward</span>
             </button>
-            <button 
+            <button
               onClick={triggerBootcampModal}
               className="border border-primary-container text-primary-container px-lg py-md rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-primary-container/10 transition-all flex items-center gap-2"
             >
@@ -305,7 +305,7 @@ export default function Home() {
                 <div key={course.id} className="bg-surface-container-lowest border border-outline-variant rounded-xl overflow-hidden hover:shadow-lg hover:-translate-y-1 transition-all duration-300 flex flex-col">
                   <Link to={`/course-details?course=${course.id}`} className="h-48 bg-surface-container relative block">
                     <div className="absolute top-0 right-0 w-8 h-8 bg-primary-container z-10" style={{ clipPath: 'polygon(100% 0, 0 0, 100% 100%)' }}></div>
-                    <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: `url("/${course.image}")` }}></div>
+                    <div className="w-full h-full bg-cover bg-center" style={{ backgroundImage: `url("${course.image}")` }}></div>
                   </Link>
                   <div className="p-md flex flex-col gap-sm flex-grow">
                     <span className="text-primary-container font-label-md text-[10px] font-bold uppercase tracking-widest">{course.badge}</span>
@@ -319,7 +319,7 @@ export default function Home() {
                       <span className="text-on-surface-variant text-xs font-label-md">{course.duration}</span>
                       <span className="text-on-surface font-bold text-headline-sm">{course.price}</span>
                     </div>
-                    <button 
+                    <button
                       onClick={() => triggerEnrollModal(course.title, course.price, course.id)}
                       className="w-full bg-secondary text-white py-sm rounded font-label-md text-label-md font-bold uppercase tracking-widest hover:bg-on-surface transition-colors mt-sm"
                     >
@@ -364,7 +364,7 @@ export default function Home() {
               </li>
             </ul>
             <div className="mt-md">
-              <button 
+              <button
                 onClick={triggerBootcampModal}
                 className="bg-secondary text-white px-lg py-md rounded-lg font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-on-surface transition-colors"
               >
@@ -395,16 +395,16 @@ export default function Home() {
               {galleryImages.slice(0, 5).map((img, idx) => {
                 const isLarge = idx === 0;
                 return (
-                  <div 
+                  <div
                     key={img.id}
                     className={`rounded-xl overflow-hidden border border-outline-variant ${
                       isLarge ? 'col-span-2 row-span-2 h-64 md:h-auto' : 'h-32 md:h-48'
                     }`}
                   >
-                    <img 
-                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500" 
-                      src={img.image_url} 
-                      alt={img.title || "Gallery Image"} 
+                    <img
+                      className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                      src={img.image_url}
+                      alt={img.title || "Gallery Image"}
                     />
                   </div>
                 );
@@ -443,9 +443,9 @@ export default function Home() {
             <form onSubmit={handleContactSubmit} className="flex flex-col gap-md">
               <div>
                 <label className="block font-label-md text-label-md text-on-surface mb-xs">Name</label>
-                <input 
-                  className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md text-on-surface" 
-                  placeholder="Your name" 
+                <input
+                  className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md text-on-surface"
+                  placeholder="Your name"
                   type="text"
                   value={contactForm.name}
                   onChange={(e) => setContactForm({ ...contactForm, name: e.target.value })}
@@ -453,9 +453,9 @@ export default function Home() {
               </div>
               <div>
                 <label className="block font-label-md text-label-md text-on-surface mb-xs">Email</label>
-                <input 
-                  className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md text-on-surface" 
-                  placeholder="you@example.com" 
+                <input
+                  className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md text-on-surface"
+                  placeholder="you@example.com"
                   type="email"
                   value={contactForm.email}
                   onChange={(e) => setContactForm({ ...contactForm, email: e.target.value })}
@@ -463,15 +463,15 @@ export default function Home() {
               </div>
               <div>
                 <label className="block font-label-md text-label-md text-on-surface mb-xs">Message</label>
-                <textarea 
-                  className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md resize-none text-on-surface" 
-                  placeholder="How can we help?" 
+                <textarea
+                  className="w-full bg-surface-container-lowest border border-outline-variant rounded-lg px-md py-sm focus:border-primary-container focus:ring-1 focus:ring-primary-container outline-none transition-colors font-body-md text-body-md resize-none text-on-surface"
+                  placeholder="How can we help?"
                   rows="4"
                   value={contactForm.message}
                   onChange={(e) => setContactForm({ ...contactForm, message: e.target.value })}
                 ></textarea>
               </div>
-              <button 
+              <button
                 type="submit"
                 className="bg-primary-container text-white px-lg py-md rounded-lg font-label-md text-label-md font-bold uppercase tracking-wider hover:bg-primary transition-colors mt-sm"
               >

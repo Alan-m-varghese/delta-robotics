@@ -8,7 +8,7 @@ export const API_BASE = '/api';
 // Helper function to map backend course records to frontend structures
 export const mapBackendCourse = (backendCourse) => {
   const localKeys = Object.keys(COURSES_DB);
-  
+
   // Find a key in the static database that matches the backend course title
   const matchedKey = localKeys.find(key => {
     const localCourse = COURSES_DB[key];
@@ -27,10 +27,10 @@ export const mapBackendCourse = (backendCourse) => {
     localSlug: matchedKey, // Reference slug for lookup
     title: backendCourse.title,
     description: backendCourse.description,
-    price: backendCourse.price ? `$${parseFloat(backendCourse.price).toLocaleString()}` : localData.price,
+    price: backendCourse.price ? `₹${parseFloat(backendCourse.price).toLocaleString()}` : localData.price,
     priceNumber: backendCourse.price ? parseFloat(backendCourse.price) : localData.priceNumber,
     level: backendCourse.level || localData.level || 'Beginner',
-    image: localData.image || 'assets/asset_41da951b75.png',
+    image: backendCourse.thumbnail_url,
     badge: localData.badge || 'NEW',
     category: localData.category || 'Software',
     rating: localData.rating || '4.8 (20 reviews)',
@@ -231,7 +231,7 @@ export const AuthProvider = ({ children }) => {
         },
         body: JSON.stringify({ email, password }),
       });
-      
+
       const responseText = await response.text();
       let data = {};
       try {
