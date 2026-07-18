@@ -241,7 +241,21 @@ export const AuthProvider = ({ children }) => {
       }
 
       if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Invalid credentials');
+        let errMsg = data.message;
+        if (!errMsg && typeof data === 'object') {
+          const errors = [];
+          for (const key in data) {
+            if (Array.isArray(data[key])) {
+              errors.push(`${key}: ${data[key].join(', ')}`);
+            } else if (typeof data[key] === 'string') {
+              errors.push(`${key}: ${data[key]}`);
+            }
+          }
+          if (errors.length > 0) {
+            errMsg = errors.join(' | ');
+          }
+        }
+        throw new Error(errMsg || 'Invalid credentials');
       }
 
       localStorage.setItem('dr_access_token', data.access_token);
@@ -284,7 +298,21 @@ export const AuthProvider = ({ children }) => {
       }
 
       if (!response.ok || !data.success) {
-        throw new Error(data.message || 'Registration failed');
+        let errMsg = data.message;
+        if (!errMsg && typeof data === 'object') {
+          const errors = [];
+          for (const key in data) {
+            if (Array.isArray(data[key])) {
+              errors.push(`${key}: ${data[key].join(', ')}`);
+            } else if (typeof data[key] === 'string') {
+              errors.push(`${key}: ${data[key]}`);
+            }
+          }
+          if (errors.length > 0) {
+            errMsg = errors.join(' | ');
+          }
+        }
+        throw new Error(errMsg || 'Registration failed');
       }
 
       localStorage.setItem('dr_access_token', data.access_token);
