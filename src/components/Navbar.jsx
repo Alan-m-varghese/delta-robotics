@@ -92,7 +92,7 @@ export default function Navbar() {
             >
               Workshops
             </a>
-            <a
+            {/* <a
               href="#gallery"
               onClick={(e) => handleNavClick(e, '#gallery')}
               className={`font-label-md text-label-md transition-colors duration-200 rounded-lg px-2 py-1 ${
@@ -102,7 +102,7 @@ export default function Navbar() {
               }`}
             >
               Gallery
-            </a>
+            </a>*/}
             <a
               href="#contact"
               onClick={(e) => handleNavClick(e, '#contact')}
