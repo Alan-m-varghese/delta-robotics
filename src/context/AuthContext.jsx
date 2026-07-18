@@ -241,21 +241,24 @@ export const AuthProvider = ({ children }) => {
       }
 
       if (!response.ok || !data.success) {
-        let errMsg = data.message;
+        let errMsg = data.message || data.error || data.detail;
         if (!errMsg && typeof data === 'object') {
           const errors = [];
           for (const key in data) {
+            if (key === 'success') continue;
             if (Array.isArray(data[key])) {
               errors.push(`${key}: ${data[key].join(', ')}`);
             } else if (typeof data[key] === 'string') {
               errors.push(`${key}: ${data[key]}`);
+            } else {
+              errors.push(`${key}: ${JSON.stringify(data[key])}`);
             }
           }
           if (errors.length > 0) {
             errMsg = errors.join(' | ');
           }
         }
-        throw new Error(errMsg || 'Invalid credentials');
+        throw new Error(errMsg || `Login failed (Status: ${response.status})`);
       }
 
       localStorage.setItem('dr_access_token', data.access_token);
@@ -298,21 +301,24 @@ export const AuthProvider = ({ children }) => {
       }
 
       if (!response.ok || !data.success) {
-        let errMsg = data.message;
+        let errMsg = data.message || data.error || data.detail;
         if (!errMsg && typeof data === 'object') {
           const errors = [];
           for (const key in data) {
+            if (key === 'success') continue;
             if (Array.isArray(data[key])) {
               errors.push(`${key}: ${data[key].join(', ')}`);
             } else if (typeof data[key] === 'string') {
               errors.push(`${key}: ${data[key]}`);
+            } else {
+              errors.push(`${key}: ${JSON.stringify(data[key])}`);
             }
           }
           if (errors.length > 0) {
             errMsg = errors.join(' | ');
           }
         }
-        throw new Error(errMsg || 'Registration failed');
+        throw new Error(errMsg || `Registration failed (Status: ${response.status})`);
       }
 
       localStorage.setItem('dr_access_token', data.access_token);
