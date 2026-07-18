@@ -24,13 +24,13 @@ export default function Login() {
       showToast('⚠️ Please enter both email and password.');
       return;
     }
-    
+
     setIsSubmitting(true);
     const result = await login(email, password);
     setIsSubmitting(false);
     if (result.success) {
       showToast('🔐 Login successful. Welcome back!');
-      navigate(redirect || '/dashboard');
+      navigate(redirect || '/');
     } else {
       showToast(`❌ Login failed: ${result.error}`);
     }
@@ -55,8 +55,8 @@ export default function Login() {
             <div>
               <label className="block font-label-md text-label-md text-on-surface-variant mb-sm uppercase tracking-wide">Select Role</label>
               <div className="grid grid-cols-3 gap-sm">
-                
-                <div 
+
+                <div
                   className={`role-card border border-outline-variant rounded-lg p-sm flex flex-col items-center justify-center text-center h-24 ${
                     role === 'student' ? 'active' : ''
                   }`}
@@ -66,7 +66,7 @@ export default function Login() {
                   <span className="font-label-md text-label-md text-on-background font-semibold">Student</span>
                 </div>
 
-                <div 
+                <div
                   className={`role-card border border-outline-variant rounded-lg p-sm flex flex-col items-center justify-center text-center h-24 ${
                     role === 'intern' ? 'active' : ''
                   }`}
@@ -76,7 +76,7 @@ export default function Login() {
                   <span className="font-label-md text-label-md text-on-background font-semibold">Intern</span>
                 </div>
 
-                <div 
+                <div
                   className={`role-card border border-outline-variant rounded-lg p-sm flex flex-col items-center justify-center text-center h-24 ${
                     role === 'admin' ? 'active' : ''
                   }`}
@@ -93,11 +93,11 @@ export default function Login() {
             <div className="space-y-sm">
               <div>
                 <label className="block font-label-md text-label-md text-on-surface mb-xs" htmlFor="email">Email Address</label>
-                <input 
-                  className="w-full bg-surface-container-lowest border border-surface-variant rounded px-sm py-sm font-body-md text-body-md text-on-background focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors" 
-                  id="email" 
-                  placeholder="name@deltarobotics.edu" 
-                  required 
+                <input
+                  className="w-full bg-surface-container-lowest border border-surface-variant rounded px-sm py-sm font-body-md text-body-md text-on-background focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors"
+                  id="email"
+                  placeholder="name@deltarobotics.edu"
+                  required
                   type="email"
                   value={email}
                   onChange={(e) => setEmail(e.target.value)}
@@ -108,11 +108,11 @@ export default function Login() {
                   <label className="block font-label-md text-label-md text-on-surface" htmlFor="password">Password</label>
                   <a className="font-label-md text-label-md text-primary-container hover:underline" href="#forgot" onClick={(e) => { e.preventDefault(); showToast('🔑 Password reset link simulated.'); }}>Forgot Password?</a>
                 </div>
-                <input 
-                  className="w-full bg-surface-container-lowest border border-surface-variant rounded px-sm py-sm font-body-md text-body-md text-on-background focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors" 
-                  id="password" 
-                  placeholder="••••••••" 
-                  required 
+                <input
+                  className="w-full bg-surface-container-lowest border border-surface-variant rounded px-sm py-sm font-body-md text-body-md text-on-background focus:outline-none focus:border-primary-container focus:ring-1 focus:ring-primary-container transition-colors"
+                  id="password"
+                  placeholder="••••••••"
+                  required
                   type="password"
                   value={password}
                   onChange={(e) => setPassword(e.target.value)}
@@ -122,8 +122,8 @@ export default function Login() {
 
             {/* Actions */}
             <div className="pt-sm">
-              <button 
-                className="w-full bg-primary-container text-on-primary font-headline-md text-headline-md font-bold uppercase rounded-lg py-3 hover:opacity-90 transition-all flex justify-center items-center gap-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed" 
+              <button
+                className="w-full bg-primary-container text-on-primary font-headline-md text-headline-md font-bold uppercase rounded-lg py-3 hover:opacity-90 transition-all flex justify-center items-center gap-xs cursor-pointer disabled:opacity-50 disabled:cursor-not-allowed"
                 type="submit"
                 disabled={isSubmitting}
               >

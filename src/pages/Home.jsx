@@ -173,7 +173,7 @@ export default function Home() {
     <div className="pt-20">
 
       {/* Hero Section */}
-      <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl md:py-[120px] grid md:grid-cols-2 gap-lg items-center relative overflow-visible">
+      <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop md:py-[120px] grid md:grid-cols-2 gap-lg items-center relative overflow-visible">
         <div className="flex flex-col gap-md relative z-20">
           <div className="bg-surface-variant/50 w-fit px-2 py-1 rounded text-xs font-label-md font-bold text-on-surface-variant flex items-center gap-2 mb-2">
             <span className="w-2 h-2 bg-primary-container rounded-sm"></span>SYSTEM ONLINE: V4.0.2
@@ -201,7 +201,7 @@ export default function Home() {
         </div>
 
         {/* Hero Shapes Graphic */}
-        <div className="relative w-full aspect-square md:aspect-square min-h-[400px] md:min-h-[600px] flex flex-col items-center justify-center overflow-visible z-10">
+        <div className="relative mt-16 md:aspect-square min-h-[100px] md:min-h-[600px] flex flex-col items-center justify-center overflow-visible z-10">
           {/* Geometric Background Shapes */}
           <div className="absolute inset-0 w-full h-full pointer-events-none flex items-center justify-center z-0">
             <div className="absolute w-full h-full max-w-[500px] max-h-[500px] flex items-center justify-center">
@@ -376,7 +376,8 @@ export default function Home() {
       </section>
 
       {/* Gallery Section */}
-      <section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl flex flex-col gap-lg" id="gallery">
+
+      {/*<section className="max-w-7xl mx-auto px-margin-mobile md:px-margin-desktop py-xl flex flex-col gap-lg" id="gallery">
         <div className="text-center">
           <h2 className="font-headline-md text-headline-md md:font-headline-lg md:text-headline-lg text-on-surface">Student Gallery</h2>
           <p className="font-body-md text-body-md text-on-surface-variant mt-sm max-w-2xl mx-auto">A glimpse into the innovation happening in our labs.</p>
@@ -416,7 +417,7 @@ export default function Home() {
             </div>
           )}
         </div>
-      </section>
+      </section> */}
 
       {/* Contact Section */}
       <section className="bg-surface-container-low border-t border-outline-variant py-xl" id="contact">
